@@ -31,7 +31,11 @@
 
           <div class="card card-primary card-outline">
             <div class="card-body">
-             <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#myModal">Tambah Data Baru</a>
+             {{-- <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#myModal">Tambah Data Baru</a> --}}
+             <input type="text" name="datetimes" id="datetimes" />
+				<a href="#" class="btn btn-success" role="button">Hitung Saldo</a>
+				<a href="#" class="btn btn-success" role="button">Cetak</a>
+
                                                 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
                                                 <thead class="bg-warning-200">
                                                     <tr>
@@ -76,6 +80,10 @@
 				<a href="" class="btn btn-warning" role="button">Edit</a>
 				
 				<a href="#" class="btn btn-danger" role="button">Hapus</a>
+
+        <a href="/datatransaksi/report" class="btn btn-success" role="button">Cetak</a>
+
+        <a href="/datatransaksi/reportthermal" class="btn btn-success" role="button">Cetak Thermal</a>
 			</td>
                                                     </tr>
                                                     @endforeach
@@ -104,13 +112,13 @@
             </div>
 
                                                         {{-- Modal Tambah Data --}}
-                                              <div class="modal fade" id="myModal">
+                                              <div class="modal fade" id="modaltransaksi">
     <div class="modal-dialog">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Tambah Data User</h4>
+          <h4 class="modal-title">Tambah Transaksi</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
@@ -176,9 +184,6 @@
   @endsection
 
   @push('script')
-  <script>
-$(document).ready( function () {
-    $('#dt-basic-example').DataTable();
-} );    
+  <script>   
 </script>
   @endpush

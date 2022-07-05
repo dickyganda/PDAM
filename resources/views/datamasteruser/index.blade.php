@@ -32,6 +32,7 @@
           <div class="card card-primary card-outline">
             <div class="card-body">
              <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahuser">Tambah Data Baru</a>
+             <input type="text" name="datetimes" id="datetimes" />
                                               <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
                                                 <thead class="bg-warning-200">
                                                     <tr>
@@ -109,7 +110,7 @@
     </div>
 
         <div class="form-group">
-      <input type="text" name="email" class="form-control form-control-sm" placeholder="Email">
+      <input type="email" name="email" class="form-control form-control-sm" placeholder="Email">
     </div>
 
     <div class="form-group">
@@ -138,7 +139,7 @@
         <input type="radio" name="status" value="0">
         <label for="tidak_aktif">Tidak Aktif</label> <br/>
 
-        <button class="btn btn-primary" href="/datamasterpelanggan/tambahpelanggan" type="submit">Tambah</button>
+        <button class="btn btn-primary" href="/datamasteruser/tambahuser" type="submit">Tambah</button>
 	</form>
         </div>
         
@@ -159,7 +160,7 @@
 
   @push('script')
   <script> 
-$("#tambahpelanggan").submit(function(event){
+$("#tambahuser").submit(function(event){
     event.preventDefault();
     var formdata = new FormData(this);
     $.ajax({

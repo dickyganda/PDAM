@@ -37,6 +37,8 @@ Route::post('datamasteruser/tambahuser','DatamasteruserController@tambahuser');
 Route::get('datamasteruserlevel/index', 'DatamasteruserlevelController@index');
 
 Route::get('datatransaksi/index', 'DatatransaksiController@index');
+Route::get('datatransaksi/report', 'DatatransaksiController@viewreport');
+Route::get('datatransaksi/reportthermal', 'DatatransaksiController@viewreportthermal');
 
 Route::get('/token', function () {
     return csrf_token();
