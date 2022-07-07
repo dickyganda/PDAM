@@ -22,14 +22,13 @@
     section.top {
       margin-bottom: 20px;
 
-      #header{
+      {{-- #header{
         text-align: center;
-        align: center; 
+        align: center;  --}}
       }
       img{
-        border-radius: 50%;
-        width: 10px;
-        height: 10px;
+        max-width: inherit;
+    width: inherit;
       }
     }
   </style>
@@ -115,19 +114,17 @@
   </tr>
 </table>
 </div>
-<input type="button" value="Print Above Section" onclick="printpart()"/>
+<input type="button" class="hidden-print" value="Print" onclick="printpart()"/>
+
 </body>
 
-@push('script')
 <script>
 function printpart () {
   var printwin = window.open("");
-  printwin.document.write(document.getElementById("#div1").innerHTML);
+  printwin.document.write(document.getElementById("div1").innerHTML);
   printwin.stop();
   printwin.print();
   printwin.close();
 }
 </script>  
-@endpush
-
 </html>

@@ -46,6 +46,26 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'Administrator' => [
+            'driver' => 'session',
+            'provider' => 'Administrator',
+        ],
+
+        'apiadmininistrator' => [
+            'driver' => 'token',
+            'provider' => 'Administrator',
+        ],
+
+        'Admin' => [
+            'driver' => 'session',
+            'provider' => 'Admin',
+        ],
+
+        'apiadmin' => [
+          'driver' => 'token',
+          'provider' => 'Admin',
+        ],
     ],
 
     /*

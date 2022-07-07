@@ -66,18 +66,19 @@ img {
     </head>
     <body>
         <div class="ticket">
-            <img src="./logo.png" alt="Logo">
-            <p class="centered">RECEIPT EXAMPLE
-                <br>Address line 1
-                <br>Address line 2</p>
+            <img src="{{asset('assets/img/logo.png') }}"  alt="Logo">
+            <p class="centered">BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM MASYARAKAT <br>
+            (BP-SPAMS) "TIRTA AGUNG SUMARI"
+                <br>DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK
+                <br>Jl. sumber Duduksampeyan Gresik - 61162</p>
             <table>
-                <thead>
+                {{-- <thead>
                     <tr>
                         <th class="quantity">Q.</th>
                         <th class="description">Description</th>
                         <th class="price">$$</th>
                     </tr>
-                </thead>
+                </thead> --}}
                 <tbody>
                     <tr>
                         <td class="quantity">1.00</td>

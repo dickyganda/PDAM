@@ -17,7 +17,11 @@ Route::get('/', function () {
     return view('/dashboard/index');
 });
 
-Auth::routes();
+// Auth::routes();
+
+Route::get('/login', 'AuthController@login');
+Route::post('/dashboard/login', 'AuthController@postlogin');
+Route::get('/logout', 'AuthController@logout');
 
 Route::get('dashboard/index', 'DashboardController@index');
 

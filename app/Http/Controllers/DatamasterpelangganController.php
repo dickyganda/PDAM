@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Session;
 
 use App\Models\M_Pelanggan;
-use App\M_Class;
+use App\Models\M_Class;
 
 class DatamasterpelangganController extends Controller
 {

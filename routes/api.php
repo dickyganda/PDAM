@@ -19,3 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('transaksi/tambahtransaksimeter', 'ApiController@insertmeter');
+
+Route::post('/dashboard/login', 'ApiController@postlogin');
+
+
