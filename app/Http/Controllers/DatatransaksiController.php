@@ -22,6 +22,28 @@ function Index(){
     	return view('/datatransaksi/index', ['datatransaksi' => $datatransaksi]);
     }
 
+    public function edittransaksi($id)
+    {
+        $datatransaksi = DB::table('t_meter')->where('id',$id)->get();
+
+        return view('/datatransaksi/edittransaksi',['datatransaksi' => $datatransaksi]);
+    
+    }
+
+    public function updatetransaksi(Request $request)
+{
+    
+	DB::table('t_meter')->where('id',$request->id)->update([
+		'status' => $request->status,
+        'biaya_admin' => $request->biaya_admin,
+        'biaya_perawatan' => $request->biaya_perawatan,
+        'pembayaran' => $request->pembayaran,
+	]);
+
+    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
+    
+}
+
 function viewreport($id){
 
         $datatransaksi = DB::table('t_meter')
@@ -45,5 +67,15 @@ function viewreportthermal($id){
         
                 return view('/cetak/printthermal', ['datatransaksi' => $datatransaksi]);
             }
+
+public function hitungsaldo($id)
+    {
+    $saldo = DB::table('t_meter')
+    ->where('id', $id)
+    ->sum(DB::raw('tagihan + biaya_admin'));
+
+    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
+    
+    }
 
 }

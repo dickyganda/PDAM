@@ -45,7 +45,7 @@ class AuthController extends Controller
         Session::flush();
         Session::save();
 
-        return redirect('/login');
+        return redirect('/autentikasi/login');
 
     }
 

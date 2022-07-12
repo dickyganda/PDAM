@@ -47,7 +47,9 @@ Route::post('datamasteruser/tambahuser','DatamasteruserController@tambahuser');
 Route::get('datamasteruserlevel/index', 'DatamasteruserlevelController@index');
 
 Route::get('datatransaksi/index', 'DatatransaksiController@index');
-Route::get('hitungsaldo/{id}','DatatransaksiController@hitungsaldo');
+Route::get('datatransaksi/edittransaksi/{id}','DatatransaksiController@edittransaksi');
+Route::post('datatransaksi/updatetransaksi','DatatransaksiController@updatetransaksi');
+Route::post('hitungsaldo/{id}','DatatransaksiController@hitungsaldo');
 Route::get('datatransaksi/report/{id}', 'DatatransaksiController@viewreport');
 Route::get('datatransaksi/reportthermal/{id}', 'DatatransaksiController@viewreportthermal');
 
