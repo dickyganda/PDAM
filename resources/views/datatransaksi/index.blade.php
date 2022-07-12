@@ -32,8 +32,19 @@
           <div class="card card-primary card-outline">
             <div class="card-body">
              {{-- <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#myModal">Tambah Data Baru</a> --}}
-             <input type="text" name="datetimes" id="datetimes" />
-				<a href="#" class="btn btn-success" role="button">Hitung Saldo</a>
+             {{-- filter --}}
+             <table border="0" cellspacing="5" cellpadding="5">
+        <tbody><tr>
+            <td>Minimum date:</td>
+            <td><input type="text" id="min" name="min"></td>
+        </tr>
+        <tr>
+            <td>Maximum date:</td>
+            <td><input type="text" id="max" name="max"></td>
+        </tr>
+    </tbody></table>
+             {{-- endfilter --}}
+				{{-- <a href="#" class="btn btn-success" role="button">Hitung Saldo</a> --}}
 				<a href="#" class="btn btn-success" role="button">Cetak</a>
 
                                                 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
@@ -72,18 +83,20 @@
                                                         <td>{{ $transaksi->tunggakan }}</td>
                                                         <td>{{ $transaksi->saldo }}</td>
                                                         <td>{{ $transaksi->pembayaran }}</td>
-                                                        <td>{{ $transaksi->link_image }}</td>
+                                                        <td><img src= " {{ $transaksi->link_image }}" > </td>
                                                         <td>{{ $transaksi->status }}</td>
                                                         <td>{{ $transaksi->tgl_scan }}</td>
                                                         <td>{{ $transaksi->otorisasi }}</td>
                                                         <td>
+         <a href="#"onclick="hitungsaldo({{$transaksi->id}})" class="btn btn-success" role="button">Hitung Saldo</a>
+
 				<a href="" class="btn btn-warning" role="button">Edit</a>
 				
 				<a href="#" class="btn btn-danger" role="button">Hapus</a>
 
-        <a href="/datatransaksi/report" class="btn btn-success" role="button">Cetak</a>
+        <a href="/datatransaksi/report/{{ $transaksi->id }}" class="btn btn-success" role="button">Cetak</a>
 
-        <a href="/datatransaksi/reportthermal" class="btn btn-success" role="button">Cetak Thermal</a>
+        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}" class="btn btn-success" role="button">Cetak Thermal</a>
 			</td>
                                                     </tr>
                                                     @endforeach
@@ -112,7 +125,7 @@
             </div>
 
                                                         {{-- Modal Tambah Data --}}
-                                              <div class="modal fade" id="modaltransaksi">
+                                              {{-- <div class="modal fade" id="modaltransaksi">
     <div class="modal-dialog">
       <div class="modal-content">
       
@@ -173,7 +186,7 @@
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
           </div><!-- /.card -->
-        </div>
+        </div> --}}
 
         <!-- /.col-md-6 -->
       </div>
@@ -184,6 +197,35 @@
   @endsection
 
   @push('script')
-  <script>   
+  <script>
+  function hitungsaldo(id){
+     
+     Swal.fire({
+     title: 'Are you sure?',
+     text: "You won't be able to revert this!",
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: '#d33',
+     confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+     if (result.isConfirmed) {
+       $.ajax({
+         type:'GET',
+         dataType: 'json',
+         url: '/hitungsaldo/' + id,
+         success:function(data){
+           Swal.fire(
+             'Sukses!',
+             data.reason,
+             'success'
+           ).then(() => {
+             location.reload();
+           });
+         }
+       });
+     }
+   })
+   }
 </script>
   @endpush

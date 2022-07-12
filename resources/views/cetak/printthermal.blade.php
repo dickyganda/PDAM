@@ -65,6 +65,7 @@ img {
         </style>
     </head>
     <body>
+    @foreach($datatransaksi as $key => $transaksi)
         <div class="ticket">
             <img src="{{asset('assets/img/logo.png') }}"  alt="Logo">
             <p class="centered">BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM MASYARAKAT <br>
@@ -72,40 +73,64 @@ img {
                 <br>DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK
                 <br>Jl. sumber Duduksampeyan Gresik - 61162</p>
             <table>
-                {{-- <thead>
                     <tr>
-                        <th class="quantity">Q.</th>
-                        <th class="description">Description</th>
-                        <th class="price">$$</th>
-                    </tr>
-                </thead> --}}
-                <tbody>
-                    <tr>
-                        <td class="quantity">1.00</td>
-                        <td class="description">ARDUINO UNO R3</td>
-                        <td class="price">$25.00</td>
+                        <th class="quantity">Kode Pelanggan</th>
+                        <td class="description">{{ $transaksi->kode_pelanggan}}</td>
                     </tr>
                     <tr>
-                        <td class="quantity">2.00</td>
-                        <td class="description">JAVASCRIPT BOOK</td>
-                        <td class="price">$10.00</td>
+                        <th class="quantity">Nama</th>
+                        <td class="description">{{ $transaksi->nama}}</td>
                     </tr>
                     <tr>
-                        <td class="quantity">1.00</td>
-                        <td class="description">STICKER PACK</td>
-                        <td class="price">$10.00</td>
+                        <th class="quantity">Alamat</th>
+                        <td class="description">{{ $transaksi->alamat}}</td>
                     </tr>
                     <tr>
-                        <td class="quantity"></td>
-                        <td class="description">TOTAL</td>
-                        <td class="price">$55.00</td>
+                        <th class="quantity">RT</th>
+                        <td class="description">{{ $transaksi->rt}}</td>
                     </tr>
-                </tbody>
+                    <tr>
+                        <th class="quantity">Bulan / Tahun</th>
+                        <td class="description">{{ $transaksi->tgl_scan}}</td>
+                    </tr>
+                    <tr>
+                        <th class="quantity">Satuan Akhir</th>
+                        <td class="description">{{ $transaksi->stand_meter_bulan_lalu}}</td>
+                    </tr>
+                    <tr>
+                        <th class="quantity">Satuan Awal</th>
+                        <td class="description">{{ $transaksi->stand_meter_bulan_ini}}</td>
+                    </tr>
+                    <tr>
+                        <th class="quantity">Pemakaian</th>
+                        <td class="description">{{ $transaksi->pemakaian}}</td>
+                    </tr>
+                    <tr>
+                        <th class="quantity">Tagihan</th>
+                        <td class="description">{{ $transaksi->tagihan}}</td>
+                    </tr>
+                    <tr>
+                        <th class="quantity">Biaya Admin</th>
+                        <td class="description">{{ $transaksi->biaya_admin}}</td>
+                    </tr>
+                    <tr>
+                        <th class="quantity">Biaya Perawatan</th>
+                        <td class="description">{{ $transaksi->biaya_perawatan}}</td>
+                    </tr>
+                    <tr>
+                        <th class="quantity">Tunggakan</th>
+                        <td class="description">{{ $transaksi->tunggakan}}</td>
+                    </tr>
+                    <tr>
+                        <th class="quantity">Total</th>
+                        <td class="description">{{ $transaksi->saldo}}</td>
+                    </tr>
             </table>
             <p class="centered">Thanks for your purchase!
                 <br>parzibyte.me/blog</p>
         </div>
         <button id="btnPrint" class="hidden-print">Print</button>
+        @endforeach
         <script>
         const $btnPrint = document.querySelector("#btnPrint");
 $btnPrint.addEventListener("click", () => {

@@ -14,26 +14,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('/dashboard/index');
+    return view('/autentikasi/login');
 });
 
 // Auth::routes();
 
-Route::get('/login', 'AuthController@login');
-Route::post('/dashboard/login', 'AuthController@postlogin');
-Route::get('/logout', 'AuthController@logout');
+Route::get('/autentikasi/login', 'AuthController@login');
+Route::post('/dashboard/login', 'AuthController@postlogin2');
+Route::get('/logout', 'AuthController@logout2');
+// Route::get('/autentikasi/login', 'AuthController@logout');
 
-Route::get('dashboard/index', 'DashboardController@index');
+Route::get('dashboard/index', 'DashboardController@index')->name('dashboard');
 
 Route::get('datamasterpelanggan/index', 'DatamasterpelangganController@index');
 Route::post('datamasterpelanggan/tambahpelanggan','DatamasterpelangganController@tambahpelanggan');
-Route::post('datamasterpelanggan/updatepelanggan','DatamasterPelangganController@updatepelanggan');
+Route::get('datamasterpelanggan/editpelanggan/{id_pelanggan}','DatamasterpelangganController@editpelanggan');
+Route::post('datamasterpelanggan/updatepelanggan','DatamasterpelangganController@updatepelanggan');
 
 Route::get('datamasterharga/index', 'DatamasterhargaController@index');
 Route::post('datamasterharga/tambahharga','DatamasterhargaController@tambahharga');
+Route::get('datamasterharga/editharga/{id_harga}','DatamasterhargaController@editharga');
+Route::post('datamasterharga/updateharga','DatamasterhargaController@updateharga');
 
 Route::get('datamasterclass/index', 'DatamasterclassController@index');
 Route::post('datamasterclass/tambahclass','DatamasterclassController@tambahclass');
+Route::get('datamasterclass/editclass/{id_class}','DatamasterclassController@editclass');
+Route::post('datamasterclass/updateclass','DatamasterclassController@updateclass');
 
 Route::get('datamasteruser/index', 'DatamasteruserController@index');
 Route::post('datamasteruser/tambahuser','DatamasteruserController@tambahuser');
@@ -41,8 +47,9 @@ Route::post('datamasteruser/tambahuser','DatamasteruserController@tambahuser');
 Route::get('datamasteruserlevel/index', 'DatamasteruserlevelController@index');
 
 Route::get('datatransaksi/index', 'DatatransaksiController@index');
-Route::get('datatransaksi/report', 'DatatransaksiController@viewreport');
-Route::get('datatransaksi/reportthermal', 'DatatransaksiController@viewreportthermal');
+Route::get('hitungsaldo/{id}','DatatransaksiController@hitungsaldo');
+Route::get('datatransaksi/report/{id}', 'DatatransaksiController@viewreport');
+Route::get('datatransaksi/reportthermal/{id}', 'DatatransaksiController@viewreportthermal');
 
 Route::get('/token', function () {
     return csrf_token();

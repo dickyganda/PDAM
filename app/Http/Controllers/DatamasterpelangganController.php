@@ -46,12 +46,20 @@ class DatamasterpelangganController extends Controller
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
     }
 
+    public function editpelanggan($id_pelanggan)
+    {
+        $datapelanggan = DB::table('m_pelanggan')->where('id_pelanggan',$id_pelanggan)->get();
+
+        return view('/datamasterpelanggan/editpelanggan',['datapelanggan' => $datapelanggan]);
+    
+    }
+
     public function updatepelanggan(Request $request)
 {
 	DB::table('m_pelanggan')->where('id_pelanggan',$request->id_pelanggan)->update([
 		'status' => $request->status,
-	]);
 
+	]);
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
     
 }

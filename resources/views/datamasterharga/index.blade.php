@@ -32,7 +32,18 @@
           <div class="card card-primary card-outline">
             <div class="card-body">
              <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahharga">Tambah Data Baru</a>
-             <input type="text" name="datetimes" id="datetimes" />
+             {{-- filter --}}
+             <table border="0" cellspacing="5" cellpadding="5">
+        <tbody><tr>
+            <td>Minimum date:</td>
+            <td><input type="text" id="min" name="min"></td>
+        </tr>
+        <tr>
+            <td>Maximum date:</td>
+            <td><input type="text" id="max" name="max"></td>
+        </tr>
+    </tbody></table>
+             {{-- endfilter --}}
 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
                                                 <thead class="bg-warning-200">
                                                     <tr>
@@ -58,7 +69,7 @@
                                                         <td>{{ $harga->tgl_add }}</td>
                                                         <td>{{ $harga->tgl_edit }}</td>
                                                         <td>
-				<a href="" class="btn btn-warning" role="button">Edit</a>
+				<a href="/datamasterharga/editharga/{{ $harga->id_harga }}" class="btn btn-warning" role="button">Edit</a>
 				
 				<a href="#" class="btn btn-danger" role="button">Hapus</a>
 			</td>

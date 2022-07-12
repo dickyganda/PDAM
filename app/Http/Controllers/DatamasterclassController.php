@@ -31,4 +31,23 @@ function Index(){
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
     }
 
+    public function editclass($id_class)
+    {
+        $dataclass = DB::table('m_class')->where('id_class',$id_class)->get();
+
+        return view('/datamasterclass/editclass',['dataclass' => $dataclass]);
+    
+    }
+
+    public function updateclass(Request $request)
+{
+	DB::table('m_class')->where('id_class',$request->id_class)->update([
+        'harga' => $request->harga,
+		'status' => $request->status,
+	]);
+
+    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
+    
+}
+
 }

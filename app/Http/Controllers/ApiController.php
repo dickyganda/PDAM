@@ -21,6 +21,10 @@ class ApiController extends Controller
         ->join('m_harga', 'm_harga.id_harga', '=', 't_meter.id_harga')
         ->get();
 
+        $dataharga = DB::table('m_harga')
+        ->where('id_harga', $request->input('id_harga'))
+        ->first();
+
         $add = new T_Meter;
         $add->id = $request->input('id');
         $add->id_pelanggan = $request->input('id_pelanggan');
@@ -30,7 +34,7 @@ class ApiController extends Controller
         $add->stand_meter_bulan_lalu = $request->input('stand_meter_bulan_lalu');
         $add->stand_meter_bulan_ini = $request->input('stand_meter_bulan_ini');
         $add->pemakaian = ($request->input('stand_meter_bulan_ini') - $request->input('stand_meter_bulan_lalu'));
-        $add->tagihan = ($request->input('pemakaian') * $request->input('harga'));
+        $add->tagihan = ($add->pemakaian * $dataharga->harga);
         $add->link_image = $request->input('link_image');
         $add->tgl_scan = Date('Y-m-d');
         $add->save();
@@ -42,26 +46,21 @@ class ApiController extends Controller
 
     }
 
-    public function postlogin(Request $request)
-    {
-        dd('test');
-      // echo "$request->email.$request->password "; die;
-    	if(Auth::attempt($request->only('email','password','nama_level'))){
-            // $akun = DB::table('users')->where('email', $request->email)->first();
-            $akun = DB::table('m_user')
-            ->join('m_user_level', 'm_user_level.id_level', '=', 'm_user.id_level')
-            ->where('email', $request->email)
-            ->first();
-            //dd($akun);
-            if($akun->nama_level =='Administrator'){
-                Auth::guard('Administrator')->LoginUsingId($akun->id);
-                return redirect('/dashboard/index')->with('sukses','Anda Berhasil Login');
-            } else if($akun->nama_level =='Admin'){
-                Auth::guard('Admin')->LoginUsingId($akun->id);
-                return redirect('/dashboard/index')->with('sukses','Anda Berhasil Login');
-            }
-    	}
-    	return redirect('/autentikasi/login')->with('error','Akun Belum Terdaftar');
+    function postlogin2(Request $request ){
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        $query = DB::table('m_user')
+        ->join('m_user_level', 'm_user_level.id_level', '=', 'm_user.id_level')
+        ->where('email', $email)
+        ->where('password' ,md5($password))
+        ->first();
+        if(empty($query)){
+            return response()->json(array('status' => 'failed', 'reason' => 'data tidak ada'));
+        }
+        Session::put('nama_level',$query->nama_level);
+        return response()->json(array('status' => 'success', 'reason' => 'sukses'));
+
     }
  
     }

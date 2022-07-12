@@ -32,7 +32,18 @@
           <div class="card card-primary card-outline">
             <div class="card-body">
              <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahdata">Tambah Data Baru</a>
-             <input type="text" name="datetimes" id="datetimes" />
+             {{-- filter --}}
+             <table border="0" cellspacing="5" cellpadding="5">
+        <tbody><tr>
+            <td>Minimum date:</td>
+            <td><input type="text" id="min" name="min"></td>
+        </tr>
+        <tr>
+            <td>Maximum date:</td>
+            <td><input type="text" id="max" name="max"></td>
+        </tr>
+    </tbody></table>
+             {{-- endfilter --}}
               <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
                                                 <thead class="thead-dark">
                                                     <tr>
@@ -69,7 +80,7 @@
                                                         {{-- <td>{{ $pelanggan->saldo }}</td>
                                                         <td>{{ $pelanggan->tunggakan }}</td> --}}
                                                         <td>
-				<a href="" class="btn btn-warning" role="button" data-toggle="modal" data-target="#modaleditdata">Edit</a>
+				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning" role="button">Edit</a>
 				
 				<a href="#" class="btn btn-danger" role="button" >Hapus</a>
 			</td>
@@ -151,53 +162,6 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
-
-
-
-        {{-- Modal edit Data --}}
-        <div class="modal fade" id="modaleditdata">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Edit Data Pelanggan</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-
-        @foreach($datapelanggan as $pelanggan)
-    <form id="editpelanggan" method="post">
-
-<div class="form-group">
-          <label>Kode Pelanggan</label>
-          <input type="text" name="kode_pelanggan" class="form-control form-control-sm" value="{{ $pelanggan->kode_pelanggan }}" readonly>
-        </div>
-
-        @if ( $pelanggan->status == '1' )
-        <input type="radio" name="status" value="1" checked>
-        <label for="1">Aktif</label>
-        <input type="radio" name="status" value="0">
-        @else
-        <input type="radio" name="status" value="1">
-        <label for="1">Aktif</label>
-        <input type="radio" name="status" value="0" checked>
-        @endif
-        <label for="0">Tidak Aktif</label>
-        <br />
-
-        <button class="btn btn-primary" type="submit">Simpan</button>
-        
-	</form>
-  @endforeach
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
     
           </div><!-- /.card -->
         </div>
@@ -238,29 +202,6 @@ $("#tambahpelanggan").submit(function(event){
   $(document).ready(function() {
     $('#class').select2({
       placeholder: "Pilih Kelas"
-    });
-  });
-
-  $("#editpelanggan").submit(function(event){
-    event.preventDefault();
-    var formdata = new FormData(this);
-    $.ajax({
-      type:'POST',
-      dataType: 'json',
-      url: '/datamasterpelanggan/updatepelanggan',
-      data: formdata,
-      contentType: false,
-      cache: false,
-      processData: false,
-      success:function(data){
-        Swal.fire(
-          'Sukses!',
-          data.reason,
-          'success'
-        ).then(() => {
-          location.replace("/datamasterpelanggan/index");
-        });
-      }
     });
   });
 </script>

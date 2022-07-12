@@ -19,11 +19,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}">
 
   {{-- Datatable --}}
+  <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.css') }}">
-
+  
   {{-- Select2 --}}
   <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/select2-bootstrap.min.css') }}">
+
+  {{-- date filter datatables --}}
+  <link rel="stylesheet" href="{{ asset('assets/css/dataTables.dateTime.min.css') }}">
 
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/daterangepicker.css') }}" />
 
@@ -38,7 +42,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  @include('layouts/sidebarleft')
+  @if (Session::get('nama_level') == 'Administrator')
+            @include('layouts/sidebarleft')
+                
+            @else
+            @include('layouts/sidebaradmin')
+                
+            @endif
+  {{-- @include('layouts/sidebarleft') --}}
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -57,10 +68,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- REQUIRED SCRIPTS -->
 
-
-
-
-
 <!-- jQuery -->
 <!-- Bootstrap 4 -->
 <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
@@ -69,8 +76,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/js/adminlte.min.js ' ) }}"></script>
 <script src="{{ asset('assets/js/jquery.dataTables.js' ) }}"></script>
+<script src="{{ asset('assets/js/jquery.dataTables.min.js' ) }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/moment.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/dataTables.dateTime.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/sweetalert2.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 
@@ -84,20 +92,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
 @stack('script')
 
 <script>
-$(document).ready( function () {
-    $('#dt-basic-example').DataTable({
-    });
-} );
-
-$(function() {
-  $('#datetimes').daterangepicker({
-    timePicker: true,
-    startDate: moment().startOf('hour'),
-    endDate: moment().startOf('hour').add(32, 'hour'),
-    locale: {
-      format: 'M/DD hh:mm A'
+var minDate, maxDate;
+ 
+// Custom filtering function which will search data in column four between two values
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date( data[4][5] );
+ 
+        if (
+            ( min === null && max === null ) ||
+            ( min === null && date <= max ) ||
+            ( min <= date   && max === null ) ||
+            ( min <= date   && date <= max )
+        ) {
+            return true;
+        }
+        return false;
     }
-  });
+);
+ 
+$(document).ready(function() {
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: 'MMMM Do YYYY'
+    });
+    maxDate = new DateTime($('#max'), {
+        format: 'MMMM Do YYYY'
+    });
+ 
+    // DataTables initialisation
+    var table = $('#dt-basic-example').DataTable();
+ 
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+        table.draw();
+    });
 });
 </script>
 </body>

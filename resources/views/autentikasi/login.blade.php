@@ -31,17 +31,19 @@
                 <h3 class="card-title">Login</h3>
               </div>
               <div class="card-body">
+              <form id="loginform">
+              {{ csrf_field() }}
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                   </div>
-                  <input type="email" class="form-control" placeholder="Email">
+                  <input type="email" id="email" class="form-control" placeholder="Email">
                 </div>
                 <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                       </div>
-                      <input type="password" class="form-control" placeholder="Password">
+                      <input type="password" id="password" class="form-control" placeholder="Password">
                     </div>
 
                     <div class="row">
@@ -51,18 +53,11 @@
                   </div>
                   <!-- /.card-body -->
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                  </div>
-                  <select class="form-control" id="sel1">
-                    <option>Administrator</option>
-                    <option>Admin</option>
-                  </select>
 
+        <button class="btn btn-primary" id="loginbutton" type="submit">Login</button>
 
+</form>
                 </div>
-        <button class="btn btn-primary" href="/dashboard/login" type="submit">Login</button>
 
 
                   </div>
@@ -92,11 +87,46 @@
 <script src="{{ asset('assets/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('/js/demo.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('assets/js/sweetalert2.js') }}"></script>
+
 <!-- Page specific script -->
 <script>
 $(function () {
   bsCustomFileInput.init();
 });
+
+$( document ).ready(function(){
+$("#loginform").submit(function(event){
+    event.preventDefault();
+    var formdata = new FormData(this);
+    console.log(FormData);
+    formdata.append('email',$("#email").val());
+    formdata.append('password',$("#password").val());
+    $.ajax({
+      type:'POST',
+      dataType: 'json',
+      url: '/dashboard/login',
+      data: formdata,
+      contentType: false,
+      cache: false,
+      processData: false,
+      success:function(data){
+        if(data.status == 'failed'){
+          Swal.fire(
+            'Gagal',
+            data.reason,
+            'error'
+          );
+        }
+        else{
+          window.location.href = "{{ route('dashboard')}}"
+        }
+      }
+    });
+  });
+});
+
 </script>
 </body>
 </html>

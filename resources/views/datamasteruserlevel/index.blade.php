@@ -148,8 +148,5 @@
 
   @push('script')
   <script>
-$(document).ready( function () {
-    $('#dt-basic-example').DataTable();
-} );    
 </script>
   @endpush

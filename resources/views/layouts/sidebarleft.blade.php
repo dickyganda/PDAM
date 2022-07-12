@@ -108,7 +108,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/datamasterpelanggan/index" class="nav-link">
+                <a href="/logout" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Logout</p>
                 </a>

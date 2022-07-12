@@ -51,6 +51,29 @@
               </p>
             </a>
           </li>
+           <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              <i class="fas fa-user-tie"></i>
+              <p>
+                Account
+                <i class="nav-icon right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/datamasterpelanggan/index" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ubah Password</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/logout" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Logout</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>

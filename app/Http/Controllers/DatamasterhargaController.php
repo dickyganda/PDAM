@@ -35,4 +35,22 @@ function Index(){
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
     }
 
+    public function editharga($id_harga)
+    {
+        $dataharga = DB::table('m_harga')->where('id_harga',$id_harga)->get();
+
+        return view('/datamasterharga/editharga',['dataharga' => $dataharga]);
+    
+    }
+
+    public function updateharga(Request $request)
+{
+	DB::table('m_harga')->where('id_harga',$request->id_harga)->update([
+		'status' => $request->status,
+	]);
+
+    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
+    
+}
+
 }

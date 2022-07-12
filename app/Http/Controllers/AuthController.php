@@ -11,6 +11,7 @@ use Redirect; //untuk redirect
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use Session;
 use App\Models\M_User;
 use App\Models\M_User_Level;
 
@@ -22,36 +23,30 @@ class AuthController extends Controller
     	return view('/autentikasi/login')->with('sukses','Anda Berhasil Login');
     }
 
-    public function postlogin(Request $request)
-    {
-      // echo "$request->email.$request->password "; die;
-    	if(Auth::attempt($request->only('email','password'))){
-            // $akun = DB::table('users')->where('email', $request->email)->first();
-            $akun = DB::table('m_user')
-            ->join('m_user_level', 'm_user_level.id_level', '=', 'm_user.id_level')
-            ->where('email', $request->email)
-            ->first();
-            //dd($akun);
-            if($akun->nama_level =='Administrator'){
-                Auth::guard('Administrator')->LoginUsingId($akun->id);
-                return redirect('/dashboard/index')->with('sukses','Anda Berhasil Login');
-            } else if($akun->nama_level =='Admin'){
-                Auth::guard('Admin')->LoginUsingId($akun->id);
-                return redirect('/dashboard/index')->with('sukses','Anda Berhasil Login');
-            }
-    	}
-    	return redirect('/autentikasi/login')->with('error','Akun Belum Terdaftar');
-    }
+    function postlogin2(Request $request ){
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-    public function logout()
-    {
-        if(Auth::guard('Administrator')->check()){
-            Auth::guard('Administrator')->logout();
-        } else if(Auth::guard('Admin')->check()){
-            Auth::guard('Admin')->logout();
+        $query = DB::table('m_user')
+        ->join('m_user_level', 'm_user_level.id_level', '=', 'm_user.id_level')
+        ->where('email', $email)
+        ->where('password' ,md5($password))
+        ->first();
+        if(empty($query)){
+            return response()->json(array('status' => 'failed', 'reason' => 'data tidak ada'));
         }
-    	return redirect('autentikasi/login')->with('sukses','Anda Telah Logout');
+        Session::put('nama_level',$query->nama_level);
+        return response()->json(array('status' => 'success', 'reason' => 'sukses'));
+
     }
 
+    public function logout2()
+    {
+        Session::flush();
+        Session::save();
+
+        return redirect('/login');
+
+    }
 
 }
