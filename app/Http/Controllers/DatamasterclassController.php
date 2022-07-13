@@ -46,6 +46,8 @@ function Index(){
 		'status' => $request->status,
 	]);
 
+    // dd($request);
+
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
     
 }
