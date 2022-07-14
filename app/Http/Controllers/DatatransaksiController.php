@@ -32,19 +32,23 @@ function Index(){
 
     public function updatetransaksi(Request $request)
 {
+    // $datasaldo = DB::table('t_meter')
+    // ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
+    // ->get();
+
+    $datasaldo = T_Meter::select('saldo')
+    ->where('id', $request->id)
+    ->first();
+
 	DB::table('t_meter')->where('id',$request->id)->update([
 		'status' => $request->status,
         'biaya_admin' => $request->biaya_admin,
         'biaya_perawatan' => $request->biaya_perawatan,
         'pembayaran' => $request->pembayaran,
+        'saldo' => $datasaldo->saldo - $request->pembayaran,
 	]);
 
-    // $saldolama = T_Meter::where('id_pelanggan',$id_pelanggan, 'saldo','$saldo')->get();
-
-    DB::table('t_meter')->where('id',$request->id)->update([
-        'pembayaran' => $request->pembayaran,
-		// 'saldo' => ($saldolama - $request->pembayaran),
-    ]);
+    // dd($request);
 
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
     

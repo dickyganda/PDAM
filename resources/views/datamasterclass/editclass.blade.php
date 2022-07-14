@@ -34,6 +34,7 @@
               @foreach($dataclass as $class)
     <form id="editclass" method="post">
 
+<input type="hidden" name="id_class" value="{{ $class->id_class }}" hidden>
 <div class="form-group">
           <label>Harga</label>
           <input type="text" name="harga" required="required" class="form-control form-control-sm" value="{{ $class->harga }}">

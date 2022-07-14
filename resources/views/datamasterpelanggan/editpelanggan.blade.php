@@ -34,10 +34,20 @@
               @foreach($datapelanggan as $pelanggan)
     <form id="editpelanggan" method="post">
 
+<input type="hidden" name="id_pelanggan" value="{{ $pelanggan->id_pelanggan }}" hidden>
+
         Status
 
-        <input type=radio name="status" value="1" {{ $pelanggan->status == '1' ? 'checked' : ''}}>Aktif</option>
-        <input type=radio name="status" value="0" {{ $pelanggan->status == '0' ? 'checked' : ''}}>Tidak Aktif</option>
+        @if ( $pelanggan->status == '1' )
+        <input type="radio" name="status" value="1" checked>
+        <label for="aktif">Aktif</label>
+        <input type="radio" name="status" value="0">
+        @else
+        <input type="radio" name="status" value="1">
+        <label for="aktif">Aktif</label>
+        <input type="radio" name="status" value="0" checked>
+        @endif
+        <label for="tidakaktif">Tidak Aktif</label>
         <br />
 
         <button class="btn btn-primary" type="submit">Simpan</button>

@@ -34,6 +34,8 @@
               @foreach($datatransaksi as $transaksi)
     <form id="edittransaksi" method="post">
 
+<input type="hidden" name="id" value="{{ $transaksi->id }}" hidden>
+
     <div class="form-group">
           <label>Biaya Admin</label>
           <input type="text" name="biaya_admin" required="required" class="form-control form-control-sm" value="{{ $transaksi->biaya_admin }}">

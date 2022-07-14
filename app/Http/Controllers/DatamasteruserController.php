@@ -31,7 +31,7 @@ function Index(){
         $add->id_level = $request->input('id_level');
         $add->status = $request->input('status');
         $add->tgl_daftar = Date('Y-m-d');
-        $add->tgl_password = $request->input('tgl_password');
+        // $add->tgl_password = $request->input('tgl_password');
         $add->save();
         
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));

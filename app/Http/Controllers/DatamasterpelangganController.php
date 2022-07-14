@@ -34,7 +34,7 @@ class DatamasterpelangganController extends Controller
         $add->alamat = $request->input('alamat');
         $add->status = $request->input('status');
         $add->tgl_add =  Date('Y-m-d');
-        $add->tgl_edit = $request->input('tgl_edit');
+        // $add->tgl_edit = $request->input('tgl_edit');
         $add->rt = $request->input('rt');
         $add->id_class = $request->input('id_class');
         $add->no_sambung = $request->input('no_sambung');
@@ -58,6 +58,7 @@ class DatamasterpelangganController extends Controller
 {
 	DB::table('m_pelanggan')->where('id_pelanggan',$request->id_pelanggan)->update([
 		'status' => $request->status,
+        'tgl_edit' => Date('Y-m-d')
 
 	]);
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));

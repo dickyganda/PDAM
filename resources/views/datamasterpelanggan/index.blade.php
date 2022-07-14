@@ -80,6 +80,7 @@
                                                         {{-- <td>{{ $pelanggan->saldo }}</td>
                                                         <td>{{ $pelanggan->tunggakan }}</td> --}}
                                                         <td>
+
 				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning" role="button">Edit</a>
 				
 				<a href="#" class="btn btn-danger" role="button" >Hapus</a>

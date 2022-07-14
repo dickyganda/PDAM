@@ -34,6 +34,8 @@
               @foreach($dataharga as $harga)
     <form id="editharga" method="post">
 
+<input type="hidden" name="id_harga" value="{{ $harga->id_harga }}" hidden>
+
         Status
 
         <input type=radio name="status" value="1" {{ $harga->status == '1' ? 'checked' : ''}}>Aktif</option>

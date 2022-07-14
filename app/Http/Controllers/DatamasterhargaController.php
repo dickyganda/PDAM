@@ -29,7 +29,7 @@ function Index(){
         $add->id_class = $request->input('id_class');
         $add->status = $request->input('status');
         $add->tgl_add = Date('Y-m-d');
-        $add->tgl_edit = $request->input('tgl_edit');
+        // $add->tgl_edit = $request->input('tgl_edit');
         $add->save();
         
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
@@ -47,6 +47,7 @@ function Index(){
 {
 	DB::table('m_harga')->where('id_harga',$request->id_harga)->update([
 		'status' => $request->status,
+        'tgl_edit' => Date('Y-m-d')
 	]);
 
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
