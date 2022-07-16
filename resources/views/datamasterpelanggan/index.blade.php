@@ -71,9 +71,9 @@
                                                         <td>{{ $pelanggan->kode_pelanggan}}</td>
                                                         <td>{{ $pelanggan->nama }}</td>
                                                         <td>{{ $pelanggan->alamat }}</td>
-                                                        <td>{{ $pelanggan->status }}</td>
-                                                        <td>{{ $pelanggan->tgl_add }}</td>
-                                                        <td>{{ $pelanggan->tgl_edit }}</td>
+                                                        <td>{{ $pelanggan->status_pelanggan }}</td>
+                                                        <td>{{ $pelanggan->tgl_add_pelanggan }}</td>
+                                                        <td>{{ $pelanggan->tgl_edit_pelanggan }}</td>
                                                         <td>{{ $pelanggan->rt }}</td>
                                                         <td>{{ $pelanggan->keterangan }}</td>
                                                         <td>{{ $pelanggan->no_sambung }}</td>
@@ -83,7 +83,7 @@
 
 				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning" role="button">Edit</a>
 				
-				<a href="#" class="btn btn-danger" role="button" >Hapus</a>
+				<a href="#"onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" class="btn btn-danger" role="button" >Hapus</a>
 			</td>
                                                     </tr>
                                                     @endforeach
@@ -133,10 +133,9 @@
       <input type="text" name="alamat" required="required" class="form-control form-control-sm" placeholder="Alamat">
     </div>
 
-        Status <input type="radio" name="status" value="1">
-        <label for="aktif">Aktif</label>
-        <input type="radio" name="status" value="0">
-        <label for="tidak_aktif">Tidak Aktif</label> <br/>
+        Status
+        <input type=radio name="status_pelanggan" value="1" {{ $pelanggan->status_pelanggan == '1' ? 'checked' : ''}}>Aktif</option>
+        <input type=radio name="status_pelanggan" value="0" {{ $pelanggan->status_pelanggan == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
     <div class="form-group">
       <input type="text" name="rt" required="required" class="form-control form-control-sm" placeholder="RT">
@@ -199,6 +198,36 @@ $("#tambahpelanggan").submit(function(event){
       }
     });
   });
+
+  function deletepelanggan(id_pelanggan){
+       
+        Swal.fire({
+        title: 'Hapus Data ?',
+        text: "Anda tidak akan dapat mengembalikan ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            type:'GET',
+            dataType: 'json',
+            url: '/datamasterpelanggan/deletepelanggan/' + id_pelanggan,
+            success:function(data){
+              Swal.fire(
+                'Sukses!',
+                data.reason,
+                'success'
+              ).then(() => {
+                location.reload();
+              });
+            }
+          });
+        }
+      })
+      }
 
   $(document).ready(function() {
     $('#class').select2({

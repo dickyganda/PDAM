@@ -114,10 +114,9 @@
       <input type="text" name="id_level" class="form-control form-control-sm" placeholder="Level">
     </div>
 
-        Status <input type="radio" name="status" value="Aktif">
-        <label for="aktif">Aktif</label>
-        <input type="radio" name="status" value="Tidak Aktif">
-        <label for="tidak_aktif">Tidak Aktif</label> <br/>
+        Status
+        <input type=radio name="status_aktif" value="1" {{ $userlevel->status_aktif == '1' ? 'checked' : ''}}>Aktif</option>
+        <input type=radio name="status_aktif" value="0" {{ $userlevel->status_aktif == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
 <div class="form-group">
       <input type="date" name="tgl_daftar" required="required" class="form-control form-control-sm">

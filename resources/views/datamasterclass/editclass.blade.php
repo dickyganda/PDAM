@@ -37,13 +37,13 @@
 <input type="hidden" name="id_class" value="{{ $class->id_class }}" hidden>
 <div class="form-group">
           <label>Harga</label>
-          <input type="text" name="harga" required="required" class="form-control form-control-sm" value="{{ $class->harga }}">
+          <input type="text" name="harga_class" required="required" class="form-control form-control-sm" value="{{ $class->harga_class }}">
         </div>
 
         Status
 
-        <input type=radio name="status" value="1" {{ $class->status == '1' ? 'checked' : ''}}>Aktif</option>
-        <input type=radio name="status" value="0" {{ $class->status == '0' ? 'checked' : ''}}>Tidak Aktif</option>
+        <input type=radio name="status_class" value="1" {{ $class->status_class == '1' ? 'checked' : ''}}>Aktif</option>
+        <input type=radio name="status_class" value="0" {{ $class->status_class == '0' ? 'checked' : ''}}>Tidak Aktif</option>
         <br />
 
         <button class="btn btn-primary" type="submit">Simpan</button>

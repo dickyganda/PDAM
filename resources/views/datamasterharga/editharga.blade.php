@@ -38,8 +38,8 @@
 
         Status
 
-        <input type=radio name="status" value="1" {{ $harga->status == '1' ? 'checked' : ''}}>Aktif</option>
-        <input type=radio name="status" value="0" {{ $harga->status == '0' ? 'checked' : ''}}>Tidak Aktif</option>
+        <input type=radio name="status_harga" value="1" {{ $harga->status_harga == '1' ? 'checked' : ''}}>Aktif</option>
+        <input type=radio name="status_harga" value="0" {{ $harga->status_harga == '0' ? 'checked' : ''}}>Tidak Aktif</option>
         <br />
 
         <button class="btn btn-primary" type="submit">Simpan</button>

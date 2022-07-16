@@ -71,7 +71,7 @@
                                                         <td>{{ $user->pengingat }}</td>
                                                         <td>{{ $user->nama }}</td>
                                                         <td>{{ $user->id_level }}</td>
-                                                        <td>{{ $user->status }}</td>
+                                                        <td>{{ $user->status_user }}</td>
                                                         <td>{{ $user->tgl_daftar }}</td>
                                                         <td>{{ $user->tgl_password }}</td>
                                                         <td>
@@ -145,10 +145,9 @@
       </select>
     </div>
 
-        Status <input type="radio" name="status" value="1">
-        <label for="aktif">Aktif</label>
-        <input type="radio" name="status" value="0">
-        <label for="tidak_aktif">Tidak Aktif</label> <br/>
+        Status
+        <input type=radio name="status_user" value="1" {{ $user->status_user == '1' ? 'checked' : ''}}>Aktif</option>
+        <input type=radio name="status_user" value="0" {{ $user->status_user == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
         <button class="btn btn-primary" href="/datamasteruser/tambahuser" type="submit">Tambah</button>
 	</form>

@@ -18,29 +18,27 @@ class ApiController extends Controller
         $add = DB::table('t_meter')
         ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
         ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-        ->join('m_harga', 'm_harga.id_harga', '=', 't_meter.id_harga')
         ->get();
 
-        $dataharga = DB::table('m_harga')
-        ->where('id_harga', $request->input('id_harga'))
+        $dataclass = DB::table('m_class')
+        ->where('id_class', $request->input('id_class'))
         ->first();
 
-        $meterbulanlalu = T_Meter::select('stand_meter_bulan_ini')
-        ->where('id', $request->id)
-        ->first();
+        // $meterbulanlalu = T_Meter::select('stand_meter_bulan_ini')
+        // ->where('id_pelanggan', $request->id_pelanggan)
+        // ->first();
 
         // dd($meterbulanlalu);
 
         $add = new T_Meter;
         $add->id = $request->input('id');
         $add->id_pelanggan = $request->input('id_pelanggan');
-        $add->id_harga = $request->input('id_harga');
         $add->id_class = $request->input('id_class');
         $add->kode_pelanggan = $request->input('kode_pelanggan');
-        $add->stand_meter_bulan_lalu = ($meterbulanlalu->stand_meter_bulan_ini);
+        $add->stand_meter_bulan_lalu = $request->input('stand_meter_bulan_lalu');
         $add->stand_meter_bulan_ini = $request->input('stand_meter_bulan_ini');
         $add->pemakaian = ($request->input('stand_meter_bulan_ini') - $request->input('stand_meter_bulan_lalu'));
-        $add->tagihan = ($add->pemakaian * $dataharga->harga);
+        $add->tagihan = ($add->pemakaian * $dataclass->harga_class);
         $add->link_image = $request->input('link_image');
         $add->tgl_scan = Date('Y-m-d');
         $add->save();

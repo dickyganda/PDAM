@@ -22,9 +22,9 @@ function Index(){
         $add = new M_Class;
         $add->id_class = $request->input('id_class');
         $add->keterangan = $request->input('keterangan');
-        $add->harga = $request->input('harga');
-        $add->status = $request->input('status');
-        $add->tgl_add = Date('Y-m-d');
+        $add->harga_class = $request->input('harga_class');
+        $add->status_class = $request->input('status_classs');
+        $add->tgl_add_class = Date('Y-m-d');
         // $add->tgl_edit = $request->input('tgl_edit');
         $add->save();
         
@@ -42,9 +42,9 @@ function Index(){
     public function updateclass(Request $request)
 {
 	DB::table('m_class')->where('id_class',$request->id_class)->update([
-        'harga' => $request->harga,
-		'status' => $request->status,
-        'tgl_edit' => Date('Y-m-d'),
+        'harga_class' => $request->harga_class,
+		'status_class' => $request->status_class,
+        'tgl_edit_class' => Date('Y-m-d'),
 	]);
 
     // dd($request);

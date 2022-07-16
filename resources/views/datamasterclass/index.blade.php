@@ -31,7 +31,7 @@
 
           <div class="card card-primary card-outline">
             <div class="card-body">
-             <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahclass">Tambah Data Baru</a>
+             {{-- <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahclass">Tambah Data Baru</a> --}}
              {{-- filter --}}
              <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
@@ -63,10 +63,10 @@
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $class->keterangan }}</td>
-                                                        <td>{{ $class->harga }}</td>
-                                                        <td>{{ $class->status }}</td>
-                                                        <td>{{ $class->tgl_add }}</td>
-                                                        <td>{{ $class->tgl_edit }}</td>
+                                                        <td>{{ $class->harga_class }}</td>
+                                                        <td>{{ $class->status_class }}</td>
+                                                        <td>{{ $class->tgl_add_class }}</td>
+                                                        <td>{{ $class->tgl_edit_class }}</td>
                                                         <td>
 								<a href="/datamasterclass/editclass/{{ $class->id_class }}" class="btn btn-warning" role="button">Edit</a>
 				
@@ -110,13 +110,12 @@
     </div>
 
         <div class="form-group">
-      <input type="text" name="harga" class="form-control form-control-sm" placeholder="Harga">
+      <input type="text" name="harga_class" class="form-control form-control-sm" placeholder="Harga">
     </div>
 
-        Status <input type="radio" name="status" value="1">
-        <label for="aktif">Aktif</label>
-        <input type="radio" name="status" value="0">
-        <label for="tidak_aktif">Tidak Aktif</label> <br/>
+        Status
+        <input type=radio name="status_class" value="1" {{ $class->status_class == '1' ? 'checked' : ''}}>Aktif</option>
+        <input type=radio name="status_class" value="0" {{ $class->status_class == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
         <button class="btn btn-primary" href="/datamasterclass/tambahclass" type="submit">Tambah</button>
 	</form>

@@ -38,14 +38,14 @@
 
         Status
 
-        @if ( $pelanggan->status == '1' )
-        <input type="radio" name="status" value="1" checked>
+        @if ( $pelanggan->status_pelanggan == '1' )
+        <input type="radio" name="status_pelanggan" value="1" checked>
         <label for="aktif">Aktif</label>
-        <input type="radio" name="status" value="0">
+        <input type="radio" name="status_pelanggan" value="0">
         @else
-        <input type="radio" name="status" value="1">
+        <input type="radio" name="status_pelanggan" value="1">
         <label for="aktif">Aktif</label>
-        <input type="radio" name="status" value="0" checked>
+        <input type="radio" name="status_pelanggan" value="0" checked>
         @endif
         <label for="tidakaktif">Tidak Aktif</label>
         <br />

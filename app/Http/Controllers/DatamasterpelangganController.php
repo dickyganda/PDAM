@@ -32,8 +32,8 @@ class DatamasterpelangganController extends Controller
         $add->kode_pelanggan = $request->input('rt').$request->input('id_class').str_pad(($dataconfig->nilai_config+1),4, '0', STR_PAD_LEFT);
         $add->nama = $request->input('nama');
         $add->alamat = $request->input('alamat');
-        $add->status = $request->input('status');
-        $add->tgl_add =  Date('Y-m-d');
+        $add->status_pelanggan = $request->input('status_pelanggan');
+        $add->tgl_add_pelanggan =  Date('Y-m-d H:i:s');
         // $add->tgl_edit = $request->input('tgl_edit');
         $add->rt = $request->input('rt');
         $add->id_class = $request->input('id_class');
@@ -57,12 +57,20 @@ class DatamasterpelangganController extends Controller
     public function updatepelanggan(Request $request)
 {
 	DB::table('m_pelanggan')->where('id_pelanggan',$request->id_pelanggan)->update([
-		'status' => $request->status,
-        'tgl_edit' => Date('Y-m-d')
+		'status_pelanggan' => $request->status_pelanggan,
+        'tgl_edit_pelanggan' => Date('Y-m-d H:i:s')
 
 	]);
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
     
+}
+
+public function deletepelanggan($id_pelanggan)
+{
+	// menghapus data warga berdasarkan id yang dipilih
+	DB::table('m_pelanggan')->where('id_pelanggan',$id_pelanggan)->delete();
+		
+	return response()->json(array('status'=> 'success', 'reason' => 'Sukses Hapus Data'));
 }
 
 }

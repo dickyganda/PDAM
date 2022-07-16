@@ -30,11 +30,13 @@ Route::get('datamasterpelanggan/index', 'DatamasterpelangganController@index');
 Route::post('datamasterpelanggan/tambahpelanggan','DatamasterpelangganController@tambahpelanggan');
 Route::get('datamasterpelanggan/editpelanggan/{id_pelanggan}','DatamasterpelangganController@editpelanggan');
 Route::post('datamasterpelanggan/updatepelanggan','DatamasterpelangganController@updatepelanggan');
+Route::get('datamasterpelanggan/deletepelanggan/{id_pelanggan}','DatamasterpelangganController@deletepelanggan');
 
 Route::get('datamasterharga/index', 'DatamasterhargaController@index');
 Route::post('datamasterharga/tambahharga','DatamasterhargaController@tambahharga');
 Route::get('datamasterharga/editharga/{id_harga}','DatamasterhargaController@editharga');
 Route::post('datamasterharga/updateharga','DatamasterhargaController@updateharga');
+Route::get('datamasterharga/deleteharga/{id_harga}','DatamasterhargaController@deleteharga');
 
 Route::get('datamasterclass/index', 'DatamasterclassController@index');
 Route::post('datamasterclass/tambahclass','DatamasterclassController@tambahclass');

@@ -77,7 +77,7 @@
                                                         <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                                         <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
                                                         <td>{{ $transaksi->pemakaian = $transaksi->stand_meter_bulan_ini - $transaksi->stand_meter_bulan_lalu }}</td> 
-                                                        <td>{{ $transaksi->tagihan = $transaksi->pemakaian * $transaksi->harga }}</td>
+                                                        <td>{{ $transaksi->tagihan = $transaksi->pemakaian * $transaksi->harga_class }}</td>
                                                         <td>{{ $transaksi->biaya_admin }}</td>
                                                         <td>{{ $transaksi->biaya_perawatan }}</td>
                                                         <td>{{ $transaksi->tunggakan }}</td>

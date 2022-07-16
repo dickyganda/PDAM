@@ -29,7 +29,7 @@ function Index(){
         $add->pengingat = $request->input('pengingat');
         $add->nama = $request->input('nama');
         $add->id_level = $request->input('id_level');
-        $add->status = $request->input('status');
+        $add->status_user = $request->input('status_user');
         $add->tgl_daftar = Date('Y-m-d');
         // $add->tgl_password = $request->input('tgl_password');
         $add->save();

@@ -27,11 +27,15 @@
     width: inherit;
       }
     }
-    #header{
+    #kop{
+      text-align: center;
+    }
+
+    {{-- #header{
       text-align: center;
       line-height: 0.5cm;
-      
-    }
+    } --}}
+
     #headerkategori{
       text-align: center;
       background-color: skyblue;
@@ -53,25 +57,25 @@
 @foreach($datatransaksi as $transaksi)
 
 <div id="div1">
-  <table class="table table-bordered" style="width:100%" id="cetaknota" border="1">
+  
   <tr id="header">
-   {{-- <td><img src="{{asset('assets/img/logo.png') }}"  alt="Logo"></td> --}}
-  <td colspan="7">
-  <p>BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM MASYARAKAT</p>
-  <h4>(BP-SPAMS) "TIRTA AGUNG SUMARI"</h4>
-  <p>DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
-  <p>Jl. sumber Duduksampeyan Gresik - 61162</p>
-  </td>
+    <td colspan="7">
+    <p style="text-align:center;">BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM MASYARAKAT</p>
+    <h4 style="text-align:center;">(BP-SPAMS) "TIRTA AGUNG SUMARI"</h4>
+    <p style="text-align:center;">DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
+    <p style="text-align:center;">Jl. sumber Duduksampeyan Gresik - 61162</p>
+    </td>
   </tr>
 
+<table class="table table-bordered" style="width:100%" id="cetaknota" border="1">
   <tr>
-    <td colspan="8" id="headerkategori"><b>TAGIHAN REKENING AIR</b></td>
+    <td colspan="8" id="headerkategori" style="text-align:center;"><b>TAGIHAN REKENING AIR</b></td>
   </tr>
   <tr>
     <td colspan="2">NO. PELANGGAN</td>
     <td colspan="2">{{ $transaksi->kode_pelanggan }}</td>
     <td>BLN/THN</td>
-    <td colspan="2">{{ $transaksi->tgl_add}}</td>
+    <td colspan="2">{{ $transaksi->tgl_scan}}</td>
   </tr>
   <tr>
     <td colspan="2">NAMA</td>  
@@ -87,20 +91,20 @@
   </tr>
 
   <tr>
-  <td colspan="8" id="headerkategori"><b>PERINCIAN PEMAKAIAN DAN TAGIHAN</b></td>
+  <td colspan="8" id="headerkategori" style="text-align:center; background-color:powderblue;"><b>PERINCIAN PEMAKAIAN DAN TAGIHAN</b></td>
   </tr>
   <tr>
-  <td colspan="2" id="subheader">Satuan</td>
-  <td id="subheader">Tarif</td>
-  <td id="subheader">RP</td>
+  <td colspan="2" id="subheader" style="text-align:center;">Satuan</td>
+  <td id="subheader" style="text-align:center;">Tarif</td>
+  <td id="subheader" style="text-align:center;">RP</td>
   <td>Tagihan</td>
   <td>{{ $transaksi->tagihan }}</td>
-  <td colspan="2" id="subheader">Jumlah yang harus dibayar</td>
+  <td colspan="2" id="subheader" style="text-align:center;">Jumlah yang harus dibayar</td>
   </tr>
   <tr>
   <td>Akhir</td>
   <td>{{ $transaksi->stand_meter_bulan_ini}}</td>
-  <td rowspan="3">{{ $transaksi->harga}}</td>
+  <td rowspan="3">{{ $transaksi->harga_class}}</td>
   <td rowspan="3">{{ $transaksi->tagihan}}</td>
   <td>Biaya Admin</td>
   <td>{{ $transaksi->biaya_admin}}</td>

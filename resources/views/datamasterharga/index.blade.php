@@ -65,13 +65,13 @@
                                                         <td>{{ $harga->id_user }}</td>
                                                         <td>{{ $harga->id_class }}</td>
                                                         <td>{{ $harga->harga }}</td>
-                                                        <td>{{ $harga->status }}</td>
-                                                        <td>{{ $harga->tgl_add }}</td>
-                                                        <td>{{ $harga->tgl_edit }}</td>
+                                                        <td>{{ $harga->status_harga }}</td>
+                                                        <td>{{ $harga->tgl_add_harga }}</td>
+                                                        <td>{{ $harga->tgl_edit_harga }}</td>
                                                         <td>
 				<a href="/datamasterharga/editharga/{{ $harga->id_harga }}" class="btn btn-warning" role="button">Edit</a>
 				
-				<a href="#" class="btn btn-danger" role="button">Hapus</a>
+				<a href="#"onclick="deleteharga({{$harga->id_harga}})" class="btn btn-danger" role="button">Hapus</a>
 			</td>
                                                     </tr>
                                                     @endforeach
@@ -115,7 +115,7 @@
       <select id="user" name="id_user" class="form-control select2" required>
       <option></option>
       @foreach ($dataharga as $harga)
-      <option value="{{$harga->id_user}}">{{$harga->user}}</option>
+      <option value="{{$harga->id_user}}">{{$harga->nama}}</option>
       @endforeach
       </select>
     </div>
@@ -129,10 +129,9 @@
       </select>
     </div>
 
-        Status <input type="radio" name="status" value="1">
-        <label for="aktif">Aktif</label>
-        <input type="radio" name="status" value="0">
-        <label for="tidak_aktif">Tidak Aktif</label> <br/>
+        Status
+        <input type=radio name="status_harga" value="1" {{ $harga->status_harga == '1' ? 'checked' : ''}}>Aktif</option>
+        <input type=radio name="status_harga" value="0" {{ $harga->status_harga == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
         <button class="btn btn-primary" href="/datamasterharga/tambahharga" type="submit">Tambah</button>
 	</form>
@@ -189,5 +188,35 @@
       }
     });
   });
+
+  function deleteharga(id_harga){
+       
+        Swal.fire({
+        title: 'Hapus Data ?',
+        text: "Anda tidak akan dapat mengembalikan ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            type:'GET',
+            dataType: 'json',
+            url: '/datamasterharga/deleteharga/' + id_harga,
+            success:function(data){
+              Swal.fire(
+                'Sukses!',
+                data.reason,
+                'success'
+              ).then(() => {
+                location.reload();
+              });
+            }
+          });
+        }
+      })
+      }
 </script>
   @endpush
