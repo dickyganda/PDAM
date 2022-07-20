@@ -38,12 +38,12 @@
 
     <div class="form-group">
           <label>Biaya Admin</label>
-          <input type="text" name="biaya_admin" required="required" class="form-control form-control-sm" value="{{ $transaksi->biaya_admin }}">
+          <input type="text" name="biaya_admin" class="form-control form-control-sm" value="{{ $transaksi->biaya_admin }}">
         </div>
 
         <div class="form-group">
           <label>Biaya Perawatan</label>
-          <input type="text" name="biaya_perawatan" required="required" class="form-control form-control-sm" value="{{ $transaksi->biaya_perawatan }}">
+          <input type="text" name="biaya_perawatan" class="form-control form-control-sm" value="{{ $transaksi->biaya_perawatan }}">
         </div>
 
         <div class="form-group">

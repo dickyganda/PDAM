@@ -33,7 +33,7 @@ class DatamasterpelangganController extends Controller
         $add->nama = $request->input('nama');
         $add->alamat = $request->input('alamat');
         $add->status_pelanggan = $request->input('status_pelanggan');
-        $add->tgl_add_pelanggan =  Date('Y-m-d H:i:s');
+        $add->tgl_add_pelanggan =  Date('Y-m-d');
         // $add->tgl_edit = $request->input('tgl_edit');
         $add->rt = $request->input('rt');
         $add->id_class = $request->input('id_class');

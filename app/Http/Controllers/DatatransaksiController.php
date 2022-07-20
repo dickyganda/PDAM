@@ -34,6 +34,7 @@ function Index(){
     $datasaldo = T_Meter::select('saldo')
     ->where('id', $request->id)
     ->first();
+    // dd($datasaldo);
 
 	DB::table('t_meter')->where('id',$request->id)->update([
 		'status' => $request->status,
@@ -43,7 +44,15 @@ function Index(){
         'saldo' => $datasaldo->saldo - $request->pembayaran,
 	]);
 
-    // dd($request);
+    // if(Date('Y-m-d') > $tgl_scan){
+
+    // }
+    // if($datasaldo->saaldo > 0){
+    //     DB::table('t_meter')->where('id',$request->id)->update([
+    //         'tunggakan' => $datasaldo->saldo,
+    //         'saldo' => $datasaldo->saldo - $datasaldo->saldo,
+    //     ]);
+    // }
 
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
     

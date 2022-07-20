@@ -81,6 +81,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script type="text/javascript" src="{{ asset('assets/js/dataTables.dateTime.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/sweetalert2.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
+<script src="{{ asset('assets/js/chart.js') }}"></script>
 
 <script>
     $.ajaxSetup({

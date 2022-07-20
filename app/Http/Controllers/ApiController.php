@@ -24,9 +24,9 @@ class ApiController extends Controller
         ->where('id_class', $request->input('id_class'))
         ->first();
 
-        // $meterbulanlalu = T_Meter::select('stand_meter_bulan_ini')
-        // ->where('id_pelanggan', $request->id_pelanggan)
-        // ->first();
+        $meterbulanlalu = T_Meter::select('stand_meter_bulan_ini')
+        ->where('id_pelanggan', $request->id_pelanggan)
+        ->get();
 
         // dd($meterbulanlalu);
 
@@ -35,7 +35,7 @@ class ApiController extends Controller
         $add->id_pelanggan = $request->input('id_pelanggan');
         $add->id_class = $request->input('id_class');
         $add->kode_pelanggan = $request->input('kode_pelanggan');
-        $add->stand_meter_bulan_lalu = $request->input('stand_meter_bulan_lalu');
+        $add->stand_meter_bulan_lalu = ($meterbulanlalu->stand_meter_bulan_ini);
         $add->stand_meter_bulan_ini = $request->input('stand_meter_bulan_ini');
         $add->pemakaian = ($request->input('stand_meter_bulan_ini') - $request->input('stand_meter_bulan_lalu'));
         $add->tagihan = ($add->pemakaian * $dataclass->harga_class);

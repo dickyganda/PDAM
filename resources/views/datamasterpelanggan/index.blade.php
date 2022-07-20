@@ -57,8 +57,7 @@
                                                         <th>RT</th>
                                                         <th>keterangan</th>
                                                         <th>No. Sambung</th>
-                                                        {{-- <th>Saldo</th>
-                                                        <th>Tunggakan</th> --}}
+                                                        <th>Total Saldo</th>
                                                         <th>Aksi</th>
 
                                                     </tr>
@@ -77,8 +76,8 @@
                                                         <td>{{ $pelanggan->rt }}</td>
                                                         <td>{{ $pelanggan->keterangan }}</td>
                                                         <td>{{ $pelanggan->no_sambung }}</td>
-                                                        {{-- <td>{{ $pelanggan->saldo }}</td>
-                                                        <td>{{ $pelanggan->tunggakan }}</td> --}}
+                                                        <td>{{ $pelanggan->total_saldo }}</td>
+                            
                                                         <td>
 
 				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning" role="button">Edit</a>
@@ -100,8 +99,7 @@
                                                         <th>RT</th>
                                                         <th>keterangan</th>
                                                         <th>No. Sambung</th>
-                                                        {{-- <th>Saldo</th>
-                                                        <th>Tunggakan</th> --}}
+                                                        <th>Total Saldo</th>
                                                         <th>Aksi</th>
 
                                                     </tr>

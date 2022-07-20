@@ -39,14 +39,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{ $jumlah_pelanggan }}</h3>
 
-                <p>New Orders</p>
+                <p>Jumlah Pelanggan</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
             </div>
           </div>
           <!-- ./col -->
@@ -54,20 +54,20 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3> {{ $total_saldo_pelanggan }}</h3>
 
-                <p>Bounce Rate</p>
+                <p>Total Tunggakan</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            {{-- <div class="small-box bg-warning">
               <div class="inner">
                 <h3>44</h3>
 
@@ -77,12 +77,12 @@
                 <i class="ion ion-person-add"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+            </div> --}}
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            {{-- <div class="small-box bg-danger">
               <div class="inner">
                 <h3>65</h3>
 
@@ -92,7 +92,7 @@
                 <i class="ion ion-pie-graph"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+            </div> --}}
           </div>
           <!-- ./col -->
         </div>
@@ -100,21 +100,21 @@
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
+          <section class="col-lg-6 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
-                  Sales
+                  Chart Pemakaian
                 </h3>
                 <div class="card-tools">
                   <ul class="nav nav-pills ml-auto">
                     <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                      <a class="nav-link active" href="#chart_pemakaian_rt" data-toggle="tab">Chart Pemakaian RT</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                      <a class="nav-link" href="#chart_pemakaian_kelas" data-toggle="tab">Chart Pemakaian Kelas</a>
                     </li>
                   </ul>
                 </div>
@@ -122,12 +122,12 @@
               <div class="card-body">
                 <div class="tab-content p-0">
                   <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                  <div class="chart tab-pane active" id="chart_pemakaian_rt"
+                       style="position: relative;">
+                      <canvas id="chart_pemakaian_rt_canvas" height="400" style="height: 400px;"></canvas>
                    </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                  <div class="chart tab-pane" id="chart_pemakaian_kelas" style="position: relative;">
+                    <canvas id="chart_pemakaian_kelas_canvas" height="400" style="height: 400px;"></canvas>
                   </div>
                 </div>
               </div><!-- /.card-body -->
@@ -163,7 +163,7 @@
                       <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
                     </div>
                     <!-- /.direct-chat-infos -->
-                    <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
+                    {{-- <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image"> --}}
                     <!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                       Is this template really for free? That's unbelievable!
@@ -179,7 +179,7 @@
                       <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
                     </div>
                     <!-- /.direct-chat-infos -->
-                    <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
+                    {{-- <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image"> --}}
                     <!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                       You better believe it!
@@ -195,7 +195,7 @@
                       <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
                     </div>
                     <!-- /.direct-chat-infos -->
-                    <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
+                    {{-- <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image"> --}}
                     <!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                       Working with AdminLTE on a great new app! Wanna join?
@@ -211,7 +211,7 @@
                       <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
                     </div>
                     <!-- /.direct-chat-infos -->
-                    <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
+                    {{-- <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image"> --}}
                     <!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                       I would love to.
@@ -228,7 +228,7 @@
                   <ul class="contacts-list">
                     <li>
                       <a href="#">
-                        <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Avatar">
+                        {{-- <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Avatar"> --}}
 
                         <div class="contacts-list-info">
                           <span class="contacts-list-name">
@@ -243,7 +243,7 @@
                     <!-- End Contact Item -->
                     <li>
                       <a href="#">
-                        <img class="contacts-list-img" src="dist/img/user7-128x128.jpg" alt="User Avatar">
+                        {{-- <img class="contacts-list-img" src="dist/img/user7-128x128.jpg" alt="User Avatar"> --}}
 
                         <div class="contacts-list-info">
                           <span class="contacts-list-name">
@@ -258,7 +258,7 @@
                     <!-- End Contact Item -->
                     <li>
                       <a href="#">
-                        <img class="contacts-list-img" src="dist/img/user3-128x128.jpg" alt="User Avatar">
+                        {{-- <img class="contacts-list-img" src="dist/img/user3-128x128.jpg" alt="User Avatar"> --}}
 
                         <div class="contacts-list-info">
                           <span class="contacts-list-name">
@@ -273,7 +273,7 @@
                     <!-- End Contact Item -->
                     <li>
                       <a href="#">
-                        <img class="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="User Avatar">
+                        {{-- <img class="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="User Avatar"> --}}
 
                         <div class="contacts-list-info">
                           <span class="contacts-list-name">
@@ -288,7 +288,7 @@
                     <!-- End Contact Item -->
                     <li>
                       <a href="#">
-                        <img class="contacts-list-img" src="dist/img/user6-128x128.jpg" alt="User Avatar">
+                        {{-- <img class="contacts-list-img" src="dist/img/user6-128x128.jpg" alt="User Avatar"> --}}
 
                         <div class="contacts-list-info">
                           <span class="contacts-list-name">
@@ -303,7 +303,7 @@
                     <!-- End Contact Item -->
                     <li>
                       <a href="#">
-                        <img class="contacts-list-img" src="dist/img/user8-128x128.jpg" alt="User Avatar">
+                        {{-- <img class="contacts-list-img" src="dist/img/user8-128x128.jpg" alt="User Avatar"> --}}
 
                         <div class="contacts-list-info">
                           <span class="contacts-list-name">
@@ -469,7 +469,7 @@
           </section>
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
+          <section class="col-lg-6 connectedSortable">
 
             <!-- Map card -->
             <div class="card bg-gradient-primary">
@@ -618,7 +618,77 @@
 
  @push('script')
  <script>
-     
+const ctx = document.getElementById('chart_pemakaian_rt_canvas');
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: <?php echo json_encode($data_pelanggan); ?>,
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+const ctx_2 = document.getElementById('chart_pemakaian_kelas_canvas');
+const myChart_2 = new Chart(ctx_2, {
+    type: 'bar',
+    data: {
+        labels: <?php echo json_encode($data_class); ?>,
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
  </script>
      
  @endpush
