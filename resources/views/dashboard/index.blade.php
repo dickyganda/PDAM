@@ -673,7 +673,7 @@ const myChart_2 = new Chart(ctx_2, {
         labels: <?php echo json_encode($data_class); ?>,
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: <?php echo json_encode($pengguna_kelas); ?>,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

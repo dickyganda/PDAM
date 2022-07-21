@@ -38,53 +38,26 @@ function Index(){
             $data_class[] = $key->keterangan;
         }
 
-    $data_rt = M_pelanggan::select('rt')
-    ->groupBy('rt')
-    ->count();
-    // dd($data_rt);
+        $pengguna_kelas = DB::table('m_pelanggan')
+        ->select('id_class', DB::raw('count(*) as total'))
+        ->groupBy('id_class')
+        ->get();
+    // dd($pengguna_kelas);
 
-    // $datart = DB::select("
-        
-    //         select count(id_class) total
-    //         from m_pelanggan
-            
-    //         right join (
-    //             select id_pelanggan, rt
-    //             from m_pelanggan
-    //         )
-            
-    //         group by p.id_pelanggan
-    //         order by p.id_pelanggan
-    //     ");
+    $pengguna_rt = DB::table('m_pelanggan')
+        ->select('rt', DB::raw('count(*) as total'))
+        ->groupBy('rt')
+        ->get();
+        // dd($pengguna_rt);
 
-    //     foreach ($datart as $key) {
-    //         $total_pengguna_rt[] = $key->total;
-    //     }
-        // dd($total_pengguna_rt);
-
-    // $data_kelas = M_Pelanggan::select('id_class'('count(*) as total'))
-    // ->groupBy('id_class')
-    // ->first()->total;
-    // dd($data_kelas);
-
-        // menghitung jumlah pengguna kelas
-    // $jumlahkelas = DB::table('m_pelanggan')
-    // ->join('m_class', 'm_class.id_class', '=', 'm_pelanggan.id_class')
-    // ->selectRaw('count(id_pelanggan) as total')
-    // ->where()
-    // ->groupBy('id_pelanggan')
-    // ->first()->total;
-    // dd($jumlahkelas);
- 
     	return view('/dashboard/index',
         [
             'jumlah_pelanggan' => $jumlah_pelanggan,
             'total_saldo_pelanggan' => $total_saldo_pelanggan,
             'data_pelanggan' => $data_pelanggan,
             'data_class' => $data_class,
-            'data_rt' => $data_rt,
-            // 'total_pengguna_rt' => $total_pengguna_rt,
-            // 'data_kelas' => $data_kelas,
+            'pengguna_kelas' => $pengguna_kelas,
+            'pengguna_rt' => $pengguna_rt,
         ]
     );
     }
