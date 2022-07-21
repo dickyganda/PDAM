@@ -18,7 +18,13 @@ function Index(){
     $jumlah_pelanggan = M_Pelanggan::selectRaw('count(*) as total')->first()->total;
     
     // menghitung jumlah total tunggakan
-    $total_saldo_pelanggan = M_Pelanggan::selectRaw('sum(total_saldo) as total')->first()->total;
+    $total_saldo_tunggakan = M_Pelanggan::selectRaw('sum(total_saldo) as total')->first()->total;
+
+    // menampilkan total tunggakan per pelanggan
+    $total_saldo_pelanggan = DB::table('m_pelanggan')
+    ->where('total_saldo', '>', 1)
+    ->get();
+    // dd($total_saldo_pelanggan);
 
     // mengambil nama rt untuk chart
     $data = M_Pelanggan::select('rt')
@@ -53,6 +59,7 @@ function Index(){
     	return view('/dashboard/index',
         [
             'jumlah_pelanggan' => $jumlah_pelanggan,
+            'total_saldo_tunggakan' => $total_saldo_tunggakan,
             'total_saldo_pelanggan' => $total_saldo_pelanggan,
             'data_pelanggan' => $data_pelanggan,
             'data_class' => $data_class,
