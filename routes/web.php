@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Route::get('/autentikasi/login', 'AuthController@login');
 Route::post('/dashboard/login', 'AuthController@postlogin2');
+Route::get('autentikasi/ubahpassord/{id_user}','AuthController@ubahpassword');
+Route::post('autentikasi/updatepassword','AuthController@updatepassword');
 Route::get('/logout', 'AuthController@logout2');
 // Route::get('/autentikasi/login', 'AuthController@logout');
 

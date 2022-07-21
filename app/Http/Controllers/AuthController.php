@@ -49,4 +49,22 @@ class AuthController extends Controller
 
     }
 
+    public function ubahpassword($id_user)
+    {
+        $datauser = DB::table('m_user')->where('id_user',$id_user)->get();
+
+        return view('/autentikasi/ubahpassword',['datauser' => $datauser]);
+    
+    }
+
+    public function updatepassword(Request $request)
+{
+	DB::table('m_user')->where('id_user',$request->id_user)->update([
+		'password' => $request->password,
+	]);
+
+    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
+    
+}
+
 }

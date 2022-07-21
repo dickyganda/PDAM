@@ -472,47 +472,59 @@
           <section class="col-lg-6 connectedSortable">
 
             <!-- Map card -->
-            <div class="card bg-gradient-primary">
-              <div class="card-header border-0">
+            <div class="card">
+              <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-map-marker-alt mr-1"></i>
-                  Visitors
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Daftar Tunggakan Pelanggan
                 </h3>
-                <!-- card tools -->
                 <div class="card-tools">
-                  <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
-                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
+                  
                 </div>
-                <!-- /.card-tools -->
-              </div>
+              </div><!-- /.card-header -->
               <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
-              </div>
-              <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Visitors</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Online</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Sales</div>
-                  </div>
-                  <!-- ./col -->
+                <div class="tab-content p-0">
+                  <!-- Morris chart - Sales -->
+                  <div class="chart tab-pane active" id="chart_pemakaian_rt"
+                       style="position: relative;">
+                      <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Kode Pelanggan</th></th>
+                                                        <th>Nama</th>
+                                                        <th>Total Saldo</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{-- @php $i=1 @endphp
+                                                @foreach($datapelanggan as $pelanggan)
+                                                    <tr>
+                                                        <td>{{ $i++ }}</td>
+                                                        <td>{{ $pelanggan->kode_pelanggan}}</td>
+                                                        <td>{{ $pelanggan->nama }}</td>
+                                                        <td>{{ $pelanggan->alamat }}</td>
+                                                        <td>{{ $pelanggan->status_pelanggan }}</td>
+                                                        <td>{{ $pelanggan->tgl_add_pelanggan }}</td>
+                                                        <td>{{ $pelanggan->tgl_edit_pelanggan }}</td>
+                                                        <td>{{ $pelanggan->rt }}</td>
+                                                        <td>{{ $pelanggan->keterangan }}</td>
+                                                        <td>{{ $pelanggan->no_sambung }}</td>
+                                                        <td>{{ $pelanggan->total_saldo }}</td>
+                            
+                                                        <td>
+
+				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning" role="button">Edit</a>
+				
+				<a href="#"onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" class="btn btn-danger" role="button" >Hapus</a>
+			</td>
+                                                    </tr>
+                                                    @endforeach --}}
+                                                </tbody>
+                                            </table>
+                   </div>
                 </div>
-                <!-- /.row -->
-              </div>
+              </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
 

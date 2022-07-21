@@ -108,7 +108,7 @@
   <td rowspan="3">{{ $transaksi->tagihan}}</td>
   <td>Biaya Admin</td>
   <td>{{ $transaksi->biaya_admin}}</td>
-  <td rowspan="3" id="terbilang-input">{{ $transaksi->saldo}}</td>
+  <td style="text-align:center;" rowspan="3" id="terbilang-input"><b>{{ $transaksi->saldo}}</b></td>
   </tr>
 
   <tr>

@@ -33,6 +33,7 @@
             <div class="card-body">
              {{-- <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#myModal">Tambah Data Baru</a> --}}
              {{-- filter --}}
+
              <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
             <td>Minimum date:</td>
@@ -43,9 +44,10 @@
             <td><input type="text" id="max" name="max"></td>
         </tr>
     </tbody></table>
+
              {{-- endfilter --}}
 				{{-- <a href="#" class="btn btn-success" role="button">Hitung Saldo</a> --}}
-				<a href="#" class="btn btn-success" role="button">Cetak</a>
+				{{-- <a href="#" class="btn btn-success" role="button">Cetak</a> --}}
 
                                                 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
                                                 <thead class="bg-warning-200">
@@ -67,6 +69,7 @@
                                                         <th>Otorisasi</th>
                                                         <th>Aksi</th>
                                                     </tr>
+                                                    
                                                 </thead>
                                                 <tbody>
                                                 @php $i=1 @endphp
@@ -154,19 +157,41 @@ $.fn.dataTable.ext.search.push(
         return false;
     }
 );
- 
-$(document).ready(function() {
-    // Create date inputs
+
+$(document).ready(function () {
+// Create date inputs
     minDate = new DateTime($('#min'), {
         format: 'MMMM Do YYYY'
     });
     maxDate = new DateTime($('#max'), {
         format: 'MMMM Do YYYY'
     });
+
+    var table = $('#dt-basic-example').DataTable({
+        initComplete: function () {
+            this.api()
+                .columns()
+                .every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
  
-    // DataTables initialisation
-    var table = $('#dt-basic-example').DataTable();
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
  
+                    column
+                        .data()
+                        .unique()
+                        .sort()
+                        .each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                });
+        },
+    });
+
     // Refilter the table
     $('#min, #max').on('change', function () {
         table.draw();
@@ -202,5 +227,7 @@ $(document).ready(function() {
      }
    })
    }
+   
+
 </script>
   @endpush
