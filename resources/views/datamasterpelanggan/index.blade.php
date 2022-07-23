@@ -80,6 +80,8 @@
                             
                                                         <td>
 
+<a href="#"onclick="hitungsaldototal({{$pelanggan->id_pelanggan}})" class="btn btn-success" role="button">Hitung Saldo</a>
+
 				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning" role="button">Edit</a>
 				
 				<a href="#"onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" class="btn btn-danger" role="button" >Hapus</a>

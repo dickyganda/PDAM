@@ -54,6 +54,7 @@ Route::get('datatransaksi/index', 'DatatransaksiController@index');
 Route::get('datatransaksi/edittransaksi/{id}','DatatransaksiController@edittransaksi');
 Route::post('datatransaksi/updatetransaksi','DatatransaksiController@updatetransaksi');
 Route::post('hitungsaldo/{id}','DatatransaksiController@hitungsaldo');
+Route::post('updatetunggakan/{id}','DatatransaksiController@updatetunggakan');
 Route::get('datatransaksi/report/{id}', 'DatatransaksiController@viewreport');
 Route::get('datatransaksi/reportthermal/{id}', 'DatatransaksiController@viewreportthermal');
 

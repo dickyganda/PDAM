@@ -18,7 +18,9 @@ function Index(){
     ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
     ->get();
 
-    	return view('/datatransaksi/index', ['datatransaksi' => $datatransaksi]);
+    	return view('/datatransaksi/index', 
+        ['datatransaksi' => $datatransaksi,
+    ]);
     }
 
     public function edittransaksi($id)
@@ -44,16 +46,6 @@ function Index(){
         'saldo' => $datasaldo->saldo - $request->pembayaran,
 	]);
 
-    // if(Date('Y-m-d') > $tgl_scan){
-
-    // }
-    // if($datasaldo->saaldo > 0){
-    //     DB::table('t_meter')->where('id',$request->id)->update([
-    //         'tunggakan' => $datasaldo->saldo,
-    //         'saldo' => $datasaldo->saldo - $datasaldo->saldo,
-    //     ]);
-    // }
-
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
     
 }
@@ -74,7 +66,6 @@ function viewreportthermal($id){
             $datatransaksi = DB::table('t_meter')
             ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
             ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-            // ->join('m_harga', 'm_harga.id_harga', '=', 't_meter.id_harga')
             ->where('id',$id)
             ->get();
         
@@ -86,7 +77,7 @@ public function hitungsaldo($id)
         
     $saldo = DB::table('t_meter')
     ->where('id', $id)
-    ->sum(DB::raw('tagihan + biaya_admin + biaya_perawatan + tunggakan'));
+    ->sum(DB::raw('tagihan + biaya_admin + biaya_perawatan'));
 
     // dd($saldo);
 
@@ -97,5 +88,23 @@ public function hitungsaldo($id)
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
     
     }
+
+    function updatetunggakan($id){
+    
+        $jumlah_tunggakan = T_Meter::select('id', 'saldo')
+        ->where('saldo', '>', '0')
+        ->where('id', $id)
+        ->whereMonth('tgl_scan', '<', date('m'))
+        ->first();
+        // dd($jumlah_tunggakan);
+    
+        DB::table('t_meter')->where('id',$id)->update([
+            'tunggakan' => $jumlah_tunggakan->saldo,
+            'saldo' => 0,
+        ]);
+    // dd($jumlah_tunggakan);
+    
+    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
+        }
 
 }

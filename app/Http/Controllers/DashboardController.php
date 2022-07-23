@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\M_Pelanggan;
 use App\Models\M_Class;
+use App\Models\T_Meter;
 use Session;
 
 class DashboardController extends Controller
@@ -22,7 +23,7 @@ function Index(){
 
     // menampilkan total tunggakan per pelanggan
     $total_saldo_pelanggan = DB::table('m_pelanggan')
-    ->where('total_saldo', '>', 1)
+    ->where('total_saldo', '>', 0)
     ->get();
     // dd($total_saldo_pelanggan);
 
@@ -65,6 +66,20 @@ function Index(){
             'data_class' => $data_class,
             'pengguna_kelas' => $pengguna_kelas,
             'pengguna_rt' => $pengguna_rt,
+        ]
+    );
+    }
+
+    function hitungtotalsaldo($id_pelanggan){
+        $total_saldo_tunggakan = T_Meter::selectRaw('id_pelanggan', 'sum(saldo) as total')
+        ->where('id_pelanggan', $id_pelanggan)
+        ->get()->total;
+
+        dd($total_saldo_tunggakan);
+
+        return view('/dashboard/index',
+        [
+            'total_saldo_tunggakan' => $total_saldo_tunggakan,
         ]
     );
     }

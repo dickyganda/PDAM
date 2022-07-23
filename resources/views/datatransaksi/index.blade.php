@@ -93,6 +93,8 @@
                                                         <td>
          <a href="#"onclick="hitungsaldo({{$transaksi->id}})" class="btn btn-success" role="button">Hitung Saldo</a>
 
+         <a href="#"onclick="updatetunggakan({{$transaksi->id}})" class="btn btn-success" role="button" id="update_tunggakan">Update Tunggakan</a>
+
 				<a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}" class="btn btn-warning" role="button">Edit</a>
 				
 				<a href="#" class="btn btn-danger" role="button">Hapus</a>
@@ -227,7 +229,45 @@ $(document).ready(function () {
      }
    })
    }
-   
 
+   function updatetunggakan(id){
+     
+     Swal.fire({
+     title: 'Are you sure?',
+     text: "You won't be able to revert this!",
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: '#d33',
+     confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+     if (result.isConfirmed) {
+       $.ajax({
+         type:'POST',
+         dataType: 'json',
+         url: '/updatetunggakan/' + id,
+         success:function(data){
+           Swal.fire(
+             'Sukses!',
+             data.reason,
+             'success'
+           ).then(() => {
+             location.reload();
+           });
+         }
+       });
+     }
+   })
+   }
+   
+const btn = document.getElementById('update_tunggakan');
+
+btn.addEventListener('click', () => {
+  // 👇️ hide button
+  btn.style.display = 'none';
+
+  // 👇️ show div
+
+});
 </script>
   @endpush

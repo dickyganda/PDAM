@@ -4,15 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Session;
 
 use App\Models\T_Meter;
+use App\Models\M_Pelanggan;
 use App\Models\M_User;
 use App\Models\M_User_Level;
 
 class ApiController extends Controller
 {
+
+    function getdatapelanggan(M_Pelanggan $datapelanggan){
+        $datapelanggan = DB::table('m_pelanggan')
+    ->join('m_class', 'm_class.id_class', '=', 'm_pelanggan.id_class')->get();
+
+    return response([
+        'status' => 'Ok',
+        'data' => $datapelanggan
+    ]);
+        }
+
     public function insertmeter(Request $request){
 
         $add = DB::table('t_meter')
@@ -24,23 +37,49 @@ class ApiController extends Controller
         ->where('id_class', $request->input('id_class'))
         ->first();
 
-        // $meterbulanlalu = T_Meter::select('stand_meter_bulan_ini')
-        // ->where('id_pelanggan', $request->id_pelanggan)
-        // ->get();
+        $meterbulanlalu = T_Meter::select('stand_meter_bulan_ini')
+        ->where('id_pelanggan', $request->id_pelanggan)
+        ->first();
 
         // dd($meterbulanlalu);
+
+        $isi_tunggakan = T_Meter::select('tunggakan')
+        ->where('id_pelanggan', $request->id_pelanggan)
+        ->first();
+
+        // dd($isi_tunggakan);
 
         $add = new T_Meter;
         $add->id = $request->input('id');
         $add->id_pelanggan = $request->input('id_pelanggan');
         $add->id_class = $request->input('id_class');
         $add->kode_pelanggan = $request->input('kode_pelanggan');
-        // $add->stand_meter_bulan_lalu = ($meterbulanlalu->stand_meter_bulan_ini);
-        $add->stand_meter_bulan_lalu = $request->input('stand_meter_bulan_lalu');
+        $add->stand_meter_bulan_lalu = ($meterbulanlalu->stand_meter_bulan_ini);
+        // $add->stand_meter_bulan_lalu = $request->input('stand_meter_bulan_lalu');
         $add->stand_meter_bulan_ini = $request->input('stand_meter_bulan_ini');
         $add->pemakaian = ($request->input('stand_meter_bulan_ini') - $request->input('stand_meter_bulan_lalu'));
         $add->tagihan = ($add->pemakaian * $dataclass->harga_class);
-        $add->link_image = $request->input('link_image');
+        $add->tunggakan = $request->input('tunggakan');
+        $add->tunggakan = ($isi_tunggakan->tunggakan);
+
+        //define validation rules
+        $validator = Validator::make($request->all(), [
+            'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $add->link_image = $request->file('link_image');
+        $add->storeAs('public/foto', $add->hashName());
+
+        //create post
+        $add = T_Meter::create([
+            'link_image' => $add->hashName(),
+        ]);
+
         $add->tgl_scan = Date('Y-m-d');
         $add->save();
         return response([
