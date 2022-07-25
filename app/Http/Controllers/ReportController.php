@@ -128,4 +128,20 @@ function filter_rt($id){
         ]);
             }
 
+            function printpreview($id){
+
+                $datapelanggan = DB::table('m_pelanggan')->get();
+    
+                $datatransaksi = DB::table('t_meter')->where('id',$id)
+                ->groupBy('rt')
+                ->get();
+                
+                // $dataclass = DB::table('m_class')->get();
+             
+                return view('/report/print_preview', 
+                ['datapelanggan' => $datapelanggan,
+                'datatransaksi' => $datatransaksi
+            ]);
+                }
+
 }

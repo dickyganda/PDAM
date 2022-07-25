@@ -61,7 +61,7 @@ Route::get('datatransaksi/reportthermal/{id}', 'DatatransaksiController@viewrepo
 
 Route::get('report/index', 'ReportController@index');
 Route::post('report/filter_rt','ReportController@filter_rt');
-
+Route::get('report/print_preview', 'ReportController@printpreview');
 Route::get('/token', function () {
     return csrf_token();
 });
