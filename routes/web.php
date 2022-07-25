@@ -33,6 +33,7 @@ Route::post('datamasterpelanggan/tambahpelanggan','DatamasterpelangganController
 Route::get('datamasterpelanggan/editpelanggan/{id_pelanggan}','DatamasterpelangganController@editpelanggan');
 Route::post('datamasterpelanggan/updatepelanggan','DatamasterpelangganController@updatepelanggan');
 Route::get('datamasterpelanggan/deletepelanggan/{id_pelanggan}','DatamasterpelangganController@deletepelanggan');
+Route::post('hitungtotalsaldo/{id_pelanggan}','DatatransaksiController@hitungsaldo');
 
 Route::get('datamasterharga/index', 'DatamasterhargaController@index');
 Route::post('datamasterharga/tambahharga','DatamasterhargaController@tambahharga');
@@ -57,6 +58,9 @@ Route::post('hitungsaldo/{id}','DatatransaksiController@hitungsaldo');
 Route::post('updatetunggakan/{id}','DatatransaksiController@updatetunggakan');
 Route::get('datatransaksi/report/{id}', 'DatatransaksiController@viewreport');
 Route::get('datatransaksi/reportthermal/{id}', 'DatatransaksiController@viewreportthermal');
+
+Route::get('report/index', 'ReportController@index');
+Route::post('report/filter_rt','ReportController@filter_rt');
 
 Route::get('/token', function () {
     return csrf_token();

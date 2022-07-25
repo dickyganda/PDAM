@@ -4,6 +4,11 @@
      Data Master Pelanggan
  @endsection
 
+@push('styles')
+    <style>
+    </style>
+@endpush
+
  @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -62,7 +67,7 @@
 
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody height="10px">
                                                     @php $i=1 @endphp
                                                 @foreach($datapelanggan as $pelanggan)
                                                     <tr>
@@ -80,11 +85,11 @@
                             
                                                         <td>
 
-<a href="#"onclick="hitungsaldototal({{$pelanggan->id_pelanggan}})" class="btn btn-success" role="button">Hitung Saldo</a>
+<a href="#"onclick="hitungtotalsaldo({{$pelanggan->id_pelanggan}})" class="btn btn-success btn-sm" role="button"><i class="fas fa-calculator"></i></a>
 
-				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning" role="button">Edit</a>
-				
-				<a href="#"onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" class="btn btn-danger" role="button" >Hapus</a>
+				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning btn-sm" role="button"><i class="fas fa-pen"></i></a>
+			
+				<a href="#"onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" class="btn btn-danger btn-sm" role="button" ><i class="fas fa-trash"></i></a>
 			</td>
                                                     </tr>
                                                     @endforeach
@@ -138,7 +143,12 @@
         <input type=radio name="status_pelanggan" value="0" {{ $pelanggan->status_pelanggan == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
     <div class="form-group">
-      <input type="text" name="rt" required="required" class="form-control form-control-sm" placeholder="RT">
+      <select id="rt" name="id_class" class="form-control select2" required>
+      <option></option>
+      @foreach ($datapelanggan as $pelanggan)
+      <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
+      @endforeach
+      </select>
     </div>
 
     <div class="form-group">
@@ -196,41 +206,21 @@ $.fn.dataTable.ext.search.push(
         return false;
     }
 );
-
-$(document).ready(function () {
-// Create date inputs
+ 
+$(document).ready(function() {
+    // Create date inputs
     minDate = new DateTime($('#min'), {
         format: 'MMMM Do YYYY'
     });
     maxDate = new DateTime($('#max'), {
         format: 'MMMM Do YYYY'
     });
-
+ 
+    // DataTables initialisation
     var table = $('#dt-basic-example').DataTable({
-        initComplete: function () {
-            this.api()
-                .columns()
-                .every(function () {
-                    var column = this;
-                    var select = $('<select><option value=""></option></select>')
-                        .appendTo($(column.footer()).empty())
-                        .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
- 
-                            column.search(val ? '^' + val + '$' : '', true, false).draw();
-                        });
- 
-                    column
-                        .data()
-                        .unique()
-                        .sort()
-                        .each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>');
-                        });
-                });
-        },
+      
     });
-
+ 
     // Refilter the table
     $('#min, #max').on('change', function () {
         table.draw();
@@ -295,5 +285,41 @@ $("#tambahpelanggan").submit(function(event){
       placeholder: "Pilih Kelas"
     });
   });
+
+  $(document).ready(function() {
+    $('#rt').select2({
+      placeholder: "Pilih RT"
+    });
+  });
+
+  function hitungtotalsaldo(id_pelanggan){
+     
+     Swal.fire({
+     title: 'Are you sure?',
+     text: "You won't be able to revert this!",
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: '#d33',
+     confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+     if (result.isConfirmed) {
+       $.ajax({
+         type:'POST',
+         dataType: 'json',
+         url: '/hitungtotalsaldo/' + id_pelanggan,
+         success:function(data){
+           Swal.fire(
+             'Sukses!',
+             data.reason,
+             'success'
+           ).then(() => {
+             location.reload();
+           });
+         }
+       });
+     }
+   })
+   }
 </script>
   @endpush

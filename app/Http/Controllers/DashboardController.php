@@ -70,18 +70,18 @@ function Index(){
     );
     }
 
-    function hitungtotalsaldo($id_pelanggan){
-        $total_saldo_tunggakan = T_Meter::selectRaw('id_pelanggan', 'sum(saldo) as total')
-        ->where('id_pelanggan', $id_pelanggan)
-        ->get()->total;
+    // function hitungtotalsaldo($id_pelanggan){
+    //     $total_saldo_tunggakan = T_Meter::selectRaw('id_pelanggan','saldo', 'sum(saldo) as total')
+    //     ->where('id_pelanggan', $id_pelanggan)
+    //     ->get()->total;
 
-        dd($total_saldo_tunggakan);
+    //     dd($total_saldo_tunggakan);
 
-        return view('/dashboard/index',
-        [
-            'total_saldo_tunggakan' => $total_saldo_tunggakan,
-        ]
-    );
-    }
+    //     return view('/dashboard/index',
+    //     [
+    //         'total_saldo_tunggakan' => $total_saldo_tunggakan,
+    //     ]
+    // );
+    // }
 
 }

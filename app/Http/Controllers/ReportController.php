@@ -8,7 +8,7 @@ use Session;
 
 use App\Models\T_Meter;
 
-class DatatransaksiController extends Controller
+class ReportController extends Controller
 {
     
 function Index(){
@@ -18,10 +18,13 @@ function Index(){
     ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
     ->get();
 
+    $datapelanggan = DB::table('m_pelanggan')->get();
+
     // dd($datatransaksi);
 
-    	return view('/datatransaksi/index', 
+    	return view('/report/index', 
         ['datatransaksi' => $datatransaksi,
+        'datapelanggan' => $datapelanggan,
     ]);
     }
 
@@ -108,5 +111,21 @@ public function hitungsaldo($id)
     
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
         }
+
+function filter_rt($id){
+
+            $datapelanggan = DB::table('m_pelanggan')->get();
+
+            $datatransaksi = DB::table('t_meter')->where('id',$id)
+            ->groupBy('rt')
+            ->get();
+            
+            // $dataclass = DB::table('m_class')->get();
+         
+            return view('/report/filter_rt', 
+            ['datapelanggan' => $datapelanggan,
+            'datatransaksi' => $datatransaksi
+        ]);
+            }
 
 }

@@ -149,7 +149,7 @@ function printpart () {
   printwin.close();
 }
 
-{{-- terbilang --}}
+{{-- terbilang
 function inputTerbilang() {
       //membuat inputan otomatis jadi mata uang
       $('.mata-uang').mask('0.000.000.000', {reverse: true});
@@ -159,6 +159,6 @@ function inputTerbilang() {
 
        //menampilkan hasil dari terbilang
        document.getElementById("terbilang-output").value = terbilang(input).replace(/  +/g, ' ');
-    }
+    } --}}
 </script>  
 </html>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Image;
 use Session;
 
 use App\Models\T_Meter;
@@ -59,26 +60,14 @@ class ApiController extends Controller
         $add->stand_meter_bulan_ini = $request->input('stand_meter_bulan_ini');
         $add->pemakaian = ($request->input('stand_meter_bulan_ini') - $request->input('stand_meter_bulan_lalu'));
         $add->tagihan = ($add->pemakaian * $dataclass->harga_class);
-        $add->tunggakan = $request->input('tunggakan');
+        // $add->tunggakan = $request->input('tunggakan');
         $add->tunggakan = ($isi_tunggakan->tunggakan);
-
-        //define validation rules
-        $validator = Validator::make($request->all(), [
-            'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        //check if validation fails
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        if($request->hasFile("link_image")){
+            $img = $request -> link_image;
+            $img_name = time().'-'.$img->getClientOriginalName();
+            Image::make($img)->save(storage_path("/app/public/".$img_name));
+            $add->link_image = $img_name;
         }
-
-        $add->link_image = $request->file('link_image');
-        $add->storeAs('public/foto', $add->hashName());
-
-        //create post
-        $add = T_Meter::create([
-            'link_image' => $add->hashName(),
-        ]);
 
         $add->tgl_scan = Date('Y-m-d');
         $add->save();

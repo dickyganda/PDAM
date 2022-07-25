@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-     Data Transaksi
+     Report
  @endsection
 
  @section('content')
@@ -9,14 +9,14 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Data Transaksi</h1>
+          <h1 class="m-0">Report</h1>
         </div><!-- /.col -->
-        <div class="col-sm-6">
+        {{-- <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active">Starter Page</li>
           </ol>
-        </div><!-- /.col -->
+        </div><!-- /.col --> --}}
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
@@ -36,24 +36,47 @@
 
              <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
-            <td>Minimum date:</td>
-            <td><input type="text" id="min" name="min"></td>
+            <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
+            <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
         </tr>
-        <tr>
-            <td>Maximum date:</td>
+        {{-- <tr>
             <td><input type="text" id="max" name="max"></td>
-        </tr>
+        </tr> --}}
     </tbody></table>
 
              {{-- endfilter --}}
 				{{-- <a href="#" class="btn btn-success" role="button">Hitung Saldo</a> --}}
 				{{-- <a href="#" class="btn btn-success" role="button">Cetak</a> --}}
+{{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()"/> --}}
+<button onclick="fnExcelReport('dt-basic-example')">Export Table Data To Excel File</button>
+<a href="https://wa.me/628586706926?text=tes pdf" class="btn btn-success btn-sm" role="button"><i class="fab fa-whatsapp"></i></a>
+
+<div class="form-group">
+<table>
+<tr>
+<td>
+      <select id="class" name="id_class" class="form-control select2" required>
+      <option></option>
+      @foreach ($datapelanggan as $pelanggan)
+      <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
+      @endforeach
+      </select>
+      </td>
+      </tr>
+    
+</table>
+<input type="button" class="hidden-print" value="Filter" onclick="printpart()"/>
+    </div>
+    
+<div id="cetak">
 
                                                 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
+                                                <div id="cetak">
                                                 <thead class="bg-warning-200">
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Kode Pelanggan</th></th>
+                                                        <th>Kode Pelanggan</th>
+                                                        <th>RT</th>
                                                         <th>Stand Meter Bulan Lalu</th>
                                                         <th>Stand Meter Bulan Ini</th>
                                                         <th>Pemakaian</th>
@@ -67,7 +90,7 @@
                                                         <th>Status</th>
                                                         <th>Tgl Scan</th>
                                                         <th>Otorisasi</th>
-                                                        <th>Aksi</th>
+                                                        {{-- <th>Aksi</th> --}}
                                                     </tr>
                                                     
                                                 </thead>
@@ -77,6 +100,7 @@
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $transaksi->kode_pelanggan }}</td>
+                                                        <td>{{ $transaksi->rt }}</td>
                                                         <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                                         <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
                                                         <td>{{ $transaksi->pemakaian = $transaksi->stand_meter_bulan_ini - $transaksi->stand_meter_bulan_lalu }}</td> 
@@ -90,26 +114,15 @@
                                                         <td>{{ $transaksi->status }}</td>
                                                         <td>{{ $transaksi->tgl_scan }}</td>
                                                         <td>{{ $transaksi->otorisasi }}</td>
-                                                        <td>
-         <a href="#"onclick="hitungsaldo({{$transaksi->id}})" class="btn btn-success" role="button">Hitung Saldo</a>
 
-         <a href="#"onclick="updatetunggakan({{$transaksi->id}})" class="btn btn-success" role="button" id="update_tunggakan">Update Tunggakan</a>
-
-				<a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}" class="btn btn-warning" role="button">Edit</a>
-				
-				<a href="#" class="btn btn-danger" role="button">Hapus</a>
-
-        <a href="/datatransaksi/report/{{ $transaksi->id }}" class="btn btn-success" role="button">Cetak</a>
-
-        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}" class="btn btn-success" role="button">Cetak Thermal</a>
-			</td>
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Kode Pelanggan</th></th>
+                                                        <th>Kode Pelanggan</th>
+                                                        <th>RT</th>
                                                         <th>Stand Meter Bulan Lalu</th>
                                                         <th>Stand Meter Bulan Ini</th>
                                                         <th>Pemakaian</th>
@@ -123,11 +136,11 @@
                                                         <th>Status</th>
                                                         <th>Tgl Scan</th>
                                                         <th>Otorisasi</th>
-                                                        <th>Aksi</th>
+                                                        {{-- <th>Aksi</th> --}}
                                                     </tr>
                                                 </tfoot>
                                             </table>
-                                            
+                                            </div>
             </div>
 
         <!-- /.col-md-6 -->
@@ -147,7 +160,7 @@ $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = minDate.val();
         var max = maxDate.val();
-        var date = new Date( data[13] );
+        var date = new Date( data[14] );
  
         if (
             ( min === null && max === null ) ||
@@ -164,10 +177,10 @@ $.fn.dataTable.ext.search.push(
 $(document).ready(function () {
 // Create date inputs
     minDate = new DateTime($('#min'), {
-        format: 'MMMM Do YYYY'
+        format: 'DD-MM-YYYY'
     });
     maxDate = new DateTime($('#max'), {
-        format: 'MMMM Do YYYY'
+        format: 'DD-MM-YYYY'
     });
 
     var table = $('#dt-basic-example').DataTable({
@@ -270,5 +283,53 @@ btn.addEventListener('click', () => {
   // 👇️ show div
 
 });
+
+function printpart () {
+  var printwin = window.open("");
+  printwin.document.write(document.getElementById("cetak").innerHTML);
+  printwin.stop();
+  printwin.print();
+  printwin.close();
+}
+
+function fnExcelReport()
+{
+    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+    var textRange; var j=0;
+    tab = document.getElementById('dt-basic-example'); // id of table
+
+    for(j = 0 ; j < tab.rows.length ; j++) 
+    {     
+        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+        //tab_text=tab_text+"</tr>";
+    }
+
+    tab_text=tab_text+"</table>";
+    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE "); 
+
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+    {
+        txtArea1.document.open("txt/html","replace");
+        txtArea1.document.write(tab_text);
+        txtArea1.document.close();
+        txtArea1.focus(); 
+        sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+    }  
+    else                 //other browser not tested on IE 11
+        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+    return (sa);
+}
+
+$(document).ready(function() {
+    $('#rt').select2({
+      placeholder: "Pilih RT"
+    });
+  });
 </script>
   @endpush

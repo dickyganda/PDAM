@@ -181,7 +181,6 @@
                                                         <td>{{ $tsp->nama }}</td>
                                                         <td>{{ $tsp->rt }}</td>
                                                         <td>{{ $tsp->total_saldo }}</td>
-                            
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
@@ -254,7 +253,7 @@ const myChart_2 = new Chart(ctx_2, {
         labels: <?php echo json_encode($data_class); ?>,
         datasets: [{
             label: '# of Votes',
-            data: <?php echo json_encode($pengguna_kelas); ?>,
+            data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

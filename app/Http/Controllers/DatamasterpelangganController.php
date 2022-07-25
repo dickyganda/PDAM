@@ -8,6 +8,7 @@ use Session;
 
 use App\Models\M_Pelanggan;
 use App\Models\M_Class;
+use App\Models\T_Meter;
 
 class DatamasterpelangganController extends Controller
 {
@@ -71,6 +72,26 @@ public function deletepelanggan($id_pelanggan)
 	DB::table('m_pelanggan')->where('id_pelanggan',$id_pelanggan)->delete();
 		
 	return response()->json(array('status'=> 'success', 'reason' => 'Sukses Hapus Data'));
+}
+
+function hitungtotalsaldo(Request $request){
+    $total_saldo = DB::table('t_meter')
+    ->where('id', $request->id_pelanggan)
+    ->sum(DB::raw('tunggakan'))
+    ->groupBy('id_pelanggan');
+
+    dd($total_saldo);
+
+    $total_saldo = DB::table('m_pelanggan')
+    ->where('id_pelanggan', $request->id_pelanggan)
+    ->update(['total_saldo'=>$total_saldo]);
+
+    // dd($total_saldo);
+    return view('/dashboard/index',
+    [
+        'total_saldo' => $total_saldo,
+    ]
+);
 }
 
 }
