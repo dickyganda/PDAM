@@ -36,13 +36,12 @@
 
              <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
-            <td>Minimum date:</td>
-            <td><input type="text" id="min" name="min"></td>
+            <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
+            <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
         </tr>
-        <tr>
-            <td>Maximum date:</td>
+        {{-- <tr>
             <td><input type="text" id="max" name="max"></td>
-        </tr>
+        </tr> --}}
     </tbody></table>
 
              {{-- endfilter --}}
@@ -86,22 +85,20 @@
                                                         <td>{{ $transaksi->tunggakan }}</td>
                                                         <td>{{ $transaksi->saldo }}</td>
                                                         <td>{{ $transaksi->pembayaran }}</td>
-                                                        <td><img src= "/storage/app/public/{{ $transaksi->link_image }}" > </td>
+                                                        <td><img src= "{{url('storage/'.$transaksi->link_image)}}" width="100px" height="100px" > </td>
                                                         <td>{{ $transaksi->status }}</td>
                                                         <td>{{ $transaksi->tgl_scan }}</td>
                                                         <td>{{ $transaksi->otorisasi }}</td>
                                                         <td>
-         <a href="#"onclick="hitungsaldo({{$transaksi->id}})" class="btn btn-success" role="button">Hitung Saldo</a>
+         <a href="#"onclick="hitungsaldo({{$transaksi->id}})" class="btn btn-success" role="button"><i class="fas fa-calculator"></i> Hitung Saldo</a>
 
          <a href="#"onclick="updatetunggakan({{$transaksi->id}})" class="btn btn-success" role="button" id="update_tunggakan">Update Tunggakan</a>
 
-				<a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}" class="btn btn-warning" role="button">Edit</a>
-				
-				<a href="#" class="btn btn-danger" role="button">Hapus</a>
+				<a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}" class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
 
-        <a href="/datatransaksi/report/{{ $transaksi->id }}" class="btn btn-success" role="button">Cetak</a>
+        <a href="/datatransaksi/report/{{ $transaksi->id }}" class="btn btn-success" role="button"><i class="fas fa-print"></i> Cetak</a>
 
-        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}" class="btn btn-success" role="button">Cetak Thermal</a>
+        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}" class="btn btn-success" role="button"><i class="fas fa-print"></i> Cetak Thermal</a>
 			</td>
                                                     </tr>
                                                     @endforeach
@@ -164,10 +161,10 @@ $.fn.dataTable.ext.search.push(
 $(document).ready(function () {
 // Create date inputs
     minDate = new DateTime($('#min'), {
-        format: 'MMMM Do YYYY'
+        format: 'DD-MM-YYYY'
     });
     maxDate = new DateTime($('#max'), {
-        format: 'MMMM Do YYYY'
+        format: 'DD-MM-YYYY'
     });
 
     var table = $('#dt-basic-example').DataTable({

@@ -46,7 +46,9 @@
         <input type=radio name="status_class" value="0" {{ $class->status_class == '0' ? 'checked' : ''}}>Tidak Aktif</option>
         <br />
 
-        <button class="btn btn-primary" type="submit">Simpan</button>
+        <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
+        <a href="/datamasterclass/index" class="btn btn-warning btn-sm" role="button"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
+
     </form>
     @endforeach
     

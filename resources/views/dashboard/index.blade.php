@@ -150,8 +150,8 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Daftar Tunggakan Pelanggan
+                  <i class="fas fa-table"></i>
+                  Daftar Tunggakan Per RT
                 </h3>
                 <div class="card-tools">
                   
@@ -166,23 +166,19 @@
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Kode Pelanggan</th></th>
-                                                        <th>Nama</th>
                                                         <th>RT</th>
                                                         <th>Total Saldo</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @php $i=1 @endphp
-                                                @foreach($total_saldo_pelanggan as $tsp)
+                                                {{-- @foreach($total_saldo_rt as $saldo_rt)
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
-                                                        <td>{{ $tsp->kode_pelanggan}}</td>
-                                                        <td>{{ $tsp->nama }}</td>
-                                                        <td>{{ $tsp->rt }}</td>
-                                                        <td>{{ $tsp->total_saldo }}</td>
-                                                    </tr>
-                                                    @endforeach
+                                                        <td>{{ $saldo_rt->rt}}</td> --}}
+                                                        {{-- <td>{{ $saldo_rt->total_saldo_rt }}</td> --}}
+                                                    {{-- </tr>
+                                                    @endforeach --}}
                                                 </tbody>
                                             </table>
                    </div>

@@ -40,13 +40,12 @@
              {{-- filter --}}
              <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
-            <td>Minimum date:</td>
-            <td><input type="text" id="min" name="min"></td>
+            <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
+            <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
         </tr>
-        <tr>
-            <td>Maximum date:</td>
+        {{-- <tr>
             <td><input type="text" id="max" name="max"></td>
-        </tr>
+        </tr> --}}
     </tbody></table>
              {{-- endfilter --}}
               <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
@@ -85,11 +84,9 @@
                             
                                                         <td>
 
-<a href="#"onclick="hitungtotalsaldo({{$pelanggan->id_pelanggan}})" class="btn btn-success btn-sm" role="button"><i class="fas fa-calculator"></i></a>
-
-				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning btn-sm" role="button"><i class="fas fa-pen"></i></a>
+				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning btn-sm" role="button"><i class="fas fa-pen"></i> Edit</a>
 			
-				<a href="#"onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" class="btn btn-danger btn-sm" role="button" ><i class="fas fa-trash"></i></a>
+				<a href="#"onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" class="btn btn-danger btn-sm" role="button" ><i class="fas fa-trash"></i> Hapus</a>
 			</td>
                                                     </tr>
                                                     @endforeach
@@ -193,7 +190,7 @@ $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = minDate.val();
         var max = maxDate.val();
-        var date = new Date( data[5] );
+        var date = new Date( data[5,6] );
  
         if (
             ( min === null && max === null ) ||
@@ -210,10 +207,10 @@ $.fn.dataTable.ext.search.push(
 $(document).ready(function() {
     // Create date inputs
     minDate = new DateTime($('#min'), {
-        format: 'MMMM Do YYYY'
+        format: 'DD-MM-YYYY'
     });
     maxDate = new DateTime($('#max'), {
-        format: 'MMMM Do YYYY'
+        format: 'DD-MM-YYYY'
     });
  
     // DataTables initialisation

@@ -50,7 +50,8 @@
         <label for="tidakaktif">Tidak Aktif</label>
         <br />
 
-        <button class="btn btn-primary" type="submit">Simpan</button>
+        <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
+        <a href="/datamasterpelanggan/index" class="btn btn-warning btn-sm" role="button"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
     </form>
     @endforeach
     

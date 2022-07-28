@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {{-- untuk security laravel --}}
   <meta name="csrf-token" content="{{ csrf_token() }}"> 
-  <title>AdminLTE 3 | @yield('title')</title>
+  <title>BP SPAM TIRTA SUMARI | @yield('title')</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -82,6 +82,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script type="text/javascript" src="{{ asset('assets/js/sweetalert2.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/chart.js') }}"></script>
+<script src="{{ asset('assets/js/jspdf.umd.min.js') }}"></script>
+<script src="{{ asset('assets/js/jspdf.debug.js') }}"></script>
 
 <script>
     $.ajaxSetup({

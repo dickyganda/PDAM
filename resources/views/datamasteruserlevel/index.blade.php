@@ -53,9 +53,9 @@
                                                         <td>{{ $userlevel->akses_web }}</td>
                                                         <td>{{ $userlevel->akses_mobile }}</td>
                                                         <td>
-				<a href="" class="btn btn-warning" role="button">Edit</a>
+				<a href="" class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
 				
-				<a href="#" class="btn btn-danger" role="button">Hapus</a>
+				<a href="#" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Hapus</a>
 			</td>
                                                         
                                                     </tr>

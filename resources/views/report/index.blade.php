@@ -48,8 +48,11 @@
 				{{-- <a href="#" class="btn btn-success" role="button">Hitung Saldo</a> --}}
 				{{-- <a href="#" class="btn btn-success" role="button">Cetak</a> --}}
 {{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()"/> --}}
-<button onclick="fnExcelReport('dt-basic-example')">Export Table Data To Excel File</button>
-<a href="https://wa.me/628586706926?text=tes pdf" class="btn btn-success btn-sm" role="button"><i class="fab fa-whatsapp"></i></a>
+<button onclick="fnExcelReport('dt-basic-example')" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Excel</button>
+{{-- <a href="#"onclick="('dt-basic-example')" class="btn btn-success btn-sm" role="button"><i class="fas fa-file-pdf"></i></a> --}}
+<a href="javascript:generatePDF()" role="button" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</a>
+{{-- <button onclick="generatePDF()"><i class="fas fa-file-pdf"></i></button> --}}
+<a href="https://wa.me/6285866706926" class="btn btn-success btn-sm" role="button"><i class="fab fa-whatsapp"></i></a>
 
 <div class="form-group">
 <table>
@@ -110,7 +113,7 @@
                                                         <td>{{ $transaksi->tunggakan }}</td>
                                                         <td>{{ $transaksi->saldo }}</td>
                                                         <td>{{ $transaksi->pembayaran }}</td>
-                                                        <td><img src= "/storage/app/public/{{ $transaksi->link_image }}" > </td>
+                                                        <td><img src= "{{url('storage/'.$transaksi->link_image)}}" width="100px" height="100px" > </td>
                                                         <td>{{ $transaksi->status }}</td>
                                                         <td>{{ $transaksi->tgl_scan }}</td>
                                                         <td>{{ $transaksi->otorisasi }}</td>
@@ -214,76 +217,6 @@ $(document).ready(function () {
     });
 });
 
-   function hitungsaldo(id){
-     
-     Swal.fire({
-     title: 'Are you sure?',
-     text: "You won't be able to revert this!",
-     icon: 'warning',
-     showCancelButton: true,
-     confirmButtonColor: '#3085d6',
-     cancelButtonColor: '#d33',
-     confirmButtonText: 'Yes, delete it!'
-   }).then((result) => {
-     if (result.isConfirmed) {
-       $.ajax({
-         type:'POST',
-         dataType: 'json',
-         url: '/hitungsaldo/' + id,
-         success:function(data){
-           Swal.fire(
-             'Sukses!',
-             data.reason,
-             'success'
-           ).then(() => {
-             location.reload();
-           });
-         }
-       });
-     }
-   })
-   }
-
-   function updatetunggakan(id){
-     
-     Swal.fire({
-     title: 'Are you sure?',
-     text: "You won't be able to revert this!",
-     icon: 'warning',
-     showCancelButton: true,
-     confirmButtonColor: '#3085d6',
-     cancelButtonColor: '#d33',
-     confirmButtonText: 'Yes, delete it!'
-   }).then((result) => {
-     if (result.isConfirmed) {
-       $.ajax({
-         type:'POST',
-         dataType: 'json',
-         url: '/updatetunggakan/' + id,
-         success:function(data){
-           Swal.fire(
-             'Sukses!',
-             data.reason,
-             'success'
-           ).then(() => {
-             location.reload();
-           });
-         }
-       });
-     }
-   })
-   }
-   
-const btn = document.getElementById('update_tunggakan');
-
-btn.addEventListener('click', () => {
-  // 👇️ hide button
-  btn.style.display = 'none';
-
-  // 👇️ show div
-
-});
-
 function printpart () {
   var printwin = window.open("");
   printwin.document.write(document.getElementById("cetak").innerHTML);
@@ -331,5 +264,19 @@ $(document).ready(function() {
       placeholder: "Pilih RT"
     });
   });
+
+function generatePDF() {
+ var doc = new jsPDF();  //create jsPDF object
+  doc.fromHTML(document.getElementById("dt-basic-example"), // page element which you want to print as PDF
+  15,
+  15, 
+  {
+    'width': 170  //set width
+  },
+  function(a) 
+   {
+    doc.save("Report.pdf"); // save file name as HTML2PDF.pdf
+  });
+}
 </script>
   @endpush

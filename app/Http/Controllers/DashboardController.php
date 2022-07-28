@@ -19,20 +19,21 @@ function Index(){
     $jumlah_pelanggan = M_Pelanggan::selectRaw('count(*) as total')->first()->total;
     
     // menghitung jumlah total tunggakan
-    $total_saldo_tunggakan = M_Pelanggan::selectRaw('sum(total_saldo) as total')->first()->total;
+    $total_saldo_tunggakan = T_Meter::selectRaw('sum(saldo) as total')->first()->total;
 
-    // menampilkan total tunggakan per pelanggan
-    $total_saldo_pelanggan = DB::table('m_pelanggan')
-    ->where('total_saldo', '>', 0)
-    ->get();
-    // dd($total_saldo_pelanggan);
+    // menampilkan total tunggakan per rt
+    $total_saldo_rt = T_Meter::selectRaw('sum(t_meter.saldo) as total')
+    ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
+    ->groupBy('m_pelanggan.rt')
+    ->first();
+    // dd($total_saldo_rt);
 
     // mengambil nama rt untuk chart
-    $data = M_Pelanggan::select('rt')
+    $datapelanggan = M_Pelanggan::select('rt')
     ->groupBy('rt')
     ->get();
 
-        foreach ($data as $key) {
+        foreach ($datapelanggan as $key) {
             $data_pelanggan[] = $key->rt;
         }
 
@@ -61,7 +62,7 @@ function Index(){
         [
             'jumlah_pelanggan' => $jumlah_pelanggan,
             'total_saldo_tunggakan' => $total_saldo_tunggakan,
-            'total_saldo_pelanggan' => $total_saldo_pelanggan,
+            'total_saldo_rt' => $total_saldo_rt,
             'data_pelanggan' => $data_pelanggan,
             'data_class' => $data_class,
             'pengguna_kelas' => $pengguna_kelas,
@@ -69,19 +70,5 @@ function Index(){
         ]
     );
     }
-
-    // function hitungtotalsaldo($id_pelanggan){
-    //     $total_saldo_tunggakan = T_Meter::selectRaw('id_pelanggan','saldo', 'sum(saldo) as total')
-    //     ->where('id_pelanggan', $id_pelanggan)
-    //     ->get()->total;
-
-    //     dd($total_saldo_tunggakan);
-
-    //     return view('/dashboard/index',
-    //     [
-    //         'total_saldo_tunggakan' => $total_saldo_tunggakan,
-    //     ]
-    // );
-    // }
 
 }

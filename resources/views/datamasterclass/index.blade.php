@@ -35,13 +35,12 @@
              {{-- filter --}}
              <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
-            <td>Minimum date:</td>
-            <td><input type="text" id="min" name="min"></td>
+            <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
+            <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
         </tr>
-        <tr>
-            <td>Maximum date:</td>
+        {{-- <tr>
             <td><input type="text" id="max" name="max"></td>
-        </tr>
+        </tr> --}}
     </tbody></table>
              {{-- endfilter --}}
 
@@ -68,9 +67,9 @@
                                                         <td>{{ $class->tgl_add_class }}</td>
                                                         <td>{{ $class->tgl_edit_class }}</td>
                                                         <td>
-								<a href="/datamasterclass/editclass/{{ $class->id_class }}" class="btn btn-warning" role="button">Edit</a>
+								<a href="/datamasterclass/editclass/{{ $class->id_class }}" class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
 				
-				<a href="#" class="btn btn-danger" role="button">Hapus</a>
+				<a href="#" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Hapus</a>
 			</td>
                                                     </tr>
                                                     @endforeach

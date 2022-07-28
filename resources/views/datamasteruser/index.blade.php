@@ -35,13 +35,12 @@
              {{-- filter --}}
              <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
-            <td>Minimum date:</td>
-            <td><input type="text" id="min" name="min"></td>
+            <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
+            <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
         </tr>
-        <tr>
-            <td>Maximum date:</td>
+        {{-- <tr>
             <td><input type="text" id="max" name="max"></td>
-        </tr>
+        </tr> --}}
     </tbody></table>
              {{-- endfilter --}}
                                               <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
@@ -75,9 +74,9 @@
                                                         <td>{{ $user->tgl_daftar }}</td>
                                                         <td>{{ $user->tgl_password }}</td>
                                                         <td>
-				<a href="" class="btn btn-warning" role="button">Edit</a>
+				{{-- <a href="" class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a> --}}
 				
-				<a href="" class="btn btn-danger" role="button">Hapus</a>
+				<a href="" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Hapus</a>
 			</td>
                                                     </tr>
                                                     @endforeach

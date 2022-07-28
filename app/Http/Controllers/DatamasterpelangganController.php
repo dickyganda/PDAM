@@ -80,7 +80,7 @@ function hitungtotalsaldo(Request $request){
     ->sum(DB::raw('tunggakan'))
     ->groupBy('id_pelanggan');
 
-    dd($total_saldo);
+    // dd($total_saldo);
 
     $total_saldo = DB::table('m_pelanggan')
     ->where('id_pelanggan', $request->id_pelanggan)

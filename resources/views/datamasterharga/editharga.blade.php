@@ -42,7 +42,9 @@
         <input type=radio name="status_harga" value="0" {{ $harga->status_harga == '0' ? 'checked' : ''}}>Tidak Aktif</option>
         <br />
 
-        <button class="btn btn-primary" type="submit">Simpan</button>
+        <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
+        <a href="/datamasterharga/index" class="btn btn-warning btn-sm" role="button"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
+
     </form>
     @endforeach
     
