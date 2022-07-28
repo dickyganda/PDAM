@@ -36,7 +36,7 @@
                with font-awesome or any other icon font library -->
                <li class="nav-item">
             <a href="/dashboard/index" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
                 {{-- <span class="right badge badge-danger">New</span> --}}
@@ -45,7 +45,7 @@
           </li>
           <li class="nav-item">
             <a href="/datatransaksi/index" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-file-alt"></i>
               <p>
                 Data Transaksi
               </p>
@@ -53,7 +53,7 @@
           </li>
           <li class="nav-item">
             <a href="/report/index" class="nav-link">
-              <i class="nav-icon fas fa-credit-card"></i>
+              <i class="nav-icon fas fa-money-check-alt"></i>
               <p>
                 Report
               </p>
