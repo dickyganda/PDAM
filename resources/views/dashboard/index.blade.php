@@ -172,13 +172,13 @@
                                                 </thead>
                                                 <tbody>
                                                     @php $i=1 @endphp
-                                                {{-- @foreach($total_saldo_rt as $saldo_rt)
+                                                @foreach($total_saldo_rt as $saldo_rt)
                                                     <tr>
-                                                        <td>{{ $i++ }}</td>
-                                                        <td>{{ $saldo_rt->rt}}</td> --}}
-                                                        {{-- <td>{{ $saldo_rt->total_saldo_rt }}</td> --}}
-                                                    {{-- </tr>
-                                                    @endforeach --}}
+                                                        {{-- <td>{{ $i++ }}</td>
+                                                        <td>{{ $saldo_rt->rt}}</td>
+                                                        <td>{{ $saldo_rt->total_saldo_rt }}</td> --}}
+                                                    </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                    </div>

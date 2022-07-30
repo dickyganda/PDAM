@@ -51,7 +51,7 @@
   </style>
 </head>
 
-<body>
+<body id="div1">
 
 
   <section class="top">
@@ -60,7 +60,7 @@
 
 @foreach($datatransaksi as $transaksi)
 
-<div id="div1">
+<div>
   
   <tr id="header">
     <td colspan="7">
@@ -134,8 +134,9 @@
   </tr>
 </table>
 </div>
-<input type="button" class="hidden-print" value="Print" onclick="printpart()"/>
+{{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()"/> --}}
 @endforeach
+<input type="button" class="hidden-print" value="Print" onclick="printpart()"/>
 
 
 </body>

@@ -22,10 +22,19 @@ function Index(){
     $total_saldo_tunggakan = T_Meter::selectRaw('sum(saldo) as total')->first()->total;
 
     // menampilkan total tunggakan per rt
-    $total_saldo_rt = T_Meter::selectRaw('sum(t_meter.saldo) as total')
+    $total_saldo_rt = DB::table('t_meter')
     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-    ->groupBy('m_pelanggan.rt')
+    ->select('saldo','rt', DB::raw('sum(saldo) as total'))
     ->first();
+    // dd($total_saldo_rt);
+    // $total_saldo_rt = T_Meter::selectRaw('sum(saldo) as total')
+    // ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
+    // ->groupBy('rt')
+    // ->first();
+    $pengguna_kelas = DB::table('m_pelanggan')
+        ->select('id_class', DB::raw('count(*) as total'))
+        ->groupBy('id_class')
+        ->get();
     // dd($total_saldo_rt);
 
     // mengambil nama rt untuk chart

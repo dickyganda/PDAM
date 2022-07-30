@@ -81,7 +81,7 @@ public function hitungsaldo($id)
     ->where('id', $id)
     ->sum(DB::raw('tagihan + biaya_admin + biaya_perawatan + tunggakan'));
 $saldo =intval($saldo);
-    // dd($saldo);
+    dd($saldo);
 
     $saldo = DB::table('t_meter')
     ->where('id', $id)

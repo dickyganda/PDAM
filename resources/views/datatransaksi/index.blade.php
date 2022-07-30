@@ -52,7 +52,8 @@
                                                 <thead class="bg-warning-200">
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Kode Pelanggan</th></th>
+                                                        <th>Kode Pelanggan</th>
+                                                        <th>Nama</th>
                                                         <th>Stand Meter Bulan Lalu</th>
                                                         <th>Stand Meter Bulan Ini</th>
                                                         <th>Pemakaian</th>
@@ -76,6 +77,7 @@
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $transaksi->kode_pelanggan }}</td>
+                                                        <td>{{ $transaksi->nama }}</td>
                                                         <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                                         <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
                                                         <td>{{ $transaksi->pemakaian = $transaksi->stand_meter_bulan_ini - $transaksi->stand_meter_bulan_lalu }}</td> 
@@ -144,7 +146,7 @@ $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = minDate.val();
         var max = maxDate.val();
-        var date = new Date( data[13] );
+        var date = new Date( data[14] );
  
         if (
             ( min === null && max === null ) ||
