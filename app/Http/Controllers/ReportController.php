@@ -18,7 +18,9 @@ function Index(){
     ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
     ->get();
 
-    $datapelanggan = DB::table('m_pelanggan')->get();
+    $datapelanggan = DB::table('m_pelanggan')
+    ->groupBy('rt')
+    ->get();
 
     // dd($datatransaksi);
 
@@ -55,28 +57,6 @@ function Index(){
     
 }
 
-function viewreport($id){
-
-        $datatransaksi = DB::table('t_meter')
-        ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-        ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-        ->where('id',$id)
-        ->get();
-    
-            return view('/cetak/print', ['datatransaksi' => $datatransaksi]);
-        }
-
-function viewreportthermal($id){
-
-            $datatransaksi = DB::table('t_meter')
-            ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-            ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-            ->where('id',$id)
-            ->get();
-        
-                return view('/cetak/printthermal', ['datatransaksi' => $datatransaksi]);
-            }
-
 public function hitungsaldo($id)
     {
         
@@ -112,35 +92,33 @@ public function hitungsaldo($id)
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
         }
 
-function filter_rt($id){
+            function printpreview(Request $request){
 
-            $datapelanggan = DB::table('m_pelanggan')->get();
+                $filter_min= $request->get('filterdatemin');
+                $filter_max= $request->get('filterdatemax');
+                $filter_rt= $request->get('filter_rt');
+                // dd($filter_rt);
+                $timestamp = strtotime($filter_min);
+                $filter_min = date("Y-m-d", $timestamp);
+                $timestamp = strtotime($filter_max);
+   
+  // Create the new format from the timestamp
+  
+  $filter_max = date("Y-m-d", $timestamp);
 
-            $datatransaksi = DB::table('t_meter')->where('id',$id)
-            ->groupBy('rt')
-            ->get();
-            
-            // $dataclass = DB::table('m_class')->get();
-         
-            return view('/report/filter_rt', 
-            ['datapelanggan' => $datapelanggan,
-            'datatransaksi' => $datatransaksi
-        ]);
-            }
+    $datatransaksi = DB::table('t_meter')
+    ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
+    ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
+    ->where('tgl_scan', '<=', $filter_max)
+    ->where('tgl_scan', '>=', $filter_min)
+    ->get();
+    // dd($filter_min);
 
-            function printpreview($id){
-
-                $datapelanggan = DB::table('m_pelanggan')->get();
-    
-                $datatransaksi = DB::table('t_meter')->where('id',$id)
-                ->groupBy('rt')
-                ->get();
-                
-                // $dataclass = DB::table('m_class')->get();
              
                 return view('/report/print_preview', 
-                ['datapelanggan' => $datapelanggan,
-                'datatransaksi' => $datatransaksi
+                [
+                'datatransaksi' => $datatransaksi,
+               
             ]);
                 }
 

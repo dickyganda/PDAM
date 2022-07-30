@@ -36,8 +36,8 @@
 
              <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
-            <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
-            <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
+            {{-- <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
+            <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td> --}}
         </tr>
         {{-- <tr>
             <td><input type="text" id="max" name="max"></td>
@@ -92,7 +92,7 @@
                                                         <td>
          <a href="#"onclick="hitungsaldo({{$transaksi->id}})" class="btn btn-success" role="button"><i class="fas fa-calculator"></i> Hitung Saldo</a>
 
-         <a href="#"onclick="updatetunggakan({{$transaksi->id}})" class="btn btn-success" role="button" id="update_tunggakan">Update Tunggakan</a>
+         {{-- <a href="#"onclick="updatetunggakan({{$transaksi->id}})" class="btn btn-success" role="button" id="update_tunggakan">Update Tunggakan</a> --}}
 
 				<a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}" class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
 

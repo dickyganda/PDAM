@@ -54,11 +54,15 @@
 {{-- <button onclick="generatePDF()"><i class="fas fa-file-pdf"></i></button> --}}
 <a href="https://wa.me/6285866706926" class="btn btn-success btn-sm" role="button"><i class="fab fa-whatsapp"></i></a>
 
+<button onclick="printpreview()" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Preview</button>
+{{-- <a href="/report/print_preview" role="button" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Preview</a> --}}
+
+
 <div class="form-group">
 <table>
 <tr>
 <td>
-      <select id="class" name="id_class" class="form-control select2" required>
+      <select id="rt" name="id_class" class="form-control select2" required>
       <option></option>
       @foreach ($datapelanggan as $pelanggan)
       <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
@@ -68,7 +72,7 @@
       </tr>
     
 </table>
-<input type="button" class="hidden-print" value="Filter" onclick="printpart()"/>
+{{-- <input type="button" class="hidden-print" value="Filter" onclick="#"/> --}}
     </div>
     
 <div id="cetak">
@@ -79,6 +83,7 @@
                                                     <tr>
                                                         <th>No.</th>
                                                         <th>Kode Pelanggan</th>
+                                                        <th>Nama</th>
                                                         <th>RT</th>
                                                         <th>Stand Meter Bulan Lalu</th>
                                                         <th>Stand Meter Bulan Ini</th>
@@ -103,6 +108,7 @@
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $transaksi->kode_pelanggan }}</td>
+                                                        <td>{{ $transaksi->nama }}</td>
                                                         <td>{{ $transaksi->rt }}</td>
                                                         <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                                         <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
@@ -125,6 +131,7 @@
                                                     <tr>
                                                         <th>No.</th>
                                                         <th>Kode Pelanggan</th>
+                                                        <th>Nama</th>
                                                         <th>RT</th>
                                                         <th>Stand Meter Bulan Lalu</th>
                                                         <th>Stand Meter Bulan Ini</th>
@@ -163,7 +170,7 @@ $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = minDate.val();
         var max = maxDate.val();
-        var date = new Date( data[14] );
+        var date = new Date( data[15] );
  
         if (
             ( min === null && max === null ) ||
@@ -178,6 +185,7 @@ $.fn.dataTable.ext.search.push(
 );
 
 $(document).ready(function () {
+
 // Create date inputs
     minDate = new DateTime($('#min'), {
         format: 'DD-MM-YYYY'
@@ -215,6 +223,16 @@ $(document).ready(function () {
     $('#min, #max').on('change', function () {
         table.draw();
     });
+
+     $('#rt').on('change', function(e){
+      var status = $(this).val();
+      $('#rt').val(status)
+      console.log(status)
+      //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
+      table.column(3).search(status).draw();
+    })
+
+    
 });
 
 function printpart () {
@@ -278,5 +296,22 @@ function generatePDF() {
     doc.save("Report.pdf"); // save file name as HTML2PDF.pdf
   });
 }
+
+$(document).ready(function() {
+    $('#class').select2({
+      placeholder: "Pilih RT"
+    });
+  });
+
+function printpreview(){
+var url = new URL(window.location.origin+"/report/print_preview");
+
+// If your expected result is "http://foo.bar/?x=1&y=2&x=42"
+url.searchParams.append('filterdatemin', $("#min").val());
+url.searchParams.append('filterdatemax', $("#max").val());
+url.searchParams.append('filter_rt', $("#rt").val());
+window.location.href = url.href;
+}
+
 </script>
   @endpush

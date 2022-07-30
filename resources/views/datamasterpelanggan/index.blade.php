@@ -52,7 +52,8 @@
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Kode Pelanggan</th></th>
+                                                        <th>ID Pelanggan</th>
+                                                        <th>Kode Pelanggan</th>
                                                         <th>Nama</th>
                                                         <th>Alamat</th>
                                                         <th>Status</th>
@@ -61,7 +62,7 @@
                                                         <th>RT</th>
                                                         <th>keterangan</th>
                                                         <th>No. Sambung</th>
-                                                        <th>Total Saldo</th>
+                                                        {{-- <th>Total Saldo</th> --}}
                                                         <th>Aksi</th>
 
                                                     </tr>
@@ -71,6 +72,7 @@
                                                 @foreach($datapelanggan as $pelanggan)
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
+                                                        <td>{{ $pelanggan->id_pelanggan}}</td>
                                                         <td>{{ $pelanggan->kode_pelanggan}}</td>
                                                         <td>{{ $pelanggan->nama }}</td>
                                                         <td>{{ $pelanggan->alamat }}</td>
@@ -80,7 +82,7 @@
                                                         <td>{{ $pelanggan->rt }}</td>
                                                         <td>{{ $pelanggan->keterangan }}</td>
                                                         <td>{{ $pelanggan->no_sambung }}</td>
-                                                        <td>{{ $pelanggan->total_saldo }}</td>
+                                                        {{-- <td>{{ $pelanggan->total_saldo }}</td> --}}
                             
                                                         <td>
 
@@ -94,6 +96,7 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th>No.</th>
+                                                        <th>ID Pelanggan</th>
                                                         <th>Kode Pelanggan</th>
                                                         <th>Nama</th>
                                                         <th>Alamat</th>
@@ -103,7 +106,7 @@
                                                         <th>RT</th>
                                                         <th>keterangan</th>
                                                         <th>No. Sambung</th>
-                                                        <th>Total Saldo</th>
+                                                        {{-- <th>Total Saldo</th> --}}
                                                         <th>Aksi</th>
 
                                                     </tr>

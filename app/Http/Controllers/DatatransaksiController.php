@@ -80,13 +80,13 @@ public function hitungsaldo($id)
     $saldo = DB::table('t_meter')
     ->where('id', $id)
     ->sum(DB::raw('tagihan + biaya_admin + biaya_perawatan + tunggakan'));
-
+$saldo =intval($saldo);
     // dd($saldo);
 
     $saldo = DB::table('t_meter')
     ->where('id', $id)
     ->update(['saldo'=>$saldo]);
-
+// dd($saldo);
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
     
     }
