@@ -50,11 +50,12 @@
 {{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()"/> --}}
 <button onclick="fnExcelReport('dt-basic-example')" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Excel</button>
 {{-- <a href="#"onclick="('dt-basic-example')" class="btn btn-success btn-sm" role="button"><i class="fas fa-file-pdf"></i></a> --}}
-<a href="javascript:generatePDF()" role="button" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</a>
+{{-- <a href="javascript:generatePDF()" role="button" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</a> --}}
 {{-- <button onclick="generatePDF()"><i class="fas fa-file-pdf"></i></button> --}}
 <a href="https://wa.me/6285866706926" class="btn btn-success btn-sm" role="button"><i class="fab fa-whatsapp"></i></a>
 
 <button onclick="printpreview()" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Preview</button>
+<input type="button" class="hidden-print" value="Print" onclick="printpart()"/>
 {{-- <a href="/report/print_preview" role="button" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Preview</a> --}}
 
 
@@ -75,9 +76,10 @@
 {{-- <input type="button" class="hidden-print" value="Filter" onclick="#"/> --}}
     </div>
     
+
 <div id="cetak">
 
-                                                <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
+                                                <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100" border="1">
                                                 <div id="cetak">
                                                 <thead class="bg-warning-200">
                                                     <tr>

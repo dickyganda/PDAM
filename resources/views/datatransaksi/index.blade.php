@@ -47,7 +47,7 @@
              {{-- endfilter --}}
 				{{-- <a href="#" class="btn btn-success" role="button">Hitung Saldo</a> --}}
 				{{-- <a href="#" class="btn btn-success" role="button">Cetak</a> --}}
-
+{{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()"/> --}}
                                                 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
                                                 <thead class="bg-warning-200">
                                                     <tr>
@@ -269,5 +269,13 @@ btn.addEventListener('click', () => {
   // 👇️ show div
 
 });
+
+function printpart () {
+  var printwin = window.open("");
+  printwin.document.write(document.getElementById("dt-basic-example").innerHTML);
+  printwin.stop();
+  printwin.print();
+  printwin.close();
+}
 </script>
   @endpush
