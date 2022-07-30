@@ -174,9 +174,9 @@
                                                     @php $i=1 @endphp
                                                 @foreach($total_saldo_rt as $saldo_rt)
                                                     <tr>
-                                                        {{-- <td>{{ $i++ }}</td>
+                                                        <td>{{ $i++ }}</td>
                                                         <td>{{ $saldo_rt->rt}}</td>
-                                                        <td>{{ $saldo_rt->total_saldo_rt }}</td> --}}
+                                                        <td>{{ $saldo_rt->total }}</td>
                                                     </tr>
                                                     @endforeach
                                                 </tbody>

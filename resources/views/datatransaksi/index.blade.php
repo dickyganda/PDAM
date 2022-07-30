@@ -203,13 +203,13 @@ $(document).ready(function () {
    function hitungsaldo(id){
      
      Swal.fire({
-     title: 'Are you sure?',
-     text: "You won't be able to revert this!",
+     title: 'Lanjutkan ?',
+     text: "Data tidak dapat diubah",
      icon: 'warning',
      showCancelButton: true,
      confirmButtonColor: '#3085d6',
      cancelButtonColor: '#d33',
-     confirmButtonText: 'Yes, delete it!'
+     confirmButtonText: 'Ya, Lanjutkan'
    }).then((result) => {
      if (result.isConfirmed) {
        $.ajax({
@@ -230,7 +230,7 @@ $(document).ready(function () {
    })
    }
 
-   function updatetunggakan(id){
+   {{-- function updatetunggakan(id){
      
      Swal.fire({
      title: 'Are you sure?',
@@ -268,7 +268,7 @@ btn.addEventListener('click', () => {
 
   // 👇️ show div
 
-});
+}); --}}
 
 function printpart () {
   var printwin = window.open("");

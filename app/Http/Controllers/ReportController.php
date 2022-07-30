@@ -110,8 +110,11 @@ public function hitungsaldo($id)
     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
     ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
     ->where('tgl_scan', '<=', $filter_max)
-    ->where('tgl_scan', '>=', $filter_min)
-    ->get();
+    ->where('tgl_scan', '>=', $filter_min);
+    if(!empty($filter_rt)){
+        $datatransaksi = $datatransaksi->where('rt', '=', $filter_rt);
+    }
+    $datatransaksi = $datatransaksi->get();
     // dd($filter_min);
 
              

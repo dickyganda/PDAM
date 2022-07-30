@@ -24,8 +24,9 @@ function Index(){
     // menampilkan total tunggakan per rt
     $total_saldo_rt = DB::table('t_meter')
     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-    ->select('saldo','rt', DB::raw('sum(saldo) as total'))
-    ->first();
+    ->select('m_pelanggan.rt','t_meter.saldo', DB::raw('sum(saldo) as total'))
+    ->groupBy('rt')
+    ->get();
     // dd($total_saldo_rt);
     // $total_saldo_rt = T_Meter::selectRaw('sum(saldo) as total')
     // ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')

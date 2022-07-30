@@ -161,10 +161,10 @@ $.fn.dataTable.ext.search.push(
 $(document).ready(function () {
 // Create date inputs
     minDate = new DateTime($('#min'), {
-        format: 'MMMM Do YYYY'
+        format: 'DD-MM-YYYY'
     });
     maxDate = new DateTime($('#max'), {
-        format: 'MMMM Do YYYY'
+        format: 'DD-MM-YYYY'
     });
 
     var table = $('#dt-basic-example').DataTable({
