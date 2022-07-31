@@ -48,6 +48,11 @@
     size: 7in 9.25in;
     margin: 27mm 16mm 27mm 16mm;
 }
+
+  .pagebreak{
+    page-break-after: always;
+  }
+
   </style>
 </head>
 
@@ -60,7 +65,7 @@
 
 @foreach($datatransaksi as $transaksi)
 
-<div>
+<div class="pagebreak">
   
   <tr id="header">
     <td colspan="7">
@@ -140,6 +145,8 @@
 
 
 </body>
+<footer>
+</footer>
 
 <script>
 function printpart () {
