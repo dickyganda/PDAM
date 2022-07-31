@@ -9,7 +9,7 @@
 
         <style>
         * {
-    font-size: 12px;
+    font-size: 10px;
     font-family: 'Times New Roman';
 }
 
@@ -19,6 +19,7 @@ tr,
 table {
     border-top: 1px solid black;
     border-collapse: collapse;
+      font-family: Arial, Helvetica, sans-serif;
 }
 
 td.description,
@@ -74,7 +75,7 @@ img {
                 <br>Jl. sumber Duduksampeyan Gresik - 61162</p>
             <table>
                     <tr>
-                        <th class="quantity">Kode Pelanggan</th>
+                        <th class="quantity">Kd Plg</th>
                         <td class="description">{{ $transaksi->kode_pelanggan}}</td>
                     </tr>
                     <tr>
@@ -90,35 +91,35 @@ img {
                         <td class="description">{{ $transaksi->rt}}</td>
                     </tr>
                     <tr>
-                        <th class="quantity">Bulan / Tahun</th>
+                        <th class="quantity">Bln/Th</th>
                         <td class="description">{{ $transaksi->tgl_scan}}</td>
                     </tr>
                     <tr>
-                        <th class="quantity">Satuan Akhir</th>
+                        <th class="quantity">St Akhir</th>
                         <td class="description">{{ $transaksi->stand_meter_bulan_lalu}}</td>
                     </tr>
                     <tr>
-                        <th class="quantity">Satuan Awal</th>
+                        <th class="quantity">St Awal</th>
                         <td class="description">{{ $transaksi->stand_meter_bulan_ini}}</td>
                     </tr>
                     <tr>
-                        <th class="quantity">Pemakaian</th>
+                        <th class="quantity">Pmkn</th>
                         <td class="description">{{ $transaksi->pemakaian}}</td>
                     </tr>
                     <tr>
-                        <th class="quantity">Tagihan</th>
+                        <th class="quantity">Tghn</th>
                         <td class="description">{{ $transaksi->tagihan}}</td>
                     </tr>
                     <tr>
-                        <th class="quantity">Biaya Admin</th>
+                        <th class="quantity">Biaya Adm</th>
                         <td class="description">{{ $transaksi->biaya_admin}}</td>
                     </tr>
                     <tr>
-                        <th class="quantity">Biaya Perawatan</th>
+                        <th class="quantity">Biaya Prwtn</th>
                         <td class="description">{{ $transaksi->biaya_perawatan}}</td>
                     </tr>
                     <tr>
-                        <th class="quantity">Tunggakan</th>
+                        <th class="quantity">Tgkn</th>
                         <td class="description">{{ $transaksi->tunggakan}}</td>
                     </tr>
                     <tr>
@@ -127,7 +128,7 @@ img {
                     </tr>
             </table>
             <p class="centered">Thanks for your purchase!
-                <br>parzibyte.me/blog</p>
+                <br>BP SPAMS "TIRTA AGUNG SUMARI"</p>
         </div>
         <button id="btnPrint" class="hidden-print">Print</button>
         @endforeach

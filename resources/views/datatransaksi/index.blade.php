@@ -33,7 +33,16 @@
             <div class="card-body">
              {{-- <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#myModal">Tambah Data Baru</a> --}}
              {{-- filter --}}
-
+<div class="row">
+  <div class="col-sm-3">
+  <select id="rt" name="id_class" class="form-control select2 form-select-sm" required>
+      <option></option>
+      @foreach ($datapelanggan as $pelanggan)
+      <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
+      @endforeach
+      </select><br>
+  </div>
+</div>
              <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
             <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
@@ -54,6 +63,7 @@
                                                         <th>No.</th>
                                                         <th>Kode Pelanggan</th>
                                                         <th>Nama</th>
+                                                        <th>RT</th>
                                                         <th>Stand Meter Bulan Lalu</th>
                                                         <th>Stand Meter Bulan Ini</th>
                                                         <th>Pemakaian</th>
@@ -78,6 +88,7 @@
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $transaksi->kode_pelanggan }}</td>
                                                         <td>{{ $transaksi->nama }}</td>
+                                                        <td>{{ $transaksi->rt }}</td>
                                                         <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                                         <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
                                                         <td>{{ $transaksi->pemakaian = $transaksi->stand_meter_bulan_ini - $transaksi->stand_meter_bulan_lalu }}</td> 
@@ -92,7 +103,7 @@
                                                         <td>{{ $transaksi->tgl_scan }}</td>
                                                         <td>{{ $transaksi->otorisasi }}</td>
                                                         <td>
-         <a href="#"onclick="hitungsaldo({{$transaksi->id}})" class="btn btn-success" role="button"><i class="fas fa-calculator"></i> Hitung Saldo</a>
+         <a href="#"onclick="hitungsaldo({{$transaksi->id}})" class="btn btn-danger" role="button"><i class="fas fa-calculator"></i> Hitung Saldo</a>
 
          {{-- <a href="#"onclick="updatetunggakan({{$transaksi->id}})" class="btn btn-success" role="button" id="update_tunggakan">Update Tunggakan</a> --}}
 
@@ -100,7 +111,7 @@
 
         <a href="/datatransaksi/report/{{ $transaksi->id }}" class="btn btn-success" role="button"><i class="fas fa-print"></i> Cetak</a>
 
-        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}" class="btn btn-success" role="button"><i class="fas fa-print"></i> Cetak Thermal</a>
+        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}" class="btn btn-primary" role="button"><i class="fas fa-print"></i> Cetak Thermal</a>
 			</td>
                                                     </tr>
                                                     @endforeach
@@ -108,7 +119,9 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Kode Pelanggan</th></th>
+                                                        <th>Kode Pelanggan</th>
+                                                        <th>Nama</th>
+                                                        <th>RT</th>
                                                         <th>Stand Meter Bulan Lalu</th>
                                                         <th>Stand Meter Bulan Ini</th>
                                                         <th>Pemakaian</th>
@@ -198,6 +211,14 @@ $(document).ready(function () {
     $('#min, #max').on('change', function () {
         table.draw();
     });
+
+    $('#rt').on('change', function(e){
+      var status = $(this).val();
+      $('#rt').val(status)
+      console.log(status)
+      //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
+      table.column(3).search(status).draw();
+    })
 });
 
    function hitungsaldo(id){
@@ -277,5 +298,11 @@ function printpart () {
   printwin.print();
   printwin.close();
 }
+
+$(document).ready(function() {
+    $('#rt').select2({
+      placeholder: "Pilih RT"
+    });
+  });
 </script>
   @endpush

@@ -18,10 +18,15 @@ function Index(){
     ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
     ->get();
 
+    $datapelanggan = DB::table('m_pelanggan')
+    ->groupBy('rt')
+    ->get();
+
     // dd($datatransaksi);
 
     	return view('/datatransaksi/index', 
         ['datatransaksi' => $datatransaksi,
+        'datapelanggan' =>$datapelanggan,
     ]);
     }
 

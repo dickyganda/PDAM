@@ -86,6 +86,11 @@ return [
     */
 
     'providers' => [
+        'Administrator' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\m_User::class,
+        ],
+
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,

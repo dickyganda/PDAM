@@ -6,6 +6,7 @@
     table {
       width: 100%;
       text-align: left;
+      font-family: Arial, Helvetica, sans-serif;
     }
     table, th, td {
       border: 1px solid black;

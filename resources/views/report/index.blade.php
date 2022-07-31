@@ -39,15 +39,21 @@
             <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
             <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
         </tr>
-        {{-- <tr>
-            <td><input type="text" id="max" name="max"></td>
-        </tr> --}}
     </tbody></table>
 
              {{-- endfilter --}}
-				{{-- <a href="#" class="btn btn-success" role="button">Hitung Saldo</a> --}}
-				{{-- <a href="#" class="btn btn-success" role="button">Cetak</a> --}}
-{{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()"/> --}}
+<div class="row">
+  <div class="col-sm-3">
+  <select id="rt" name="id_class" class="form-control select2 form-select-sm" required>
+      <option></option>
+      @foreach ($datapelanggan as $pelanggan)
+      <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
+      @endforeach
+      </select><br>
+  </div>
+</div>
+      
+
 <button onclick="fnExcelReport('dt-basic-example')" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Excel</button>
 {{-- <a href="#"onclick="('dt-basic-example')" class="btn btn-success btn-sm" role="button"><i class="fas fa-file-pdf"></i></a> --}}
 {{-- <a href="javascript:generatePDF()" role="button" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</a> --}}
@@ -57,26 +63,7 @@
 <button onclick="printpreview()" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Preview</button>
 <input type="button" class="hidden-print" value="Print" onclick="printpart()"/>
 {{-- <a href="/report/print_preview" role="button" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Preview</a> --}}
-
-
-<div class="form-group">
-<table>
-<tr>
-<td>
-      <select id="rt" name="id_class" class="form-control select2" required>
-      <option></option>
-      @foreach ($datapelanggan as $pelanggan)
-      <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
-      @endforeach
-      </select>
-      </td>
-      </tr>
     
-</table>
-{{-- <input type="button" class="hidden-print" value="Filter" onclick="#"/> --}}
-    </div>
-    
-
 <div id="cetak">
 
                                                 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100" border="1">
@@ -121,7 +108,7 @@
                                                         <td>{{ $transaksi->tunggakan }}</td>
                                                         <td>{{ $transaksi->saldo }}</td>
                                                         <td>{{ $transaksi->pembayaran }}</td>
-                                                        <td><img src= "{{url('storage/'.$transaksi->link_image)}}" width="100px" height="100px" > </td>
+                                                        <td><img src= "{{asset('storage/'.$transaksi->link_image)}}" width="100px" height="100px" > </td>
                                                         <td>{{ $transaksi->status }}</td>
                                                         <td>{{ $transaksi->tgl_scan }}</td>
                                                         <td>{{ $transaksi->otorisasi }}</td>
@@ -300,7 +287,7 @@ function generatePDF() {
 }
 
 $(document).ready(function() {
-    $('#class').select2({
+    $('#rt').select2({
       placeholder: "Pilih RT"
     });
   });

@@ -12,7 +12,12 @@ use Session;
 
 class DashboardController extends Controller
 {
-    
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:Administrator');
+    // }
+
 function Index(){
 
     // menghitung jumlah pelanggan
@@ -28,14 +33,11 @@ function Index(){
     ->groupBy('rt')
     ->get();
     // dd($total_saldo_rt);
-    // $total_saldo_rt = T_Meter::selectRaw('sum(saldo) as total')
-    // ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-    // ->groupBy('rt')
-    // ->first();
-    $pengguna_kelas = DB::table('m_pelanggan')
-        ->select('id_class', DB::raw('count(*) as total'))
-        ->groupBy('id_class')
-        ->get();
+    
+    // $pengguna_kelas = DB::table('m_pelanggan')
+    //     ->select('id_class', DB::raw('count(*) as total'))
+    //     ->groupBy('id_class')
+    //     ->get();
     // dd($total_saldo_rt);
 
     // mengambil nama rt untuk chart

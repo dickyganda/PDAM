@@ -38,6 +38,12 @@ class AuthController extends Controller
         Session::put('nama_level',$query->nama_level);
         return response()->json(array('status' => 'success', 'reason' => 'sukses'));
 
+        // if($request->Session()->has('email', 'password'))
+        // {
+        //     return redirect('/dashboard/index');
+        // }else{
+        //     return redirect('/autentikasi/login');
+        // }
     }
 
     public function logout2()

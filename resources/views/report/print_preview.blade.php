@@ -6,6 +6,7 @@
     table {
       width: 100%;
       text-align: left;
+      font-family: Arial, Helvetica, sans-serif;
     }
     table, th, td {
       border: 1px solid black;
@@ -50,6 +51,7 @@
 }
 
   .pagebreak{
+    border-style: solid;
     page-break-after: always;
   }
 
@@ -65,7 +67,7 @@
 
 @foreach($datatransaksi as $transaksi)
 
-<div class="pagebreak">
+<div class="pagebreak" border="1">
   
   <tr id="header">
     <td colspan="7">
@@ -138,6 +140,7 @@
   <td colspan="8" id="terbilang-output">Terbilang : </td>
   </tr>
 </table>
+<br>
 </div>
 {{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()"/> --}}
 @endforeach
@@ -145,8 +148,6 @@
 
 
 </body>
-<footer>
-</footer>
 
 <script>
 function printpart () {
