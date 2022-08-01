@@ -94,7 +94,7 @@ $tunggakanbulanlalu = 0;
         if($request->hasFile("link_image")){
             $img = $request -> link_image;
             $img_name = time().'-'.$img->getClientOriginalName();
-            Image::make($img)->save(storage_path("/app/public/".$img_name));
+            Image::make($img)->save(storage_path("/".$img_name));
             $add->link_image = $img_name;
         }
 

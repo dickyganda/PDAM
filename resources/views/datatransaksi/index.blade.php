@@ -98,7 +98,9 @@
                                                         <td>{{ $transaksi->tunggakan }}</td>
                                                         <td>{{ $transaksi->saldo }}</td>
                                                         <td>{{ $transaksi->pembayaran }}</td>
-                                                        <td><img src= "{{asset('storage/'.$transaksi->link_image)}}" width="100px" height="100px" > </td>
+                                                        {{-- <td><img src="{{ route('image.displayImage',$transaksi->link_image) }}" alt="" title=""></td> --}}
+                                                        <td><img src= "{{url('storage/'.$transaksi->link_image)}}" width="100px" height="100px" > </td>
+                                                        {{-- <td><img src="{{ route('image.displayImage',$transaksi->link_image) }}" alt="" title=""> </td> --}}
                                                         <td>{{ $transaksi->status }}</td>
                                                         <td>{{ $transaksi->tgl_scan }}</td>
                                                         <td>{{ $transaksi->otorisasi }}</td>

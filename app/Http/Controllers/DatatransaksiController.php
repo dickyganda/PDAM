@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
+use File;
+use Response;
 
 use App\Models\T_Meter;
 
@@ -113,5 +115,25 @@ $saldo =intval($saldo);
     
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
         }
+
+    // public function getPubliclyStorgeFile($link_image)
+
+    //     {
+    //         $path = storage_path('app/public/image/'. $link_image);
+        
+    //         if (!File::exists($path)) {
+    //             abort(404);
+    //         }
+        
+    //         $file = File::get($path);
+    //         $type = File::mimeType($path);
+        
+    //         $response = Response::make($file, 200);
+        
+    //         $response->header("Content-Type", $type);
+        
+    //         return $response;
+        
+    //     }
 
 }

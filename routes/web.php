@@ -58,6 +58,7 @@ Route::post('hitungsaldo/{id}','DatatransaksiController@hitungsaldo');
 Route::post('updatetunggakan/{id}','DatatransaksiController@updatetunggakan');
 Route::get('datatransaksi/report/{id}', 'DatatransaksiController@viewreport');
 Route::get('datatransaksi/reportthermal/{id}', 'DatatransaksiController@viewreportthermal');
+// Route::get('image/{filename}', [DatatransaksiController::class,'getPubliclyStorgeFile'])->name('image.displayImage');
 
 Route::get('report/index', 'ReportController@index');
 Route::post('report/filter_rt','ReportController@filter_rt');
