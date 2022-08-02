@@ -17,9 +17,11 @@ use App\Models\M_User_Level;
 class ApiController extends Controller
 {
 
-    function getdatapelanggan(T_Meter $datapelanggan){
+    function getdatapelanggan(Request $request){
     $datapelanggan = T_Meter::select('id_pelanggan', 'id_class', 'kode_pelanggan', 'stand_meter_bulan_lalu', 'stand_meter_bulan_ini')
+    ->where('id_pelanggan', $request->id_pelanggan)
     ->latest('tgl_scan')
+    ->orderBy('id_pelanggan', 'desc')
     ->first();
 
     return response([
