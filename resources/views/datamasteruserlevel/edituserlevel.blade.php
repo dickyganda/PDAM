@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Edit Pelanggan
+Edit User Level
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@ Edit Pelanggan
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Edit Pelanggan</h1>
+                <h1 class="m-0">Edit User Level</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 {{-- <ol class="breadcrumb float-sm-right">
@@ -31,28 +31,23 @@ Edit Pelanggan
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        @foreach($datapelanggan as $pelanggan)
-                        <form id="editpelanggan" method="post">
+                        @foreach($datauserlevel as $userlevel)
+                        <form id="edituserlevel" method="post">
 
-                            <input type="hidden" name="id_pelanggan" value="{{ $pelanggan->id_pelanggan }}" hidden>
+                            <input type="hidden" name="id_level" value="{{ $userlevel->id_level }}" hidden>
 
                             Status
 
-                            @if ( $pelanggan->status_pelanggan == '1' )
-                            <input type="radio" name="status_pelanggan" value="1" checked>
-                            <label for="aktif">Aktif</label>
-                            <input type="radio" name="status_pelanggan" value="0">
-                            @else
-                            <input type="radio" name="status_pelanggan" value="1">
-                            <label for="aktif">Aktif</label>
-                            <input type="radio" name="status_pelanggan" value="0" checked>
-                            @endif
-                            <label for="tidakaktif">Tidak Aktif</label>
+                            <input type=radio name="status_aktif" value="1"
+                                {{ $userlevel->status_aktif == '1' ? 'checked' : ''}}>Aktif</option>
+                            <input type=radio name="status_aktif" value="0"
+                                {{ $userlevel->status_aktif == '0' ? 'checked' : ''}}>Tidak Aktif</option>
                             <br />
 
                             <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
-                            <a href="/datamasterpelanggan/index" class="btn btn-warning btn-sm" role="button"><i
+                            <a href="/datamasteruserlevel/index" class="btn btn-warning btn-sm" role="button"><i
                                     class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
+
                         </form>
                         @endforeach
 
@@ -69,13 +64,13 @@ Edit Pelanggan
 
     @push('script')
     <script>
-        $("#editpelanggan").submit(function (event) {
+        $("#edituserlevel").submit(function (event) {
             event.preventDefault();
             var formdata = new FormData(this);
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/datamasterpelanggan/updatepelanggan',
+                url: '/datamasteruserlevel/updateuserlevel',
                 data: formdata,
                 contentType: false,
                 cache: false,
@@ -86,7 +81,7 @@ Edit Pelanggan
                         data.reason,
                         'success'
                     ).then(() => {
-                        location.replace("/datamasterpelanggan/index");
+                        location.replace("/datamasteruserlevel/index");
                     });
                 }
             });

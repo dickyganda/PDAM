@@ -17,10 +17,10 @@
           <h1 class="m-0">Data Master Pelanggan</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
+          {{-- <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active">Starter Page</li>
-          </ol>
+          </ol> --}}
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -38,15 +38,16 @@
             <div class="card-body">
              <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahdata">Tambah Data Baru</a>
              {{-- filter --}}
-             <table border="0" cellspacing="5" cellpadding="5">
-        <tbody><tr>
-            <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
-            <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
-        </tr>
-        {{-- <tr>
-            <td><input type="text" id="max" name="max"></td>
-        </tr> --}}
-    </tbody></table>
+             <div class="row">
+  <div class="col-sm-3">
+  <select id="status_pelanggan" name="id_class" class="form-control select2 form-select-sm" required>
+      <option></option>
+      @foreach ($data_status_pelanggan as $pelanggan)
+      <option value="{{$pelanggan->status_pelanggan}}">{{$pelanggan->status_pelanggan}}</option>
+      @endforeach
+      </select><br>
+  </div>
+</div>
              {{-- endfilter --}}
               <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
                                                 <thead class="thead-dark">
@@ -143,7 +144,7 @@
         <input type=radio name="status_pelanggan" value="0" {{ $pelanggan->status_pelanggan == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
     <div class="form-group">
-      <select id="rt" name="id_class" class="form-control select2" required>
+      <select id="rt" name="id_class" class="form-control" required>
       <option></option>
       @foreach ($datapelanggan as $pelanggan)
       <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
@@ -152,7 +153,7 @@
     </div>
 
     <div class="form-group">
-      <select id="class" name="id_class" class="form-control select2" required>
+      <select id="class" name="id_class" class="form-control" required>
       <option></option>
       @foreach ($dataclass as $class)
       <option value="{{$class->id_class}}">{{$class->keterangan}}</option>
@@ -225,6 +226,14 @@ $(document).ready(function() {
     $('#min, #max').on('change', function () {
         table.draw();
     });
+
+    $('#status_pelanggan').on('change', function(e){
+      var status = $(this).val();
+      $('#status_pelanggan').val(status)
+      console.log(status)
+      //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
+      table.column(5).search(status).draw();
+    })
 });
 
 $("#tambahpelanggan").submit(function(event){
@@ -321,5 +330,11 @@ $("#tambahpelanggan").submit(function(event){
      }
    })
    }
+
+   $(document).ready(function() {
+    $('#status_pelanggan').select2({
+      placeholder: "Pilih Status"
+    });
+  });
 </script>
   @endpush

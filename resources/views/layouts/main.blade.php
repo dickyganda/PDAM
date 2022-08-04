@@ -21,6 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   {{-- Datatable --}}
   <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/buttons.dataTables.min.css') }}">
   
   {{-- Select2 --}}
   <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
@@ -80,10 +81,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script type="text/javascript" src="{{ asset('assets/js/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/dataTables.dateTime.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/sweetalert2.js') }}"></script>
+<script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/chart.js') }}"></script>
 <script src="{{ asset('assets/js/jspdf.umd.min.js') }}"></script>
 <script src="{{ asset('assets/js/jspdf.debug.js') }}"></script>
+<script src="{{ asset('assets/js/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/js/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/js/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
 
 <script>
     $.ajaxSetup({

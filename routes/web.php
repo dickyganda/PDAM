@@ -50,6 +50,8 @@ Route::get('datamasteruser/index', 'DatamasteruserController@index');
 Route::post('datamasteruser/tambahuser','DatamasteruserController@tambahuser');
 
 Route::get('datamasteruserlevel/index', 'DatamasteruserlevelController@index');
+Route::get('datamasteruserlevel/edituserlevel/{id_level}','DatamasteruserlevelController@edituserlevel');
+Route::post('datamasteruserlevel/updateuserlevel','DatamasteruserlevelController@updateuserlevel');
 
 Route::get('datatransaksi/index', 'DatatransaksiController@index');
 Route::get('datatransaksi/edittransaksi/{id}','DatatransaksiController@edittransaksi');

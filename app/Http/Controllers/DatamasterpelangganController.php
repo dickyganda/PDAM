@@ -19,8 +19,16 @@ class DatamasterpelangganController extends Controller
     ->join('m_class', 'm_class.id_class', '=', 'm_pelanggan.id_class')->get();
     
     $dataclass = DB::table('m_class')->get();
+
+    $data_status_pelanggan = DB::table('m_pelanggan')
+    ->groupBy('status_pelanggan')
+    ->get();
  
-    	return view('datamasterpelanggan/index' ,['datapelanggan' => $datapelanggan, 'dataclass' => $dataclass]);
+    	return view('datamasterpelanggan/index' ,
+        ['datapelanggan' => $datapelanggan, 'dataclass' => $dataclass,
+        'data_status_pelanggan' => $data_status_pelanggan,
+
+    ]);
     }
 
     function tambahpelanggan(Request $request){

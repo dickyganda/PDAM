@@ -17,8 +17,15 @@ function Index(){
     ->join('m_class', 'm_class.id_class', '=', 'm_harga.id_class')
     ->join('m_user', 'm_user.id_user', '=', 'm_harga.id_user')
     ->get();
+
+    $data_status_harga = DB::table('m_harga')
+    ->groupBy('status_harga')
+    ->get();
  
-    	return view('datamasterharga/index',['dataharga' => $dataharga]);
+    	return view('datamasterharga/index',[
+        'dataharga' => $dataharga,
+        'data_status_harga' => $data_status_harga,
+    ]);
     }
 
     function tambahharga(Request $request){

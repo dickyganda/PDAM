@@ -19,6 +19,7 @@ function Index(){
     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
     ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
     ->get();
+    // dd($datatransaksi);
 
     $datapelanggan = DB::table('m_pelanggan')
     ->groupBy('rt')

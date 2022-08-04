@@ -14,8 +14,14 @@ class DatamasterclassController extends Controller
 function Index(){
 
     $dataclass = DB::table('m_class')->get();
+
+    $data_status_class = DB::table('m_class')
+    ->groupBy('status_class')
+    ->get();
  
-    	return view('/datamasterclass/index',['dataclass' => $dataclass]);
+    	return view('/datamasterclass/index',['dataclass' => $dataclass,
+        'data_status_class' => $data_status_class,
+    ]);
     }
 
     function tambahclass(Request $request){

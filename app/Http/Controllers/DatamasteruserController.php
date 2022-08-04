@@ -16,8 +16,13 @@ function Index(){
     $datauser = DB::table('m_user')
     ->join('m_user_level', 'm_user_level.id_level', '=', 'm_user.id_level')
     ->get();
+
+    $data_status_user = DB::table('m_user')
+    ->groupBy('status_user')
+    ->get();
  
-    	return view('/datamasteruser/index', ['datauser' => $datauser]);
+    	return view('/datamasteruser/index', ['datauser' => $datauser,
+        'data_status_user' => $data_status_user],);
     }
 
     function tambahuser(Request $request){

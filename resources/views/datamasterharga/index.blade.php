@@ -33,15 +33,16 @@
             <div class="card-body">
              <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahharga">Tambah Data Baru</a>
              {{-- filter --}}
-             <table border="0" cellspacing="5" cellpadding="5">
-        <tbody><tr>
-            <td><input type="text" id="min" name="min" value="<?php echo date('01-m-Y');?>"></td><td>-</td> 
-            <td><input type="text" id="max" name="max" value="<?php echo date('d-m-Y');?>"></td>
-        </tr>
-        {{-- <tr>
-            <td><input type="text" id="max" name="max"></td>
-        </tr> --}}
-    </tbody></table>
+             <div class="row">
+  <div class="col-sm-3">
+  <select id="status_harga" name="id_class" class="form-control select2 form-select-sm" required>
+      <option></option>
+      @foreach ($data_status_harga as $harga)
+      <option value="{{$harga->status_harga}}">{{$harga->status_harga}}</option>
+      @endforeach
+      </select><br>
+  </div>
+</div>
              {{-- endfilter --}}
 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
                                                 <thead class="bg-warning-200">
@@ -132,8 +133,9 @@
         <input type=radio name="status_harga" value="1" {{ $harga->status_harga == '1' ? 'checked' : ''}}>Aktif</option>
         <input type=radio name="status_harga" value="0" {{ $harga->status_harga == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
-        <button class="btn btn-primary" href="/datamasterharga/tambahharga" type="submit">Tambah</button>
+        
 	</form>
+  <button class="btn btn-primary" href="/datamasterharga/tambahharga" type="submit">Tambah</button>
         </div>
         
         <!-- Modal footer -->
@@ -212,6 +214,14 @@ $(document).ready(function () {
     $('#min, #max').on('change', function () {
         table.draw();
     });
+
+    $('#status_harga').on('change', function(e){
+      var status = $(this).val();
+      $('#status_harga').val(status)
+      console.log(status)
+      //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
+      table.column(4).search(status).draw();
+    })
 });
 
   $(document).ready(function() {
@@ -278,5 +288,11 @@ $(document).ready(function () {
         }
       })
       }
+
+      $(document).ready(function() {
+    $('#status_harga').select2({
+      placeholder: "Pilih Status"
+    });
+  });
 </script>
   @endpush
