@@ -53,8 +53,8 @@ Report
                                     @foreach ($datapelanggan as $pelanggan)
                                     <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
                                     @endforeach
-                                </select><br>
-                            </div>
+                                </select>
+                            </div> <br><br>
                             
                         </div>
 
@@ -68,7 +68,7 @@ Report
                                 class="fab fa-whatsapp"></i></a>
 
                         <button onclick="printpreview()" class="btn btn-primary btn-sm"><i class="fas fa-print"></i>
-                            Preview</button>
+                            Preview</button> <br><br>
                         {{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()" /> --}}
                         {{-- <a href="/report/print_preview" role="button" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Preview</a> --}}
 
@@ -199,7 +199,11 @@ Report
                 var table = $('#dt-basic-example').DataTable({
                     dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print',
+            'copy', 'csv', 'excel', 'print',
+            {
+extend: 'pdfHtml5',
+orientation: 'landscape',
+pageSize: 'A4' },
         ],
                     initComplete: function () {
                         this.api()

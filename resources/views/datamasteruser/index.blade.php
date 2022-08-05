@@ -32,7 +32,7 @@ Data Master User
                 <div class="card card-primary card-outline">
                     <div class="card-body">
                         <a href="" class="btn btn-success" role="button" data-toggle="modal"
-                            data-target="#modaltambahuser">Tambah Data Baru</a>
+                            data-target="#modaltambahuser">Tambah Data Baru</a> <br><br>
                         {{-- filter --}}
                         <div class="row">
                             <div class="col-sm-3">
@@ -43,7 +43,7 @@ Data Master User
                                     <option value="{{$user->status_user}}">{{$user->status_user}}</option>
                                     @endforeach
                                 </select><br>
-                            </div>
+                            </div> <br><br>
                         </div>
                         {{-- endfilter --}}
                         <table id="dt-basic-example"
@@ -81,8 +81,8 @@ Data Master User
                                     <td>
                                         {{-- <a href="" class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a> --}}
 
-                                        <a href="" class="btn btn-danger" role="button"><i class="fas fa-trash"></i>
-                                            Hapus</a>
+                            <a href="#"onclick="deleteuser({{$user->id_user}})" class="btn btn-danger btn-sm" role="button" ><i class="fas fa-trash"></i> Hapus</a>
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -160,6 +160,8 @@ Data Master User
                                             {{ $user->status_user == '1' ? 'checked' : ''}}>Aktif</option>
                                         <input type=radio name="status_user" value="0"
                                             {{ $user->status_user == '0' ? 'checked' : ''}}>Tidak Aktif</option>
+
+                                            <br>
 
                                         <button class="btn btn-primary" href="/datamasteruser/tambahuser"
                                             type="submit">Tambah</button>
@@ -290,6 +292,35 @@ Data Master User
                         placeholder: "Pilih Status"
                     });
                 });
+
+        function deleteuser(id_user){
+        Swal.fire({
+        title: 'Hapus Data ?',
+        text: "Anda tidak akan dapat mengembalikan ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            type:'GET',
+            dataType: 'json',
+            url: '/datamasteruser/deleteuser/' + id_user,
+            success:function(data){
+              Swal.fire(
+                'Sukses!',
+                data.reason,
+                'success'
+              ).then(() => {
+                location.reload();
+              });
+            }
+          });
+        }
+      })
+      }
 
             </script>
             @endpush

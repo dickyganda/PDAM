@@ -42,4 +42,12 @@ function Index(){
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
     }
 
+    public function deleteuser($id_user)
+{
+	// menghapus data warga berdasarkan id yang dipilih
+	DB::table('m_user')->where('id_user',$id_user)->delete();
+		
+	return response()->json(array('status'=> 'success', 'reason' => 'Sukses Hapus Data'));
+}
+
 }

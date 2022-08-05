@@ -28,11 +28,10 @@ Data Master User Level
         <div class="row">
             <div class="col-lg">
 
-
                 <div class="card card-primary card-outline">
                     <div class="card-body">
                         <a href="" class="btn btn-success" role="button" data-toggle="modal"
-                            data-target="#myModal">Tambah Data Baru</a>
+                            data-target="#myModal">Tambah Data Baru</a> <br><br>
                         <div class="row">
                             <div class="col-sm-3">
                                 <select id="status_aktif" name="id_class" class="form-control select2 form-select-sm"
@@ -41,8 +40,8 @@ Data Master User Level
                                     @foreach ($data_status_userlevel as $userlevel)
                                     <option value="{{$userlevel->status_aktif}}">{{$userlevel->status_aktif}}</option>
                                     @endforeach
-                                </select><br>
-                            </div>
+                                </select>
+                            </div><br><br>
                         </div>
                         <table id="dt-basic-example"
                             class="table table-bordered table-responsive table-hover table-striped w-100">
@@ -70,7 +69,7 @@ Data Master User Level
                                         <a href="/datamasteruserlevel/edituserlevel/{{ $userlevel->id_level }}"
                                             class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
 
-                                        <a href="#" class="btn btn-danger" role="button"><i class="fas fa-trash"></i>
+                                        <a href="#" onclick="deleteuserlevel({{$userlevel->id_level}})" class="btn btn-danger" role="button"><i class="fas fa-trash"></i>
                                             Hapus</a>
                                     </td>
 
@@ -103,37 +102,12 @@ Data Master User Level
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <form id="tambahpelanggan" method="post">
+                                    <form id="tambahuserlevel" method="post">
                                         {{ csrf_field() }}
 
                                         <div class="form-group">
-                                            <input type="text" name="user" class="form-control form-control-sm"
-                                                placeholder="User">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" name="email" class="form-control form-control-sm"
-                                                placeholder="Email">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-sm"
-                                                placeholder="Password">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" name="pengingat" class="form-control form-control-sm"
-                                                placeholder="Pengingat">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" name="nama" class="form-control form-control-sm"
-                                                placeholder="Nama">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" name="id_level" class="form-control form-control-sm"
-                                                placeholder="Level">
+                                            <input type="text" name="nama_level" class="form-control form-control-sm"
+                                                placeholder="Nama Level">
                                         </div>
 
                                         Status
@@ -141,18 +115,24 @@ Data Master User Level
                                             {{ $userlevel->status_aktif == '1' ? 'checked' : ''}}>Aktif</option>
                                         <input type=radio name="status_aktif" value="0"
                                             {{ $userlevel->status_aktif == '0' ? 'checked' : ''}}>Tidak Aktif</option>
+                                            <br>
+                                            <br>
 
-                                        <div class="form-group">
-                                            <input type="date" name="tgl_daftar" required="required"
-                                                class="form-control form-control-sm">
-                                        </div>
+                                        Akses Web
+                                        <input type=radio name="akses_web" value="1"
+                                            {{ $userlevel->akses_web == '1' ? 'checked' : ''}}>Aktif</option>
+                                        <input type=radio name="akses_web" value="0"
+                                            {{ $userlevel->akses_web == '0' ? 'checked' : ''}}>Tidak Aktif</option>
+                                            <br>
+                                            <br>
 
-                                        <div class="form-group">
-                                            <input type="date" name="tgl_password" required="required"
-                                                class="form-control form-control-sm">
-                                        </div>
+                                            Akses Mobile
+                                        <input type=radio name="akses_mobile" value="1"
+                                            {{ $userlevel->akses_mobile == '1' ? 'checked' : ''}}>Aktif</option>
+                                        <input type=radio name="akses_mobile" value="0"
+                                            {{ $userlevel->akses_mobile == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
-                                        <button class="btn btn-primary" href="/datamasterpelanggan/tambahpelanggan"
+                                        <button class="btn btn-primary" href="/datamasteruserlevel/tambahuserlevel"
                                             type="submit">Tambah</button>
                                     </form>
                                 </div>
@@ -228,6 +208,58 @@ Data Master User Level
                         placeholder: "Pilih Status"
                     });
                 });
+
+    $("#tambahuserlevel").submit(function(event){
+    event.preventDefault();
+    var formdata = new FormData(this);
+    $.ajax({
+      type:'POST',
+      dataType: 'json',
+      url: '/datamasteruserlevel/tambahuserlevel',
+      data: formdata,
+      contentType: false,
+      cache: false,
+      processData: false,
+      success:function(data){
+        Swal.fire(
+          'Sukses!',
+          data.reason,
+          'success'
+        ).then(() => {
+          location.replace("/datamasteruserlevel/index");
+        });
+      }
+    });
+  });
+
+  function deleteuserlevel(id_level){
+        Swal.fire({
+        title: 'Hapus Data ?',
+        text: "Anda tidak akan dapat mengembalikan ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            type:'GET',
+            dataType: 'json',
+            url: '/datamasteruserlevel/deleteuserlevel/' + id_level,
+            success:function(data){
+              Swal.fire(
+                'Sukses!',
+                data.reason,
+                'success'
+              ).then(() => {
+                location.reload();
+              });
+            }
+          });
+        }
+      })
+      }
 
             </script>
             @endpush

@@ -45,13 +45,17 @@ Route::get('datamasterclass/index', 'DatamasterclassController@index');
 Route::post('datamasterclass/tambahclass','DatamasterclassController@tambahclass');
 Route::get('datamasterclass/editclass/{id_class}','DatamasterclassController@editclass');
 Route::post('datamasterclass/updateclass','DatamasterclassController@updateclass');
+Route::get('datamasterclass/deleteclass/{id_class}','DatamasterclassController@deleteclass');
 
 Route::get('datamasteruser/index', 'DatamasteruserController@index');
 Route::post('datamasteruser/tambahuser','DatamasteruserController@tambahuser');
+Route::get('datamasteruser/deleteuser/{id_user}','DatamasteruserController@deleteuser');
 
 Route::get('datamasteruserlevel/index', 'DatamasteruserlevelController@index');
+Route::post('datamasteruserlevel/tambahuserlevel','DatamasteruserlevelController@tambahuserlevel');
 Route::get('datamasteruserlevel/edituserlevel/{id_level}','DatamasteruserlevelController@edituserlevel');
 Route::post('datamasteruserlevel/updateuserlevel','DatamasteruserlevelController@updateuserlevel');
+Route::get('datamasteruserlevel/deleteuserlevel/{id_level}','DatamasteruserlevelController@deleteuserlevel');
 
 Route::get('datatransaksi/index', 'DatatransaksiController@index');
 Route::get('datatransaksi/edittransaksi/{id}','DatatransaksiController@edittransaksi');

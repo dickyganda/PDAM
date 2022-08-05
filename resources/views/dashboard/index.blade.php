@@ -211,7 +211,7 @@
      const myChart = new Chart(ctx, {
          type: 'pie',
          data: {
-             labels: < ? php echo json_encode($data_pelanggan); ? > ,
+             labels: <?php echo json_encode($data_pelanggan); ?>,
              datasets : [{
                  label: '# of Votes',
                  data: '<?php echo $pengguna_rt; ?>',
@@ -247,7 +247,7 @@
      const myChart_2 = new Chart(ctx_2, {
          type: 'bar',
          data: {
-             labels: < ? php echo json_encode($data_class); ? > ,
+             labels: <?php echo json_encode($data_class); ?>,
              datasets : [{
                  label: '# of Votes',
                  data: '<?php echo $pengguna_kelas; ?>',

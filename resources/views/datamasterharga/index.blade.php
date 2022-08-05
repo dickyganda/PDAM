@@ -32,6 +32,7 @@
           <div class="card card-primary card-outline">
             <div class="card-body">
              <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahharga">Tambah Data Baru</a>
+             <br><br>
              {{-- filter --}}
              <div class="row">
   <div class="col-sm-3">
@@ -41,7 +42,7 @@
       <option value="{{$harga->status_harga}}">{{$harga->status_harga}}</option>
       @endforeach
       </select><br>
-  </div>
+  </div><br><br>
 </div>
              {{-- endfilter --}}
 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
@@ -114,8 +115,8 @@
 <div class="form-group">
       <select id="user" name="id_user" class="form-control select2" required>
       <option></option>
-      @foreach ($dataharga as $harga)
-      <option value="{{$harga->id_user}}">{{$harga->nama}}</option>
+      @foreach ($data_harga as $harga)
+      <option value="{{$harga->id_user}}">{{$harga->user}}</option>
       @endforeach
       </select>
     </div>

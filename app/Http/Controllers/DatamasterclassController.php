@@ -59,4 +59,12 @@ function Index(){
     
 }
 
+public function deleteclass($id_class)
+{
+	// menghapus data warga berdasarkan id yang dipilih
+	DB::table('m_class')->where('id_class',$id_class)->delete();
+		
+	return response()->json(array('status'=> 'success', 'reason' => 'Sukses Hapus Data'));
+}
+
 }

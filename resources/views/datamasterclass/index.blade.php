@@ -32,7 +32,7 @@ Data Master Class
                 <div class="card card-primary card-outline">
                     <div class="card-body">
                         <a href="" class="btn btn-success" role="button" data-toggle="modal"
-                            data-target="#modaltambahclass">Tambah Data Baru</a>
+                            data-target="#modaltambahclass">Tambah Data Baru</a> <br><br>
                         {{-- filter --}}
                         <div class="row">
                             <div class="col-sm-3">
@@ -43,7 +43,7 @@ Data Master Class
                                     <option value="{{$class->status_class}}">{{$class->status_class}}</option>
                                     @endforeach
                                 </select><br>
-                            </div>
+                            </div><br><br>
                         </div>
                         {{-- endfilter --}}
 
@@ -75,8 +75,8 @@ Data Master Class
                                         <a href="/datamasterclass/editclass/{{ $class->id_class }}"
                                             class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
 
-                                        <a href="#" class="btn btn-danger" role="button"><i class="fas fa-trash"></i>
-                                            Hapus</a>
+                            <a href="#"onclick="deleteclass({{$class->id_class}})" class="btn btn-danger btn-sm" role="button" ><i class="fas fa-trash"></i> Hapus</a>
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -126,11 +126,11 @@ Data Master Class
                                             {{ $class->status_class == '1' ? 'checked' : ''}}>Aktif</option>
                                         <input type=radio name="status_class" value="0"
                                             {{ $class->status_class == '0' ? 'checked' : ''}}>Tidak Aktif</option>
-
-
-                                    </form>
-                                    <button class="btn btn-primary" href="/datamasterclass/tambahclass"
+<br>
+<button class="btn btn-primary" href="/datamasterclass/tambahclass"
                                         type="submit">Tambah</button>
+                                    </form>
+                                    
                                 </div>
 
                                 <!-- Modal footer -->
@@ -251,6 +251,35 @@ Data Master Class
                         placeholder: "Pilih Status"
                     });
                 });
+
+    function deleteclass(id_class){
+        Swal.fire({
+        title: 'Hapus Data ?',
+        text: "Anda tidak akan dapat mengembalikan ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            type:'GET',
+            dataType: 'json',
+            url: '/datamasterclass/deleteclass/' + id_class,
+            success:function(data){
+              Swal.fire(
+                'Sukses!',
+                data.reason,
+                'success'
+              ).then(() => {
+                location.reload();
+              });
+            }
+          });
+        }
+      })
+      }
 
             </script>
             @endpush

@@ -23,10 +23,15 @@ class DatamasterpelangganController extends Controller
     $data_status_pelanggan = DB::table('m_pelanggan')
     ->groupBy('status_pelanggan')
     ->get();
+
+    $data_pelanggan = DB::table('m_pelanggan')
+    ->groupBy('rt')
+    ->get();
  
     	return view('datamasterpelanggan/index' ,
         ['datapelanggan' => $datapelanggan, 'dataclass' => $dataclass,
         'data_status_pelanggan' => $data_status_pelanggan,
+        'data_pelanggan' => $data_pelanggan,
 
     ]);
     }
@@ -51,6 +56,8 @@ class DatamasterpelangganController extends Controller
         DB::table('m_config')->where('nama_config','running_number_sequence')->update([
             'nilai_config' => ($dataconfig->nilai_config+1),
         ]);
+
+        // dd($add);
         
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
     }

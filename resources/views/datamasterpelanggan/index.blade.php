@@ -36,7 +36,7 @@
 
           <div class="card card-primary card-outline">
             <div class="card-body">
-             <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahdata">Tambah Data Baru</a>
+             <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahdata">Tambah Data Baru</a><br><br>
              {{-- filter --}}
              <div class="row">
   <div class="col-sm-3">
@@ -47,6 +47,7 @@
       @endforeach
       </select><br>
   </div>
+  <br><br>
 </div>
              {{-- endfilter --}}
               <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
@@ -144,16 +145,16 @@
         <input type=radio name="status_pelanggan" value="0" {{ $pelanggan->status_pelanggan == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
     <div class="form-group">
-      <select id="rt" name="id_class" class="form-control" required>
+      <select id="rt" name="rt" class="form-control select2" required>
       <option></option>
-      @foreach ($datapelanggan as $pelanggan)
+      @foreach ($data_pelanggan as $pelanggan)
       <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
       @endforeach
       </select>
     </div>
 
     <div class="form-group">
-      <select id="class" name="id_class" class="form-control" required>
+      <select id="class" name="id_class" class="form-control select2" required>
       <option></option>
       @foreach ($dataclass as $class)
       <option value="{{$class->id_class}}">{{$class->keterangan}}</option>
@@ -260,7 +261,6 @@ $("#tambahpelanggan").submit(function(event){
   });
 
   function deletepelanggan(id_pelanggan){
-       
         Swal.fire({
         title: 'Hapus Data ?',
         text: "Anda tidak akan dapat mengembalikan ini!",
