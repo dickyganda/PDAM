@@ -31,17 +31,15 @@ Data Master Class
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        <a href="" class="btn btn-success" role="button" data-toggle="modal"
-                            data-target="#modaltambahclass">Tambah Data Baru</a> <br><br>
+                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal"
+                            data-target="#modaltambahclass"><i class="fas fa-plus-circle"></i></a> <br><br>
                         {{-- filter --}}
                         <div class="row">
                             <div class="col-sm-3">
-                                <select id="status_class" name="id_class" class="form-control select2 form-select-sm"
-                                    required>
+                                <select id="status_class" name="id_class" class="form-control select2 form-select-sm">
                                     <option></option>
-                                    @foreach ($data_status_class as $class)
-                                    <option value="{{$class->status_class}}">{{$class->status_class}}</option>
-                                    @endforeach
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
                                 </select><br>
                             </div><br><br>
                         </div>
@@ -72,10 +70,10 @@ Data Master Class
                                     <td>{{ $class->tgl_add_class }}</td>
                                     <td>{{ $class->tgl_edit_class }}</td>
                                     <td>
-                                        <a href="/datamasterclass/editclass/{{ $class->id_class }}"
-                                            class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
+                                        {{-- <a href="/datamasterclass/editclass/{{ $class->id_class }}"
+                                            class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a> --}}
 
-                            <a href="#"onclick="deleteclass({{$class->id_class}})" class="btn btn-danger btn-sm" role="button" ><i class="fas fa-trash"></i> Hapus</a>
+                            <a href="#"onclick="deleteclass({{$class->id_class}})" title="Hapus" class="btn btn-danger btn-xs" role="button" ><i class="fas fa-trash"></i></a>
 
                                     </td>
                                 </tr>
@@ -181,6 +179,10 @@ Data Master Class
                     });
 
                     var table = $('#dt-basic-example').DataTable({
+                        dom: 'Bfrtip',
+        buttons: [
+            'excel',
+        ],
                         initComplete: function () {
                             this.api()
                                 .columns()

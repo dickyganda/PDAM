@@ -49,6 +49,18 @@ Edit Transaksi
                             </div>
 
                             <div class="form-group">
+                                <label>Saldo</label>
+                                <input type="text" name="biaya_perawatan" class="form-control form-control-sm" readonly
+                                    value="{{ $transaksi->saldo }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Sisa Bayar</label>
+                                <input type="text" name="sisa_bayar" class="form-control form-control-sm" readonly
+                                    value="{{ $transaksi->sisa_bayar }}">
+                            </div>
+
+                            <div class="form-group">
                                 <label>Pembayaran</label>
                                 <input type="text" name="pembayaran" class="form-control form-control-sm"
                                     value="{{ $transaksi->pembayaran }}">
@@ -60,7 +72,8 @@ Edit Transaksi
                                 {{ $transaksi->status == '1' ? 'checked' : ''}}>Aktif</option>
                             <input type=radio name="status" value="0"
                                 {{ $transaksi->status == '0' ? 'checked' : ''}}>Tidak Aktif</option>
-                            <br />
+                            <br>
+                            <br>
 
                             <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
                             <a href="/datatransaksi/index" class="btn btn-warning btn-sm" role="button"><i

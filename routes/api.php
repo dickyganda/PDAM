@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('transaksi/getdatapelanggan/{id_pelanggan}', 'ApiController@Getdatapelanggan');
+Route::get('transaksi/getdatapelanggan/{kode_pelanggan}', 'ApiController@Getdatapelanggan');
 
 Route::post('transaksi/tambahtransaksimeter', 'ApiController@insertmeter');
 

@@ -30,16 +30,14 @@ Data Master User Level
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        <a href="" class="btn btn-success" role="button" data-toggle="modal"
-                            data-target="#myModal">Tambah Data Baru</a> <br><br>
+                        <a href="" class="btn btn-success" title="Tambah Data Baru" role="button" data-toggle="modal"
+                            data-target="#myModal"><i class="fas fa-plus-circle"></i></a> <br><br>
                         <div class="row">
                             <div class="col-sm-3">
-                                <select id="status_aktif" name="id_class" class="form-control select2 form-select-sm"
-                                    required>
+                                <select id="status_aktif" name="id_class" class="form-control select2 form-select-sm">
                                     <option></option>
-                                    @foreach ($data_status_userlevel as $userlevel)
-                                    <option value="{{$userlevel->status_aktif}}">{{$userlevel->status_aktif}}</option>
-                                    @endforeach
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
                                 </select>
                             </div><br><br>
                         </div>
@@ -49,7 +47,6 @@ Data Master User Level
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Level</th>
-                                    </th>
                                     <th>Status Aktif</th>
                                     <th>Akses Web</th>
                                     <th>Akses Mobile</th>
@@ -63,14 +60,22 @@ Data Master User Level
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $userlevel->nama_level }}</td>
                                     <td>{{ $userlevel->status_aktif }}</td>
-                                    <td>{{ $userlevel->akses_web }}</td>
-                                    <td>{{ $userlevel->akses_mobile }}</td>
-                                    <td>
-                                        <a href="/datamasteruserlevel/edituserlevel/{{ $userlevel->id_level }}"
-                                            class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
+                                    @if($userlevel->akses_web =='1')
+                                    <td><i class='fas fa-check-circle' style='font-size:12px;color:green'></i></td>
+                                    @else
+                                                        <td><i class='fas fa-times-circle' style='font-size:12px;color:red'></i></td>
+                                                        @endif
 
-                                        <a href="#" onclick="deleteuserlevel({{$userlevel->id_level}})" class="btn btn-danger" role="button"><i class="fas fa-trash"></i>
-                                            Hapus</a>
+                                    @if($userlevel->akses_mobile =='1')                 
+                                    <td><i class='fas fa-check-circle' style='font-size:12px;color:green'></i></td>
+                                    @else
+                                                        <td><i class='fas fa-times-circle' style='font-size:12px;color:red'></i></td>
+                                                        @endif
+                                    <td>
+                                        <a href="/datamasteruserlevel/edituserlevel/{{ $userlevel->id_level }}" title="Edit"
+                                            class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
+
+                                        <a href="#" onclick="deleteuserlevel({{$userlevel->id_level}})" title="Hapus" class="btn btn-danger btn-xs" role="button"><i class="fas fa-trash"></i></a>
                                     </td>
 
                                 </tr>
@@ -132,6 +137,7 @@ Data Master User Level
                                         <input type=radio name="akses_mobile" value="0"
                                             {{ $userlevel->akses_mobile == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
+<br>
                                         <button class="btn btn-primary" href="/datamasteruserlevel/tambahuserlevel"
                                             type="submit">Tambah</button>
                                     </form>
@@ -186,6 +192,10 @@ Data Master User Level
 
                     // DataTables initialisation
                     var table = $('#dt-basic-example').DataTable({
+                        dom: 'Bfrtip',
+        buttons: [
+            'excel',
+        ],
 
                     });
 

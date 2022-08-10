@@ -54,6 +54,7 @@ function Index(){
         'biaya_perawatan' => $request->biaya_perawatan,
         'pembayaran' => $request->pembayaran,
         'saldo' => $datasaldo->saldo - $request->pembayaran,
+        'sisa_bayar' => $request->pembayaran - $datasaldo->saldo,
 	]);
 
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));

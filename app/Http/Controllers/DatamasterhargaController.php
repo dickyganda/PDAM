@@ -22,14 +22,19 @@ function Index(){
     ->groupBy('status_harga')
     ->get();
 
-    $data_harga = DB::table('m_user')
+    $data_user = DB::table('m_user')
     ->groupBy('user')
+    ->get();
+
+    $data_keterangan_class = DB::table('m_class')
+    ->groupBy('keterangan')
     ->get();
  
     	return view('datamasterharga/index',[
         'dataharga' => $dataharga,
         'data_status_harga' => $data_status_harga,
-        'data_harga' => $data_harga,
+        'data_user' => $data_user,
+        'data_keterangan_class' => $data_keterangan_class,
     ]);
     }
 

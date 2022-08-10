@@ -31,17 +31,16 @@ Data Master User
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        <a href="" class="btn btn-success" role="button" data-toggle="modal"
-                            data-target="#modaltambahuser">Tambah Data Baru</a> <br><br>
+                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal"
+                            data-target="#modaltambahuser"><i class="fas fa-plus-circle"></i></a> <br><br>
                         {{-- filter --}}
                         <div class="row">
                             <div class="col-sm-3">
                                 <select id="status_user" name="id_class" class="form-control select2 form-select-sm"
                                     required>
                                     <option></option>
-                                    @foreach ($data_status_user as $user)
-                                    <option value="{{$user->status_user}}">{{$user->status_user}}</option>
-                                    @endforeach
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
                                 </select><br>
                             </div> <br><br>
                         </div>
@@ -52,12 +51,9 @@ Data Master User
                                 <tr>
                                     <th>No.</th>
                                     <th>User</th>
-                                    </th>
                                     <th>Email</th>
-                                    <th>Password</th>
-                                    <th>Pengingat</th>
                                     <th>Nama</th>
-                                    <th>ID Level</th>
+                                    <th>Level</th>
                                     <th>Status</th>
                                     <th>Tgl Daftar</th>
                                     <th>Tgl Perubahan Password</th>
@@ -71,17 +67,16 @@ Data Master User
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $user->user }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->password }}</td>
-                                    <td>{{ $user->pengingat }}</td>
                                     <td>{{ $user->nama }}</td>
-                                    <td>{{ $user->id_level }}</td>
+                                    <td>{{ $user->nama_level }}</td>
                                     <td>{{ $user->status_user }}</td>
                                     <td>{{ $user->tgl_daftar }}</td>
                                     <td>{{ $user->tgl_password }}</td>
                                     <td>
-                                        {{-- <a href="" class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a> --}}
+                            <a href="/datamasteruser/edituser/{{ $user->id_user }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 
-                            <a href="#"onclick="deleteuser({{$user->id_user}})" class="btn btn-danger btn-sm" role="button" ><i class="fas fa-trash"></i> Hapus</a>
+
+                            <a href="#"onclick="deleteuser({{$user->id_user}})" title="Hapus" class="btn btn-danger btn-xs" role="button" ><i class="fas fa-trash"></i></a>
 
                                     </td>
                                 </tr>
@@ -92,10 +87,8 @@ Data Master User
                                     <th>No.</th>
                                     <th>User</th>
                                     <th>Email</th>
-                                    <th>Password</th>
-                                    <th>Pengingat</th>
                                     <th>Nama</th>
-                                    <th>ID Level</th>
+                                    <th>Level</th>
                                     <th>Status</th>
                                     <th>Tgl Daftar</th>
                                     <th>Tgl Perubahan Password</th>
@@ -216,6 +209,10 @@ Data Master User
                     });
 
                     var table = $('#dt-basic-example').DataTable({
+                        dom: 'Bfrtip',
+        buttons: [
+            'excel',
+        ],
                         initComplete: function () {
                             this.api()
                                 .columns()
@@ -254,7 +251,7 @@ Data Master User
                         $('#status_user').val(status)
                         console.log(status)
                         //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-                        table.column(7).search(status).draw();
+                        table.column(5).search(status).draw();
                     })
                 });
 

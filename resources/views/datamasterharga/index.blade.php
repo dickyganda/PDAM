@@ -31,16 +31,15 @@
 
           <div class="card card-primary card-outline">
             <div class="card-body">
-             <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahharga">Tambah Data Baru</a>
+             <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahharga"><i class="fas fa-plus-circle"></i></a>
              <br><br>
              {{-- filter --}}
              <div class="row">
   <div class="col-sm-3">
   <select id="status_harga" name="id_class" class="form-control select2 form-select-sm" required>
       <option></option>
-      @foreach ($data_status_harga as $harga)
-      <option value="{{$harga->status_harga}}">{{$harga->status_harga}}</option>
-      @endforeach
+      <option value="1">Aktif</option>
+      <option value="0">Tidak Aktif</option>
       </select><br>
   </div><br><br>
 </div>
@@ -49,13 +48,12 @@
                                                 <thead class="bg-warning-200">
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>ID User</th></th>
-                                                        <th>ID Class</th>
+                                                        <th>User</th></th>
+                                                        <th>Class</th>
                                                         <th>Harga</th>
                                                         <th>Status</th>
                                                         <th>Tgl Add</th>
-                                                        <th>Tgl Edit</th>
-                                                        <th>Aksi</th>
+                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -63,17 +61,16 @@
                                                 @foreach($dataharga as $harga)
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
-                                                        <td>{{ $harga->id_user }}</td>
-                                                        <td>{{ $harga->id_class }}</td>
+                                                        <td>{{ $harga->nama }}</td>
+                                                        <td>{{ $harga->keterangan }}</td>
                                                         <td>{{ $harga->harga }}</td>
                                                         <td>{{ $harga->status_harga }}</td>
                                                         <td>{{ $harga->tgl_add_harga }}</td>
-                                                        <td>{{ $harga->tgl_edit_harga }}</td>
-                                                        <td>
+                                                        {{-- <td>
 				<a href="/datamasterharga/editharga/{{ $harga->id_harga }}" class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
 				
 				<a href="#"onclick="deleteharga({{$harga->id_harga}})" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Hapus</a>
-			</td>
+			</td> --}}
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
@@ -85,8 +82,6 @@
                                                         <th>Harga</th>
                                                         <th>Status</th>
                                                         <th>Tgl Add</th>
-                                                        <th>Tgl Edit</th>
-                                                        <th>Aksi</th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -115,7 +110,7 @@
 <div class="form-group">
       <select id="user" name="id_user" class="form-control select2" required>
       <option></option>
-      @foreach ($data_harga as $harga)
+      @foreach ($data_user as $harga)
       <option value="{{$harga->id_user}}">{{$harga->user}}</option>
       @endforeach
       </select>
@@ -133,10 +128,10 @@
         Status
         <input type=radio name="status_harga" value="1" {{ $harga->status_harga == '1' ? 'checked' : ''}}>Aktif</option>
         <input type=radio name="status_harga" value="0" {{ $harga->status_harga == '0' ? 'checked' : ''}}>Tidak Aktif</option>
-
-        
+<br><br>
+        <button class="btn btn-primary" href="/datamasterharga/tambahharga" type="submit">Tambah</button>
 	</form>
-  <button class="btn btn-primary" href="/datamasterharga/tambahharga" type="submit">Tambah</button>
+  
         </div>
         
         <!-- Modal footer -->
@@ -187,6 +182,10 @@ $(document).ready(function () {
     });
 
     var table = $('#dt-basic-example').DataTable({
+      dom: 'Bfrtip',
+        buttons: [
+            'excel',
+        ],
         initComplete: function () {
             this.api()
                 .columns()

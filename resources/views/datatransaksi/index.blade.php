@@ -1,5 +1,17 @@
 @extends('layouts.main')
 
+@push('style')
+<style>
+#zoom {
+  transition: transform .2s; /* Animation */
+  margin: 0 auto;
+}
+
+#zoom:hover {
+  transform: scale(20); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+</style>
+@endpush
 @section('title')
 Data Transaksi
 @endsection
@@ -62,26 +74,25 @@ Data Transaksi
                         {{-- <a href="#" class="btn btn-success" role="button">Cetak</a> --}}
                         {{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()"/> --}}
                         <table id="dt-basic-example"
-                            class="table table-bordered table-responsive table-hover table-striped w-100">
+                            class="table table-bordered table-responsive table-hover table-striped">
                             <thead class="bg-warning-200">
                                 <tr>
                                     <th>No.</th>
-                                    <th>Kode Pelanggan</th>
+                                    <th>Code</th>
                                     <th>Nama</th>
                                     <th>RT</th>
-                                    <th>Stand Meter Bulan Lalu</th>
-                                    <th>Stand Meter Bulan Ini</th>
-                                    <th>Pemakaian</th>
-                                    <th>Tagihan</th>
-                                    <th>Biaya Admin</th>
-                                    <th>Biaya Perawatan</th>
+                                    <th>Last Month</th>
+                                    <th>This Month</th>
+                                    <th>Image</th>
+                                    <th>Issued</th>
+                                    <th>Bill</th>
+                                    <th>By. Admin</th>
+                                    <th>By. mainten</th>
                                     <th>Tunggakan</th>
                                     <th>Saldo</th>
-                                    <th>Pembayaran</th>
-                                    <th>Image</th>
-                                    <th>Status</th>
+                                    <th>Pay</th>
+                                    <th>Piutang</th>
                                     <th>Tgl Scan</th>
-                                    <th>Otorisasi</th>
                                     <th>Aksi</th>
                                 </tr>
 
@@ -96,6 +107,8 @@ Data Transaksi
                                     <td>{{ $transaksi->rt }}</td>
                                     <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                     <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
+                                    <td><img src="{{url('storage/'.$transaksi->link_image)}}" width="10px"
+                                            height="10px" id="zoom"> </td>
                                     <td>{{ $transaksi->pemakaian = $transaksi->stand_meter_bulan_ini - $transaksi->stand_meter_bulan_lalu }}
                                     </td>
                                     <td>{{ $transaksi->tagihan = $transaksi->pemakaian * $transaksi->harga_class }}</td>
@@ -104,54 +117,51 @@ Data Transaksi
                                     <td>{{ $transaksi->tunggakan }}</td>
                                     <td>{{ $transaksi->saldo }}</td>
                                     <td>{{ $transaksi->pembayaran }}</td>
+                                    <td>{{ $transaksi->sisa_bayar }}</td>
                                     {{-- <td><img src="{{ route('image.displayImage',$transaksi->link_image) }}" alt=""
                                     title=""></td> --}}
-                                    <td><img src="{{url('storage/'.$transaksi->link_image)}}" width="100px"
-                                            height="100px"> </td>
+                                    
                                     {{-- <td><img src="{{ route('image.displayImage',$transaksi->link_image) }}" alt=""
                                     title=""> </td> --}}
-                                    <td>{{ $transaksi->status }}</td>
                                     <td>{{ $transaksi->tgl_scan }}</td>
-                                    <td>{{ $transaksi->otorisasi }}</td>
                                     <td>
-                                        <a href="#" onclick="hitungsaldo({{$transaksi->id}})" class="btn btn-danger"
-                                            role="button"><i class="fas fa-calculator"></i> Hitung Saldo</a>
+                                        <a href="#" onclick="hitungsaldo({{$transaksi->id}})" title="Hitung Saldo" class="btn btn-danger btn-xs"
+                                            role="button"><i class="fas fa-calculator"></i></a>
 
                                         {{-- <a href="#"onclick="updatetunggakan({{$transaksi->id}})" class="btn
                                         btn-success" role="button" id="update_tunggakan">Update Tunggakan</a> --}}
 
-                                        <a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}"
-                                            class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
+                                        <a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}" title="Edit"
+                                            class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 
-                                        <a href="/datatransaksi/report/{{ $transaksi->id }}" class="btn btn-success"
-                                            role="button"><i class="fas fa-print"></i> Cetak</a>
+                                        <a href="/datatransaksi/report/{{ $transaksi->id }}" title="Cetak" class="btn btn-success btn-xs"
+                                            role="button"><i class="fas fa-print"></i></a>
 
-                                        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}"
-                                            class="btn btn-primary" role="button"><i class="fas fa-print"></i> Cetak
-                                            Thermal</a>
+                                        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}" title="Cetak Thermal"
+                                            class="btn btn-primary btn-xs" role="button"><i class="fas fa-print"></i></a>
                                     </td>
+                                    
                                 </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Kode Pelanggan</th>
+                                    <th>Code</th>
                                     <th>Nama</th>
                                     <th>RT</th>
-                                    <th>Stand Meter Bulan Lalu</th>
-                                    <th>Stand Meter Bulan Ini</th>
-                                    <th>Pemakaian</th>
-                                    <th>Tagihan</th>
-                                    <th>Biaya Admin</th>
-                                    <th>Biaya Perawatan</th>
+                                    <th>Last Month</th>
+                                    <th>This Month</th>
+                                    <th>Image</th>
+                                    <th>Issued</th>
+                                    <th>Bill</th>
+                                    <th>By. Admin</th>
+                                    <th>By. mainten</th>
                                     <th>Tunggakan</th>
                                     <th>Saldo</th>
-                                    <th>Pembayaran</th>
-                                    <th>Image</th>
-                                    <th>Status</th>
+                                    <th>Pay</th>
+                                    <th>Piutang</th>
                                     <th>Tgl Scan</th>
-                                    <th>Otorisasi</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>

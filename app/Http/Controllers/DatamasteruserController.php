@@ -42,6 +42,24 @@ function Index(){
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));
     }
 
+    public function edituser($id_user)
+    {
+        $datauser = DB::table('m_user')->where('id_user',$id_user)->get();
+
+        return view('/datamasteruser/edituser',['datauser' => $datauser]);
+    
+    }
+
+    public function updateuser(Request $request)
+{
+	DB::table('m_user')->where('id_user',$request->id_user)->update([
+		'status_user' => $request->status_user,
+	]);
+
+    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
+    
+}
+
     public function deleteuser($id_user)
 {
 	// menghapus data warga berdasarkan id yang dipilih

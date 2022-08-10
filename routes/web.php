@@ -49,6 +49,8 @@ Route::get('datamasterclass/deleteclass/{id_class}','DatamasterclassController@d
 
 Route::get('datamasteruser/index', 'DatamasteruserController@index');
 Route::post('datamasteruser/tambahuser','DatamasteruserController@tambahuser');
+Route::get('datamasteruser/edituser/{id_user}','DatamasteruserController@edituser');
+Route::post('datamasteruser/updateuser','DatamasteruserController@updateuser');
 Route::get('datamasteruser/deleteuser/{id_user}','DatamasteruserController@deleteuser');
 
 Route::get('datamasteruserlevel/index', 'DatamasteruserlevelController@index');

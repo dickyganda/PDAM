@@ -33,20 +33,15 @@ function Index(){
     ->groupBy('rt')
     ->get();
     // dd($total_saldo_rt);
-    
-    // $pengguna_kelas = DB::table('m_pelanggan')
-    //     ->select('id_class', DB::raw('count(*) as total'))
-    //     ->groupBy('id_class')
-    //     ->get();
-    // dd($total_saldo_rt);
 
     // mengambil nama rt untuk chart
-    $datapelanggan = M_Pelanggan::select('rt')
+    $datart = M_Pelanggan::select('rt')
     ->groupBy('rt')
     ->get();
+    // dd($datart);
 
-        foreach ($datapelanggan as $key) {
-            $data_pelanggan[] = $key->rt;
+        foreach ($datart as $key) {
+            $data_rt[] = $key->rt;
         }
 
         // mengambil nama kelas untuk chart
@@ -58,14 +53,16 @@ function Index(){
             $data_class[] = $key->keterangan;
         }
 
+        // menghitung jumlah pengguna setiap kelas
         $pengguna_kelas = DB::table('m_pelanggan')
-        ->select('id_class', DB::raw('count(*) as total'))
-        ->groupBy('id_class')
+        ->join('m_class', 'm_pelanggan.id_class', '=', 'm_class.id_class')
+        ->select('m_class.keterangan', DB::raw('count(*) as total'))
+        // ->groupBy('id_class')
         ->get();
     // dd($pengguna_kelas);
 
     $pengguna_rt = DB::table('m_pelanggan')
-        ->select('rt', DB::raw('count(*) as total'))
+        ->select('*', DB::raw('count(*) as total'))
         ->groupBy('rt')
         ->get();
         // dd($pengguna_rt);
@@ -75,7 +72,7 @@ function Index(){
             'jumlah_pelanggan' => $jumlah_pelanggan,
             'total_saldo_tunggakan' => $total_saldo_tunggakan,
             'total_saldo_rt' => $total_saldo_rt,
-            'data_pelanggan' => $data_pelanggan,
+            'data_rt' => $data_rt,
             'data_class' => $data_class,
             'pengguna_kelas' => $pengguna_kelas,
             'pengguna_rt' => $pengguna_rt,

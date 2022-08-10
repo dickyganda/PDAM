@@ -261,7 +261,8 @@ table.dataTable tfoot th {
 }
 table.dataTable thead th,
 table.dataTable thead td {
-  padding: 10px;
+  padding: 0px;
+  font-size: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 table.dataTable thead th:active,
@@ -270,7 +271,8 @@ table.dataTable thead td:active {
 }
 table.dataTable tfoot th,
 table.dataTable tfoot td {
-  padding: 10px 10px 6px 10px;
+  font-size: 14px;
+  padding: 0px 0px 0px 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
 table.dataTable tbody tr {
@@ -282,7 +284,9 @@ table.dataTable tbody tr.selected > * {
 }
 table.dataTable tbody th,
 table.dataTable tbody td {
-  padding: 8px 10px;
+  padding: 4px 1px;
+  font-size: 12px;
+  white-space: nowrap;
 }
 table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
@@ -389,7 +393,7 @@ table.dataTable.no-footer {
 }
 table.dataTable.compact thead th,
 table.dataTable.compact thead td {
-  padding: 4px 17px;
+  padding: 0px 0px;
 }
 table.dataTable.compact tfoot th,
 table.dataTable.compact tfoot td {

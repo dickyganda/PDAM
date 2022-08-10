@@ -64,10 +64,10 @@ Report
                         {{-- <a href="#"onclick="('dt-basic-example')" class="btn btn-success btn-sm" role="button"><i class="fas fa-file-pdf"></i></a> --}}
                         {{-- <a href="javascript:generatePDF()" role="button" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</a> --}}
                         {{-- <button onclick="generatePDF()"><i class="fas fa-file-pdf"></i></button> --}}
-                        <a href="https://wa.me/6285866706926" class="btn btn-success btn-sm" role="button"><i
+                        <a href="https://wa.me/6281233914316" class="btn btn-success btn-sm" title="Whatsapp" role="button"><i
                                 class="fab fa-whatsapp"></i></a>
 
-                        <button onclick="printpreview()" class="btn btn-primary btn-sm"><i class="fas fa-print"></i>
+                        <button onclick="printpreview()" class="btn btn-primary btn-sm" title="Print Preview"><i class="fas fa-print"></i>
                             Preview</button> <br><br>
                         {{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()" /> --}}
                         {{-- <a href="/report/print_preview" role="button" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Preview</a> --}}
@@ -81,23 +81,20 @@ Report
                                     <thead class="bg-warning-200">
                                         <tr>
                                             <th>No.</th>
-                                            <th>Kode Pelanggan</th>
+                                            <th>Code</th>
                                             <th>Nama</th>
                                             <th>RT</th>
-                                            <th>Stand Meter Bulan Lalu</th>
-                                            <th>Stand Meter Bulan Ini</th>
-                                            <th>Pemakaian</th>
-                                            <th>Tagihan</th>
-                                            <th>Biaya Admin</th>
-                                            <th>Biaya Perawatan</th>
+                                            <th>Last Month</th>
+                                            <th>This Month</th>
+                                            <th>Image</th>
+                                            <th>Issued</th>
+                                            <th>Bill</th>
+                                            <th>By. Admin</th>
+                                            <th>By. mainten</th>
                                             <th>Tunggakan</th>
                                             <th>Saldo</th>
-                                            <th>Pembayaran</th>
-                                            <th>Image</th>
-                                            <th>Status</th>
+                                            <th>Pay</th>
                                             <th>Tgl Scan</th>
-                                            <th>Otorisasi</th>
-                                            {{-- <th>Aksi</th> --}}
                                         </tr>
 
                                     </thead>
@@ -111,6 +108,8 @@ Report
                                             <td>{{ $transaksi->rt }}</td>
                                             <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                             <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
+                                            <td><img src="{{asset('storage/'.$transaksi->link_image)}}" width="100px"
+                                                    height="100px"> </td>
                                             <td>{{ $transaksi->pemakaian = $transaksi->stand_meter_bulan_ini - $transaksi->stand_meter_bulan_lalu }}
                                             </td>
                                             <td>{{ $transaksi->tagihan = $transaksi->pemakaian * $transaksi->harga_class }}
@@ -120,11 +119,7 @@ Report
                                             <td>{{ $transaksi->tunggakan }}</td>
                                             <td>{{ $transaksi->saldo }}</td>
                                             <td>{{ $transaksi->pembayaran }}</td>
-                                            <td><img src="{{asset('storage/'.$transaksi->link_image)}}" width="100px"
-                                                    height="100px"> </td>
-                                            <td>{{ $transaksi->status }}</td>
                                             <td>{{ $transaksi->tgl_scan }}</td>
-                                            <td>{{ $transaksi->otorisasi }}</td>
 
                                         </tr>
                                         @endforeach
@@ -132,23 +127,20 @@ Report
                                     <tfoot>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Kode Pelanggan</th>
+                                            <th>Code</th>
                                             <th>Nama</th>
                                             <th>RT</th>
-                                            <th>Stand Meter Bulan Lalu</th>
-                                            <th>Stand Meter Bulan Ini</th>
-                                            <th>Pemakaian</th>
-                                            <th>Tagihan</th>
-                                            <th>Biaya Admin</th>
-                                            <th>Biaya Perawatan</th>
+                                            <th>Last Month</th>
+                                            <th>This Month</th>
+                                            <th>Image</th>
+                                            <th>Issued</th>
+                                            <th>Bill</th>
+                                            <th>By. Admin</th>
+                                            <th>By. mainten</th>
                                             <th>Tunggakan</th>
                                             <th>Saldo</th>
-                                            <th>Pembayaran</th>
-                                            <th>Image</th>
-                                            <th>Status</th>
+                                            <th>Pay</th>
                                             <th>Tgl Scan</th>
-                                            <th>Otorisasi</th>
-                                            {{-- <th>Aksi</th> --}}
                                         </tr>
                                     </tfoot>
                             </table>
@@ -172,7 +164,7 @@ Report
                 function (settings, data, dataIndex) {
                     var min = minDate.val();
                     var max = maxDate.val();
-                    var date = new Date(data[15]);
+                    var date = new Date(data[14]);
 
                     if (
                         (min === null && max === null) ||
@@ -199,7 +191,7 @@ Report
                 var table = $('#dt-basic-example').DataTable({
                     dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'print',
+            'excel', 'print',
             {
 extend: 'pdfHtml5',
 orientation: 'landscape',

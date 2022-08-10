@@ -36,25 +36,23 @@
 
           <div class="card card-primary card-outline">
             <div class="card-body">
-             <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#modaltambahdata">Tambah Data Baru</a><br><br>
+             <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal" data-target="#modaltambahdata"><i class="fas fa-plus-circle"></i></a><br><br>
              {{-- filter --}}
              <div class="row">
   <div class="col-sm-3">
   <select id="status_pelanggan" name="id_class" class="form-control select2 form-select-sm" required>
       <option></option>
-      @foreach ($data_status_pelanggan as $pelanggan)
-      <option value="{{$pelanggan->status_pelanggan}}">{{$pelanggan->status_pelanggan}}</option>
-      @endforeach
+      <option value="1">Aktif</option>
+      <option value="0">Tidak Aktif</option>
       </select><br>
   </div>
   <br><br>
 </div>
              {{-- endfilter --}}
-              <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
+              <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>ID Pelanggan</th>
                                                         <th>Kode Pelanggan</th>
                                                         <th>Nama</th>
                                                         <th>Alamat</th>
@@ -63,8 +61,6 @@
                                                         <th>Tgl Edit</th>
                                                         <th>RT</th>
                                                         <th>keterangan</th>
-                                                        <th>No. Sambung</th>
-                                                        {{-- <th>Total Saldo</th> --}}
                                                         <th>Aksi</th>
 
                                                     </tr>
@@ -74,7 +70,6 @@
                                                 @foreach($datapelanggan as $pelanggan)
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
-                                                        <td>{{ $pelanggan->id_pelanggan}}</td>
                                                         <td>{{ $pelanggan->kode_pelanggan}}</td>
                                                         <td>{{ $pelanggan->nama }}</td>
                                                         <td>{{ $pelanggan->alamat }}</td>
@@ -83,14 +78,11 @@
                                                         <td>{{ $pelanggan->tgl_edit_pelanggan }}</td>
                                                         <td>{{ $pelanggan->rt }}</td>
                                                         <td>{{ $pelanggan->keterangan }}</td>
-                                                        <td>{{ $pelanggan->no_sambung }}</td>
-                                                        {{-- <td>{{ $pelanggan->total_saldo }}</td> --}}
-                            
                                                         <td>
 
-				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" class="btn btn-warning btn-sm" role="button"><i class="fas fa-pen"></i> Edit</a>
+				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 			
-				<a href="#"onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" class="btn btn-danger btn-sm" role="button" ><i class="fas fa-trash"></i> Hapus</a>
+				<a href="#"onclick="deletepelanggan({{$pelanggan->id_pelanggan}})" title="Hapus" class="btn btn-danger btn-xs" role="button" ><i class="fas fa-trash"></i></a>
 			</td>
                                                     </tr>
                                                     @endforeach
@@ -98,7 +90,6 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>ID Pelanggan</th>
                                                         <th>Kode Pelanggan</th>
                                                         <th>Nama</th>
                                                         <th>Alamat</th>
@@ -107,8 +98,6 @@
                                                         <th>Tgl Edit</th>
                                                         <th>RT</th>
                                                         <th>keterangan</th>
-                                                        <th>No. Sambung</th>
-                                                        {{-- <th>Total Saldo</th> --}}
                                                         <th>Aksi</th>
 
                                                     </tr>
@@ -144,17 +133,18 @@
         <input type=radio name="status_pelanggan" value="1" {{ $pelanggan->status_pelanggan == '1' ? 'checked' : ''}}>Aktif</option>
         <input type=radio name="status_pelanggan" value="0" {{ $pelanggan->status_pelanggan == '0' ? 'checked' : ''}}>Tidak Aktif</option>
 
+</td>
     <div class="form-group">
-      <select id="rt" name="rt" class="form-control select2" required>
+      <select id="rt" name="rt" class="form-control form-control-sm select2" required>
       <option></option>
       @foreach ($data_pelanggan as $pelanggan)
       <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
       @endforeach
       </select>
     </div>
-
+   
     <div class="form-group">
-      <select id="class" name="id_class" class="form-control select2" required>
+      <select id="class" name="id_class" class="form-control form-control-sm select2" required>
       <option></option>
       @foreach ($dataclass as $class)
       <option value="{{$class->id_class}}">{{$class->keterangan}}</option>
@@ -162,9 +152,9 @@
       </select>
     </div>
 
-    <div class="form-group">
+    {{-- <div class="form-group">
       <input type="text" name="no_sambung" class="form-control form-control-sm" placeholder="Nomor Sambung">
-    </div>
+    </div> --}}
 
         <button class="btn btn-primary" type="submit">Tambah</button>
 	</form>
@@ -220,7 +210,10 @@ $(document).ready(function() {
  
     // DataTables initialisation
     var table = $('#dt-basic-example').DataTable({
-      
+      dom: 'Bfrtip',
+        buttons: [
+            'excel',
+        ],
     });
  
     // Refilter the table
@@ -233,7 +226,7 @@ $(document).ready(function() {
       $('#status_pelanggan').val(status)
       console.log(status)
       //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-      table.column(5).search(status).draw();
+      table.column(4).search(status).draw();
     })
 });
 
@@ -293,9 +286,7 @@ $("#tambahpelanggan").submit(function(event){
     $('#class').select2({
       placeholder: "Pilih Kelas"
     });
-  });
 
-  $(document).ready(function() {
     $('#rt').select2({
       placeholder: "Pilih RT"
     });

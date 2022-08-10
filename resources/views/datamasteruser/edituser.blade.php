@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Edit Class
+Edit User
 @endsection
 
 @section('content')
@@ -9,13 +9,13 @@ Edit Class
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Edit Class</h1>
+                <h1 class="m-0">Edit User</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 {{-- <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Starter Page</li>
-                </ol> --}}
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol> --}}
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -31,28 +31,28 @@ Edit Class
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        @foreach($dataclass as $class)
-                        <form id="editclass" method="post">
+                        @foreach($datauser as $user)
+                        <form id="edituser" method="post">
 
-                            <input type="hidden" name="id_class" value="{{ $class->id_class }}" hidden>
-                            {{-- <div class="form-group">
-                                <label>Harga</label>
-                                <input type="text" name="harga_class" required="required"
-                                    class="form-control form-control-sm" value="{{ $class->harga_class }}">
-                            </div> --}}
+                            <input type="hidden" name="id_user" value="{{ $user->id_user }}" hidden>
 
                             Status
 
-                            <input type=radio name="status_class" value="1"
-                                {{ $class->status_class == '1' ? 'checked' : ''}}>Aktif</option>
-                            <input type=radio name="status_class" value="0"
-                                {{ $class->status_class == '0' ? 'checked' : ''}}>Tidak Aktif</option>
+                            @if ( $user->status_user == '1' )
+                            <input type="radio" name="status_user" value="1" checked>
+                            <label for="aktif">Aktif</label>
+                            <input type="radio" name="status_user" value="0">
+                            @else
+                            <input type="radio" name="status_user" value="1">
+                            <label for="aktif">Aktif</label>
+                            <input type="radio" name="status_user" value="0" checked>
+                            @endif
+                            <label for="tidakaktif">Tidak Aktif</label>
                             <br />
 
                             <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
-                            <a href="/datamasterclass/index" class="btn btn-warning btn-sm" role="button"><i
+                            <a href="/datamasteruser/index" class="btn btn-warning btn-sm" role="button"><i
                                     class="fas fa-arrow-alt-circle-left"></i> Kembali</a>
-
                         </form>
                         @endforeach
 
@@ -69,13 +69,13 @@ Edit Class
 
     @push('script')
     <script>
-        $("#editclass").submit(function (event) {
+        $("#edituser").submit(function (event) {
             event.preventDefault();
             var formdata = new FormData(this);
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/datamasterclass/updateclass',
+                url: '/datamasteruser/updateuser',
                 data: formdata,
                 contentType: false,
                 cache: false,
@@ -86,7 +86,7 @@ Edit Class
                         data.reason,
                         'success'
                     ).then(() => {
-                        location.replace("/datamasterclass/index");
+                        location.replace("/datamasteruser/index");
                     });
                 }
             });
