@@ -64,25 +64,25 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/datamasterharga/index" class="nav-link">
+                <a href="/datamasterharga/index" class="nav-link {{ (request()->is('datamasterharga/index')) ? 'active' : ' ' }}">
                   <i class="fas fa-money-bill nav-icon" title="Data Master Harga"></i>
                   <p>Data Master Harga</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/datamasterclass/index" class="nav-link">
+                <a href="/datamasterclass/index" class="nav-link {{ (request()->is('datamasterclass/index')) ? 'active' : ' ' }}">
                   <i class="fas fa-sort-numeric-down nav-icon" title="Data Master Class"></i>
                   <p>Data Master Class</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/datamasteruser/index" class="nav-link">
+                <a href="/datamasteruser/index" class="nav-link {{ (request()->is('datamasteruser/index')) ? 'active' : ' ' }}">
                   <i class="fas fa-user-alt nav-icon" title="Data Master User"></i>
                   <p>Data Master User</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/datamasteruserlevel/index" class="nav-link">
+                <a href="/datamasteruserlevel/index" class="nav-link {{ (request()->is('datamasteruserlevel/index')) ? 'active' : ' ' }}">
                   <i class="fas fa-sort-alpha-down nav-icon" title="Data Master User Level"></i>
                   <p>Data Master User Level</p>
                 </a>
@@ -90,7 +90,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="/datatransaksi/index" class="nav-link">
+            <a href="/datatransaksi/index" class="nav-link {{ (request()->is('datatransaksi/index')) ? 'active' : ' ' }}">
               <i class="nav-icon fas fa-file-alt" title="Data Transaksi"></i>
               <p>
                 Data Transaksi
@@ -98,7 +98,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/report/index" class="nav-link">
+            <a href="/report/index" class="nav-link {{ (request()->is('report/index')) ? 'active' : ' ' }}">
               <i class="nav-icon fas fa-money-check-alt" title="Report"></i>
               <p>
                 Report

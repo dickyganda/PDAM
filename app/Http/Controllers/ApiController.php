@@ -22,7 +22,7 @@ class ApiController extends Controller
     $datapelanggan = DB::table('t_meter')
     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
     ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-    ->select('m_pelanggan.kode_pelanggan', 'm_pelanggan.nama', 'm_class.keterangan', 'stand_meter_bulan_lalu', 'stand_meter_bulan_ini')
+    ->select('m_pelanggan.id_pelanggan', 'm_pelanggan.kode_pelanggan', 'm_pelanggan.nama', 'm_class.id_class', 'm_class.keterangan', 'stand_meter_bulan_lalu', 'stand_meter_bulan_ini')
     ->where('m_pelanggan.kode_pelanggan', $request->kode_pelanggan)
     ->latest('tgl_scan')
     ->orderBy('m_pelanggan.kode_pelanggan', 'desc')

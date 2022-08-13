@@ -223,9 +223,16 @@ $(document).ready(function () {
     $('#status_harga').on('change', function(e){
       var status = $(this).val();
       $('#status_harga').val(status)
+      if(status == '1'){
+        status_harga = 'Aktif'
+        console.log(status_harga)
+      }else{
+        status_harga = 'Tidak Aktif'
+        console.log(status_harga)
+      }
       console.log(status)
       //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-      table.column(4).search(status).draw();
+      table.column(4).search("^"+status_harga+"$",true,false).draw();
     })
 });
 

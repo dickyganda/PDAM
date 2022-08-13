@@ -66,7 +66,11 @@ Data Master Class
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $class->keterangan }}</td>
                                     <td>{{ $class->harga_class }}</td>
-                                    <td>{{ $class->status_class }}</td>
+                                    @if($class->status_class == '1')
+                                        <td> Aktif </td>
+                                    @else
+                                        <td> Tidak Aktif </td>
+                                    @endif
                                     <td>{{ date('d-m-Y', strtotime($class->tgl_add_class )) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($class->tgl_edit_class )) }}</td>
                                     <td>
@@ -219,9 +223,16 @@ Data Master Class
                     $('#status_class').on('change', function (e) {
                         var status = $(this).val();
                         $('#status_class').val(status)
+                        if(status == '1'){
+        status_class = 'Aktif'
+        console.log(status_class)
+      }else{
+        status_class = 'Tidak Aktif'
+        console.log(status_class)
+      }
                         console.log(status)
                         //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-                        table.column(3).search(status).draw();
+                        table.column(3).search("^"+status_class+"$",true,false).draw();
                     })
                 });
 

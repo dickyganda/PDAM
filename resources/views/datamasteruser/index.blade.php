@@ -69,7 +69,11 @@ Data Master User
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->nama }}</td>
                                     <td>{{ $user->nama_level }}</td>
-                                    <td>{{ $user->status_user }}</td>
+                                    @if($user->status_user == '1')
+                                        <td> Aktif </td>
+                                    @else
+                                        <td> Tidak Aktif </td>
+                                    @endif
                                     <td>{{ date('d-m-Y', strtotime($user->tgl_daftar )) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($user->tgl_password )) }}</td>
                                     <td>
@@ -249,9 +253,16 @@ Data Master User
                     $('#status_user').on('change', function (e) {
                         var status = $(this).val();
                         $('#status_user').val(status)
+                        if(status == '1'){
+        status_user = 'Aktif'
+        console.log(status_user)
+      }else{
+        status_user = 'Tidak Aktif'
+        console.log(status_user)
+      }
                         console.log(status)
                         //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-                        table.column(5).search(status).draw();
+                        table.column(5).search("^"+status_user+"$",true,false).draw();
                     })
                 });
 

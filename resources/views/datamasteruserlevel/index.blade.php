@@ -59,7 +59,11 @@ Data Master User Level
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $userlevel->nama_level }}</td>
-                                    <td>{{ $userlevel->status_aktif }}</td>
+                                    @if($userlevel->status_aktif == '1')
+                                                          <td> Aktif </td>
+                                                          @else
+                                                          <td> Tidak Aktif </td>
+                                                          @endif
                                     @if($userlevel->akses_web =='1')
                                     <td><i class='fas fa-check-circle' style='font-size:12px;color:green'></i></td>
                                     @else
@@ -207,9 +211,16 @@ Data Master User Level
                     $('#status_aktif').on('change', function (e) {
                         var status = $(this).val();
                         $('#status_aktif').val(status)
+                        if(status == '1'){
+        status_aktif = 'Aktif'
+        console.log(status_aktif)
+      }else{
+        status_aktif = 'Tidak Aktif'
+        console.log(status_aktif)
+      }
                         console.log(status)
                         //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-                        table.column(2).search(status).draw();
+                        table.column(2).search("^"+status_aktif+"$",true,false).draw();
                     })
                 });
 
