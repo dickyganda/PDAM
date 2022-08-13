@@ -79,7 +79,7 @@
                                                           <td> Tidak Aktif </td>
                                                           @endif
                                                         <td>{{ date('d-m-Y', strtotime($pelanggan->tgl_add_pelanggan )) }}</td>
-                                                        <td>{{ $pelanggan->tgl_edit_pelanggan }}</td>
+                                                        <td>{{ ($pelanggan->tgl_edit_pelanggan ? date('d-m-Y', strtotime($pelanggan->tgl_edit_pelanggan)) : '') }}</td>
                                                         <td>{{ $pelanggan->rt }}</td>
                                                         <td>{{ $pelanggan->keterangan }}</td>
                                                         <td>

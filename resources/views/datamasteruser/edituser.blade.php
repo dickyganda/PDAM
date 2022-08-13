@@ -51,6 +51,7 @@ Edit User
                             <br />
 
                             <input type="password" name="password" value="{{ $user->password }}">
+                            <br><br>
 
                             <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
                             <a href="/datamasteruser/index" class="btn btn-warning btn-sm" role="button"><i

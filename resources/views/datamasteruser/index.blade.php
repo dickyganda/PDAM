@@ -75,7 +75,7 @@ Data Master User
                                         <td> Tidak Aktif </td>
                                     @endif
                                     <td>{{ date('d-m-Y', strtotime($user->tgl_daftar )) }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($user->tgl_password )) }}</td>
+                                    <td>{{ ($user->tgl_password ? date('d-m-Y', strtotime($user->tgl_password)) : '') }}</td>
                                     <td>
                             <a href="/datamasteruser/edituser/{{ $user->id_user }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 

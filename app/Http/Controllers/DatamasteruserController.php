@@ -55,6 +55,7 @@ function Index(){
 	DB::table('m_user')->where('id_user',$request->id_user)->update([
 		'status_user' => $request->status_user,
         'password' => md5($request->password),
+        'tgl_password' => Date('Y-m-d')
 	]);
 
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
@@ -63,7 +64,7 @@ function Index(){
 
     public function deleteuser($id_user)
 {
-	// menghapus data warga berdasarkan id yang dipilih
+	
 	DB::table('m_user')->where('id_user',$id_user)->delete();
 		
 	return response()->json(array('status'=> 'success', 'reason' => 'Sukses Hapus Data'));
