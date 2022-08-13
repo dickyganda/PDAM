@@ -1,5 +1,7 @@
 <style>
-
+.active {
+  color: green;
+}
 </style>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -38,7 +40,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-            <a href="/dashboard/index" class="nav-link">
+            <a href="/dashboard/index" class="nav-link {{ (request()->is('dashboard/index')) ? 'active' : ' ' }}">
               <i class="nav-icon fas fa-tachometer-alt" title="Dashboard"></i>
               <p>
                 Dashboard
@@ -56,7 +58,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/datamasterpelanggan/index" class="nav-link">
+                <a href="/datamasterpelanggan/index" class="nav-link {{ (request()->is('datamasterpelanggan/index')) ? 'active' : ' ' }}">
                   <i class="fas fa-id-card nav-icon" title="Data Master Pelanggan"></i>
                   <p>Data Master Pelanggan</p>
                 </a>
@@ -112,12 +114,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="/autentikasi/ubahpassword" class="nav-link">
                   <i class="fas fa-lock nav-icon"></i>
                   <p>Ubah Password</p>
                 </a>
-              </li>
+              </li> --}}
               <li class="nav-item">
                 <a href="/logout" class="nav-link">
                   <i class="fas fa-sign-out-alt nav-icon" title="Logout"></i>
@@ -144,5 +146,13 @@
   </aside>
 
   <script>
-  
+  {{-- document.querySelectorAll(".nav-item").forEach((ele) =>
+  ele.addEventListener("click", function (event) {
+    event.preventDefault();
+    document
+      .querySelectorAll(".nav-item")
+      .forEach((ele) => ele.classList.remove("active"));
+    this.classList.add("active")
+  })
+); --}}
   </script>

@@ -30,7 +30,7 @@ function Index(){
         $add->id_user = $request->input('id_user');
         $add->user = $request->input('user');
         $add->email = $request->input('email');
-        $add->password = $request->input('password');
+        $add->password = md5($request->input('password'));
         $add->pengingat = $request->input('pengingat');
         $add->nama = $request->input('nama');
         $add->id_level = $request->input('id_level');
@@ -54,6 +54,7 @@ function Index(){
 {
 	DB::table('m_user')->where('id_user',$request->id_user)->update([
 		'status_user' => $request->status_user,
+        'password' => md5($request->password),
 	]);
 
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));

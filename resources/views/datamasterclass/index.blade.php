@@ -67,8 +67,8 @@ Data Master Class
                                     <td>{{ $class->keterangan }}</td>
                                     <td>{{ $class->harga_class }}</td>
                                     <td>{{ $class->status_class }}</td>
-                                    <td>{{ $class->tgl_add_class }}</td>
-                                    <td>{{ $class->tgl_edit_class }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($class->tgl_add_class )) }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($class->tgl_edit_class )) }}</td>
                                     <td>
                                         {{-- <a href="/datamasterclass/editclass/{{ $class->id_class }}"
                                             class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a> --}}

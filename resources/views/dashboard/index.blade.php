@@ -216,7 +216,7 @@ const myChart = new Chart(ctx, {
     labels: <?php echo json_encode($data_rt); ?>,
     datasets: [{
       label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
+      data: {{ json_encode($penggunart) }},
       backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -246,7 +246,7 @@ const myChart2 = new Chart(ctx2, {
     labels: <?php echo json_encode($data_class); ?>,
     datasets: [{
       label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
+      data: {{ json_encode($penggunakelas) }},
       backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

@@ -36,7 +36,7 @@
 
 <input type="hidden" name="id_user" value="{{ $user->id_user }}" hidden>
 <div class="form-group">
-          <label>Password Baru</label>
+          <label>Password</label>
           <input type="password" name="password" required="required" class="form-control form-control-sm" value="{{ $user->password }}">
         </div>
 

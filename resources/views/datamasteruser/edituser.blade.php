@@ -50,6 +50,8 @@ Edit User
                             <label for="tidakaktif">Tidak Aktif</label>
                             <br />
 
+                            <input type="password" name="password" value="{{ $user->password }}">
+
                             <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Simpan</button>
                             <a href="/datamasteruser/index" class="btn btn-warning btn-sm" role="button"><i
                                     class="fas fa-arrow-alt-circle-left"></i> Kembali</a>

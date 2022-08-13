@@ -18,12 +18,6 @@ class ApiController extends Controller
 {
 
     function getdatapelanggan(Request $request){
-        
-    // $datapelanggan = T_Meter::select('id_pelanggan', 'kode_pelanggan', 'nama', 'id_class', 'keterangan', 'stand_meter_bulan_lalu', 'stand_meter_bulan_ini')
-    // ->where('kode_pelanggan', $request->kode_pelanggan)
-    // ->latest('tgl_scan')
-    // ->orderBy('id_pelanggan', 'desc')
-    // ->first();
 
     $datapelanggan = DB::table('t_meter')
     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
@@ -72,23 +66,23 @@ $tunggakanbulanlalu = 0;
         ->where('id_class', $request->input('id_class'))
         ->first();
 
-        $meterbulanlalu = T_Meter::select('*')
+        $datameterbulanlalu = T_Meter::select('*')
         ->where('id_pelanggan', $request->id_pelanggan)
         ->whereMonth('tgl_scan', '=', $bulanlalu)
         ->whereYear('tgl_scan', '=', $tahunnyabulanlalu)
         ->first();
-
-        if(empty($meterbulanlalu)){
-            $meterbulanlalu = 0;
-        }else{
-            $meterbulanlalu = $meterbulanlalu->stand_meter_bulan_ini;
-        }
-
         // dd($meterbulanlalu);
 
-        // $isi_tunggakan = T_Meter::select('tunggakan')
-        // ->where('id_pelanggan', $request->id_pelanggan)
-        // ->first();
+        if(empty($datameterbulanlalu)){
+            $meterbulanlalu = 0;
+            $sisa_bayar_bulanlalu = 0;
+        }else{
+            $meterbulanlalu = $datameterbulanlalu->stand_meter_bulan_ini;
+            $sisa_bayar_bulanlalu = $datameterbulanlalu->sisa_bayar;
+        }
+        
+
+        // dd($meterbulanlalu);
 
         // dd($isi_tunggakan);
         $add = new T_Meter;
@@ -103,6 +97,7 @@ $tunggakanbulanlalu = 0;
         $add->tagihan = ($add->pemakaian * $dataclass->harga_class);
         // $add->tunggakan = $request->input('tunggakan');
         $add->tunggakan = $tunggakanbulanlalu;
+        $add->sisa_bayar = $sisa_bayar_bulanlalu;
         if($request->hasFile("link_image")){
             $img = $request -> link_image;
             $img_name = time().'-'.$img->getClientOriginalName();

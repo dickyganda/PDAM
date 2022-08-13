@@ -56,7 +56,7 @@ Edit Transaksi
 
                             <div class="form-group">
                                 <label>Sisa Bayar</label>
-                                <input type="text" name="sisa_bayar" class="form-control form-control-sm" readonly
+                                <input type="text" name="sisa_bayar" class="form-control form-control-sm"
                                     value="{{ $transaksi->sisa_bayar }}">
                             </div>
 

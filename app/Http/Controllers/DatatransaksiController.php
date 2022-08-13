@@ -54,7 +54,7 @@ function Index(){
         'biaya_perawatan' => $request->biaya_perawatan,
         'pembayaran' => $request->pembayaran,
         'saldo' => $datasaldo->saldo - $request->pembayaran,
-        'sisa_bayar' => $request->pembayaran - $datasaldo->saldo,
+        'sisa_bayar' => $request->sisa_bayar,
 	]);
 
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
@@ -88,7 +88,7 @@ public function hitungsaldo($id)
         
     $saldo = DB::table('t_meter')
     ->where('id', $id)
-    ->sum(DB::raw('tagihan + biaya_admin + biaya_perawatan + tunggakan'));
+    ->sum(DB::raw('tagihan + biaya_admin + biaya_perawatan + tunggakan - sisa_bayar'));
 $saldo =intval($saldo);
     // dd($saldo);
 

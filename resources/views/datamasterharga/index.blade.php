@@ -64,8 +64,13 @@
                                                         <td>{{ $harga->nama }}</td>
                                                         <td>{{ $harga->keterangan }}</td>
                                                         <td>{{ $harga->harga }}</td>
-                                                        <td>{{ $harga->status_harga }}</td>
-                                                        <td>{{ $harga->tgl_add_harga }}</td>
+                                                        @if($harga->status_harga == '1')
+                                                          <td> Aktif </td>
+                                                          @else
+                                                          <td> Tidak Aktif </td>
+                                                          @endif
+                                                        {{-- <td>{{ $harga->status_harga }}</td> --}}
+                                                        <td>{{ date('d-m-Y', strtotime($harga->tgl_add_harga )) }}</td>
                                                         {{-- <td>
 				<a href="/datamasterharga/editharga/{{ $harga->id_harga }}" class="btn btn-warning" role="button"><i class="fas fa-pen"></i> Edit</a>
 				
@@ -108,7 +113,7 @@
     </div>
 
 <div class="form-group">
-      <select id="user" name="id_user" class="form-control select2" required>
+      <select id="user" name="id_user" class="form-control form-control-sm select2" required>
       <option></option>
       @foreach ($data_user as $harga)
       <option value="{{$harga->id_user}}">{{$harga->user}}</option>
@@ -119,7 +124,7 @@
     <div class="form-group">
       <select id="class" name="id_class" class="form-control select2" required>
       <option></option>
-      @foreach ($dataharga as $harga)
+      @foreach ($data_keterangan_class as $harga)
       <option value="{{$harga->id_class}}">{{$harga->keterangan}}</option>
       @endforeach
       </select>

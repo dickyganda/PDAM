@@ -70,8 +70,8 @@ Data Master User
                                     <td>{{ $user->nama }}</td>
                                     <td>{{ $user->nama_level }}</td>
                                     <td>{{ $user->status_user }}</td>
-                                    <td>{{ $user->tgl_daftar }}</td>
-                                    <td>{{ $user->tgl_password }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($user->tgl_daftar )) }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($user->tgl_password )) }}</td>
                                     <td>
                             <a href="/datamasteruser/edituser/{{ $user->id_user }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 

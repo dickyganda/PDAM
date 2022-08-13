@@ -59,12 +59,18 @@ function Index(){
         ->select('m_class.keterangan', DB::raw('count(*) as total'))
         // ->groupBy('id_class')
         ->get();
+        foreach ($pengguna_kelas as $key) {
+            $penggunakelas[] = $key->total;
+        }
     // dd($pengguna_kelas);
 
     $pengguna_rt = DB::table('m_pelanggan')
-        ->select('*', DB::raw('count(*) as total'))
+        ->select('rt', DB::raw('count(*) as total'))
         ->groupBy('rt')
         ->get();
+        foreach ($pengguna_rt as $key) {
+            $penggunart[] = $key->total;
+        }
         // dd($pengguna_rt);
 
     	return view('/dashboard/index',
@@ -76,6 +82,8 @@ function Index(){
             'data_class' => $data_class,
             'pengguna_kelas' => $pengguna_kelas,
             'pengguna_rt' => $pengguna_rt,
+            'penggunart' => $penggunart,
+            'penggunakelas' => $penggunakelas,
         ]
     );
     }

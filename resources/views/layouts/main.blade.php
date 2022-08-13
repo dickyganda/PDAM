@@ -46,8 +46,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   @if (Session::get('nama_level') == 'Administrator')
             @include('layouts/sidebarleft')
                 
-            @else
+            @elseif(Session::get('nama_level') == 'Admin')
             @include('layouts/sidebaradmin')
+
+            @else
+            @php
+            header("Location: " . URL::to('/'), true, 302);
+            exit();
+            @endphp
                 
             @endif
   {{-- @include('layouts/sidebarleft') --}}

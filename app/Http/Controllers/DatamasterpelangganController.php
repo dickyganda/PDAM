@@ -74,7 +74,7 @@ class DatamasterpelangganController extends Controller
 {
 	DB::table('m_pelanggan')->where('id_pelanggan',$request->id_pelanggan)->update([
 		'status_pelanggan' => $request->status_pelanggan,
-        'tgl_edit_pelanggan' => Date('Y-m-d H:i:s')
+        'tgl_edit_pelanggan' => Date('Y-m-d')
 
 	]);
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));

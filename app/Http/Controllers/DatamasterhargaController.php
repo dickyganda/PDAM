@@ -27,7 +27,8 @@ function Index(){
     ->get();
 
     $data_keterangan_class = DB::table('m_class')
-    ->groupBy('keterangan')
+    ->join('m_harga', 'm_harga.id_class', '=', 'm_class.id_class')
+    ->groupBy('m_class.keterangan')
     ->get();
  
     	return view('datamasterharga/index',[
@@ -39,6 +40,12 @@ function Index(){
     }
 
     function tambahharga(Request $request){
+
+        DB::table('m_harga')->where('id_class',$request->id_class)->update([
+            'status_harga' => 0,
+            'tgl_edit_harga' => Date('Y-m-d')
+        ]);
+
         $add = new M_Harga;
         $add->id_harga = $request->input('id_harga');
         $add->id_user = $request->input('id_user');
@@ -52,6 +59,11 @@ function Index(){
         DB::table('m_class')->where('id_class',$request->id_class)->update([
             'harga_class' => $request->harga,
             'tgl_edit_class' => Date('Y-m-d')
+        ]);
+
+        DB::table('m_harga')->where('id_harga',$request->id_harga)->update([
+            'status_harga' => $request->harga,
+            'tgl_edit_harga' => Date('Y-m-d')
         ]);
         
         return response()->json(array('status' => 'success', 'reason' => 'Sukses Tambah Data'));

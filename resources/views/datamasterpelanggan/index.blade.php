@@ -73,8 +73,12 @@
                                                         <td>{{ $pelanggan->kode_pelanggan}}</td>
                                                         <td>{{ $pelanggan->nama }}</td>
                                                         <td>{{ $pelanggan->alamat }}</td>
-                                                        <td>{{ $pelanggan->status_pelanggan }}</td>
-                                                        <td>{{ $pelanggan->tgl_add_pelanggan }}</td>
+                                                        @if($pelanggan->status_pelanggan == '1')
+                                                          <td> Aktif </td>
+                                                          @else
+                                                          <td> Tidak Aktif </td>
+                                                          @endif
+                                                        <td>{{ date('d-m-Y', strtotime($pelanggan->tgl_add_pelanggan )) }}</td>
                                                         <td>{{ $pelanggan->tgl_edit_pelanggan }}</td>
                                                         <td>{{ $pelanggan->rt }}</td>
                                                         <td>{{ $pelanggan->keterangan }}</td>
@@ -224,9 +228,17 @@ $(document).ready(function() {
     $('#status_pelanggan').on('change', function(e){
       var status = $(this).val();
       $('#status_pelanggan').val(status)
+      if(status == '1'){
+        status_pelanggan = 'Aktif'
+        console.log(status_pelanggan)
+      }else{
+        status_pelanggan = 'Tidak Aktif'
+        console.log(status_pelanggan)
+      }
+      
       console.log(status)
       //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-      table.column(4).search(status).draw();
+      table.column(4).search("^"+status_pelanggan+"$",true,false).draw();
     })
 });
 
