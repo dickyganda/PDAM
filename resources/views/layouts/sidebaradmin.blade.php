@@ -35,7 +35,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-            <a href="/dashboard/index" class="nav-link">
+            <a href="/dashboard/index" class="nav-link {{ (request()->is('dashboard/index')) ? 'active' : ' ' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -44,7 +44,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/datatransaksi/index" class="nav-link">
+            <a href="/datatransaksi/index" class="nav-link {{ (request()->is('datatransaksi/index')) ? 'active' : ' ' }}">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
                 Data Transaksi
@@ -60,7 +60,7 @@
             </a>
           </li>
            <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link {{ (request()->is('report/index')) ? 'active' : ' ' }}">
               <i class="fas fa-user-tie"></i>
               <p>
                 Account

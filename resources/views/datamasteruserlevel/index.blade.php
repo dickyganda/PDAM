@@ -30,7 +30,7 @@ Data Master User Level
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                        <a href="" class="btn btn-success" title="Tambah Data Baru" role="button" data-toggle="modal"
+                        <a href="" class="btn btn-success btn-xs" title="Tambah Data Baru" role="button" data-toggle="modal"
                             data-target="#myModal"><i class="fas fa-plus-circle"></i></a> <br><br>
                         <div class="row">
                             <div class="col-sm-3">

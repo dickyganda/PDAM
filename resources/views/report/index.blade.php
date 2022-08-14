@@ -1,5 +1,18 @@
 @extends('layouts.main')
 
+@push('style')
+<style>
+#zoom {
+  transition: transform .2s; /* Animation */
+  margin: 0 auto;
+}
+
+#zoom:hover {
+  transform: scale(20); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+</style>
+@endpush
+
 @section('title')
 Report
 @endsection
@@ -108,8 +121,8 @@ Report
                                             <td>{{ $transaksi->rt }}</td>
                                             <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                             <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
-                                            <td><img src="{{asset('storage/'.$transaksi->link_image)}}" width="100px"
-                                                    height="100px"> </td>
+                                            <td><img src="{{asset('storage/'.$transaksi->link_image)}}" width="10px"
+                                                    height="10px" id="zoom"> </td>
                                             <td>{{ $transaksi->pemakaian = $transaksi->stand_meter_bulan_ini - $transaksi->stand_meter_bulan_lalu }}
                                             </td>
                                             <td>{{ $transaksi->tagihan = $transaksi->pemakaian * $transaksi->harga_class }}
