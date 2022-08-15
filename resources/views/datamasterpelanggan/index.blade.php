@@ -53,6 +53,7 @@
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th>No.</th>
+                                                        {{-- <th>ID</th> --}}
                                                         <th>Kode Pelanggan</th>
                                                         <th>Nama</th>
                                                         <th>Alamat</th>
@@ -70,6 +71,7 @@
                                                 @foreach($datapelanggan as $pelanggan)
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
+                                                        {{-- <td>{{ $pelanggan->id_pelanggan}}</td> --}}
                                                         <td>{{ $pelanggan->kode_pelanggan}}</td>
                                                         <td>{{ $pelanggan->nama }}</td>
                                                         <td>{{ $pelanggan->alamat }}</td>
@@ -94,6 +96,7 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th>No.</th>
+                                                        {{-- <th>ID</th> --}}
                                                         <th>Kode Pelanggan</th>
                                                         <th>Nama</th>
                                                         <th>Alamat</th>
@@ -139,7 +142,7 @@
 
 </td>
     <div class="form-group">
-      <select id="rt" name="rt" class="form-control form-control-sm select2" required>
+      <select id="rt" name="rt" class="form-control form-control-sm select2" style="width:100%;" required>
       <option></option>
       @foreach ($data_pelanggan as $pelanggan)
       <option value="{{$pelanggan->rt}}">{{$pelanggan->rt}}</option>
@@ -148,7 +151,7 @@
     </div>
    
     <div class="form-group">
-      <select id="class" name="id_class" class="form-control form-control-sm select2" required>
+      <select id="class" name="id_class" class="form-control form-control-sm select2" style="width:100%;" required>
       <option></option>
       @foreach ($dataclass as $class)
       <option value="{{$class->id_class}}">{{$class->keterangan}}</option>
@@ -297,10 +300,12 @@ $("#tambahpelanggan").submit(function(event){
   $(document).ready(function() {
     $('#class').select2({
       placeholder: "Pilih Kelas"
+      
     });
 
     $('#rt').select2({
       placeholder: "Pilih RT"
+      
     });
   });
 

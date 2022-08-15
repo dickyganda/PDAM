@@ -29,7 +29,8 @@ class DatamasterpelangganController extends Controller
     ->get();
  
     	return view('datamasterpelanggan/index' ,
-        ['datapelanggan' => $datapelanggan, 'dataclass' => $dataclass,
+        ['datapelanggan' => $datapelanggan, 
+        'dataclass' => $dataclass,
         'data_status_pelanggan' => $data_status_pelanggan,
         'data_pelanggan' => $data_pelanggan,
 
@@ -64,9 +65,17 @@ class DatamasterpelangganController extends Controller
 
     public function editpelanggan($id_pelanggan)
     {
-        $datapelanggan = DB::table('m_pelanggan')->where('id_pelanggan',$id_pelanggan)->get();
+        $datapelanggan = DB::table('m_pelanggan')
+        ->join('m_class', 'm_class.id_class', '=', 'm_pelanggan.id_class')
+        ->where('id_pelanggan',$id_pelanggan)
+        ->get();
 
-        return view('/datamasterpelanggan/editpelanggan',['datapelanggan' => $datapelanggan]);
+        $dataclass = DB::table('m_class')->get();
+
+        return view('/datamasterpelanggan/editpelanggan',[
+            'datapelanggan' => $datapelanggan,
+            'dataclass' => $dataclass,
+    ]);
     
     }
 
@@ -74,6 +83,7 @@ class DatamasterpelangganController extends Controller
 {
 	DB::table('m_pelanggan')->where('id_pelanggan',$request->id_pelanggan)->update([
 		'status_pelanggan' => $request->status_pelanggan,
+        'id_class' => $request->id_class,
         'tgl_edit_pelanggan' => Date('Y-m-d')
 
 	]);

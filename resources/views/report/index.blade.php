@@ -107,6 +107,7 @@ Report
                                             <th>Tunggakan</th>
                                             <th>Saldo</th>
                                             <th>Pay</th>
+                                            <th>Piutang</th>
                                             <th>Tgl Scan</th>
                                         </tr>
 
@@ -132,6 +133,7 @@ Report
                                             <td>{{ $transaksi->tunggakan }}</td>
                                             <td>{{ $transaksi->saldo }}</td>
                                             <td>{{ $transaksi->pembayaran }}</td>
+                                            <td>{{ $transaksi->sisa_bayar }}</td>
                                             <td>{{ $transaksi->tgl_scan }}</td>
 
                                         </tr>
@@ -153,6 +155,7 @@ Report
                                             <th>Tunggakan</th>
                                             <th>Saldo</th>
                                             <th>Pay</th>
+                                            <th>Piutang</th>
                                             <th>Tgl Scan</th>
                                         </tr>
                                     </tfoot>
@@ -177,7 +180,7 @@ Report
                 function (settings, data, dataIndex) {
                     var min = minDate.val();
                     var max = maxDate.val();
-                    var date = new Date(data[14]);
+                    var date = new Date(data[15]);
 
                     if (
                         (min === null && max === null) ||
