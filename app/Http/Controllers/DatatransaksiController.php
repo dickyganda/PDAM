@@ -94,7 +94,8 @@ $saldo =intval($saldo);
 
     $saldo = DB::table('t_meter')
     ->where('id', $id)
-    ->update(['saldo'=>$saldo]);
+    ->update(['saldo'=>$saldo,
+    'sisa_bayar' => 0,]);
 // dd($saldo);
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
     

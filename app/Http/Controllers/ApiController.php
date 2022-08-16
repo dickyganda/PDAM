@@ -107,6 +107,7 @@ $tunggakanbulanlalu = 0;
 
         $add->tgl_scan = Date('Y-m-d');
         $add->save();
+        // dd($add);
         return response([
             'status' => 'Ok',
             'message' => 'Data telah ditambahkan',
