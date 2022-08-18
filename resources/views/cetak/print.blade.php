@@ -7,6 +7,7 @@
             width: 100%;
             text-align: left;
             font-family: Arial, Helvetica, sans-serif;
+            font-size: 10pt;
         }
 
         table,
@@ -26,28 +27,14 @@
             padding: 0px;
         }
 
-        section.top {
-            margin-bottom: 20px;
-
             img {
-                max-width: inherit;
-                width: inherit;
+            max-width: inherit;
+            width: 50px;
+            height: 50px;
             }
-        }
 
         #kop {
             text-align: center;
-        }
-
-            {
-                {
-                -- #header {
-                    text-align: center;
-                    line-height: 0.5cm;
-                }
-
-                --
-            }
         }
 
         #headerkategori {
@@ -61,8 +48,16 @@
         }
 
         @page {
-            size: 7in 9.25in;
-            margin: 27mm 16mm 27mm 16mm;
+            size: A4 portrait;
+            margin: 5mm 5mm 5mm 5mm;
+            
+        }
+
+        @media print {
+            .hidden-print,
+            .hidden-print * {
+                display: none !important;
+            }
         }
 
     </style>
@@ -71,87 +66,116 @@
 <body>
 
 
-    <section class="top">
+    {{-- <section class="top">
         <p>Dibuat pada: {{ now()->format('h:i:s d-m-Y') }}</p>
-    </section>
+    </section> --}}
 
     @foreach($datatransaksi as $transaksi)
 
     <div id="div1">
-
+{{-- kop --}}
         <tr id="header">
+        {{-- <td rowspan="1"></td> --}}
             <td colspan="7">
-                <p style="text-align:center;">BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM MASYARAKAT</p>
-                <h4 style="text-align:center;">(BP-SPAMS) "TIRTA AGUNG SUMARI"</h4>
+            <img src="{{asset('assets/img/logo.png') }}" alt="Logo">
+                <p style="text-align:center;"><b>BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM</b></p>
+                <p style="text-align:center;"><b>(BP-SPAMS) "TIRTA SUMARI"</b></p>
                 <p style="text-align:center;">DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
-                <p style="text-align:center;">Jl. sumber Duduksampeyan Gresik - 61162</p>
+                {{-- <p style="text-align:center;">Jl. sumber Duduksampeyan Gresik - 61162</p> --}}
             </td>
+            <td></td>
         </tr>
+        {{-- akhir kop --}}
 
         <table class="table table-bordered" style="width:100%" id="cetaknota" border="1">
+        {{-- baris 1 --}}
             <tr>
-                <td colspan="8" id="headerkategori" style="text-align:center;"><b>TAGIHAN REKENING AIR</b></td>
+                <td colspan="8" id="headerkategori" style="text-align:center;"><b>TAGIHAN REKENING AIR BERSIH</b></td>
             </tr>
+
+            {{-- baris 2 --}}
             <tr>
-                <td colspan="2">NO. PELANGGAN</td>
+                <td colspan="2">KODE PELANGGAN</td>
                 <td colspan="2">{{ $transaksi->kode_pelanggan }}</td>
                 <td>BLN/THN</td>
                 <td colspan="2">{{ $transaksi->tgl_scan}}</td>
             </tr>
+
+            {{-- baris 3 --}}
             <tr>
                 <td colspan="2">NAMA</td>
                 <td colspan="2">{{ $transaksi->nama }}</td>
-                <td>GOLONGAN</td>
-                <td colspan="2">{{ $transaksi->id_class }}</td>
+                <td>RT</td>
+                <td colspan="2">{{ $transaksi->rt }}</td>
+                {{-- <td>GOLONGAN</td>
+                <td colspan="2">{{ $transaksi->id_class }}</td> --}}
             </tr>
+
+            {{-- baris 4 --}}
             <tr>
                 <td colspan="2">ALAMAT</td>
                 <td colspan="2">{{ $transaksi->alamat }}</td>
-                <td>RT</td>
-                <td colspan="2">{{ $transaksi->rt }}</td>
             </tr>
 
+{{-- baris 5 --}}
             <tr>
                 <td colspan="8" id="headerkategori" style="text-align:center; background-color:powderblue;"><b>PERINCIAN
                         PEMAKAIAN DAN TAGIHAN</b></td>
             </tr>
+
+            {{-- baris 6 --}}
             <tr>
-                <td colspan="2" id="subheader" style="text-align:center;">Satuan</td>
-                <td id="subheader" style="text-align:center;">Tarif</td>
-                <td id="subheader" style="text-align:center;">RP</td>
+                <td colspan="2" id="subheader" style="text-align:center;"><b>Satuan Meter</b></td>
+                <td id="subheader" style="text-align:center;" rowspan="2"><b>TARIF DASAR PER M3</b></td>
+                <td id="subheader" style="text-align:center;" rowspan="2"><b>RP</b></td>
                 <td>Tagihan</td>
                 <td>{{ $transaksi->tagihan }}</td>
-                <td colspan="2" id="subheader" style="text-align:center;">Jumlah yang harus dibayar</td>
+                <td colspan="2" id="subheader" style="text-align:center;"><b>Jumlah yang harus dibayar</b></td>
             </tr>
+
+            {{-- baris 7 --}}
             <tr>
                 <td>Akhir</td>
                 <td>{{ $transaksi->stand_meter_bulan_ini}}</td>
-                <td rowspan="3">{{ $transaksi->harga_class}}</td>
-                <td rowspan="3">{{ $transaksi->tagihan}}</td>
                 <td>Biaya Admin</td>
                 <td>{{ $transaksi->biaya_admin}}</td>
                 <td style="text-align:center;" rowspan="3" id="terbilang-input"><b>{{ $transaksi->saldo}}</b></td>
             </tr>
 
+{{-- baris 8 --}}
             <tr>
                 <td>Awal</td>
                 <td>{{ $transaksi->stand_meter_bulan_lalu}}</td>
+                <td>isi harga kategori <=10 rp 7000</td>
+                <td>isi tagihan kategori <=10</td>
                 <td>Perawatan</td>
                 <td>{{ $transaksi->biaya_perawatan}}</td>
             </tr>
 
+{{-- baris 9 --}}
             <tr>
-                <td>Pemakaian</td>
+                <td>TOTAL M3</td>
                 <td>{{ $transaksi->pemakaian}}</td>
-                <td>Tunggakan</td>
+                <td>isi harga kategori >10 rp 9000</td>
+                <td>isi tagihan kategori >10</td>
+                <td>Tagihan Bulan Lalu</td>
                 <td>{{ $transaksi->tunggakan}}</td>
             </tr>
 
+{{-- baris 10 --}}
             <tr>
-                <td colspan="8" id="terbilang-output">Terbilang : </td>
+                <td>Pemakaian 10m3</td>
+                <td>Jumlah Pemakaian 10m3</td>
+            </tr>
+
+            {{-- baris 11 --}}
+            <tr>
+                <td>Pemakaian >10m3</td>
+                <td>Jumlah Pemakaian >10m3</td>
             </tr>
         </table>
-    <input type="button" class="hidden-print" value="Print" onclick="printpart()" />
+        <br>
+    <button id="btnPrint" class="hidden-print">Print</button>
     </div>
     @endforeach
 
@@ -159,13 +183,10 @@
 </body>
 
 <script>
-    function printpart() {
-        var printwin = window.open("");
-        printwin.document.write(document.getElementById("div1").innerHTML);
-        printwin.stop();
-        printwin.print();
-        printwin.close();
-    }
+    const $btnPrint = document.querySelector("#btnPrint");
+        $btnPrint.addEventListener("click", () => {
+            window.print();
+        });
 
 </script>
 

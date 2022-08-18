@@ -44,14 +44,14 @@ class DatamasterpelangganController extends Controller
 
         $add = new M_Pelanggan;
         $add->id_pelanggan = $request->input('id_pelanggan');
-        $add->kode_pelanggan = $request->input('rt').$request->input('id_class').str_pad(($dataconfig->nilai_config+1),4, '0', STR_PAD_LEFT);
+        $add->kode_pelanggan = $request->input('rt').'1'.str_pad(($dataconfig->nilai_config+1),4, '0', STR_PAD_LEFT);
         $add->nama = $request->input('nama');
         $add->alamat = $request->input('alamat');
         $add->status_pelanggan = $request->input('status_pelanggan');
         $add->tgl_add_pelanggan =  Date('Y-m-d');
         // $add->tgl_edit = $request->input('tgl_edit');
         $add->rt = $request->input('rt');
-        $add->id_class = $request->input('id_class');
+        // $add->id_class = $request->input('id_class');
         $add->no_sambung = $request->input('no_sambung');
         $add->save();
         DB::table('m_config')->where('nama_config','running_number_sequence')->update([

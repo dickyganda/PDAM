@@ -133,10 +133,10 @@ Data Master User
                                                 placeholder="Password">
                                         </div>
 
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <input type="text" name="pengingat" class="form-control form-control-sm"
                                                 placeholder="Pengingat">
-                                        </div>
+                                        </div> --}}
 
                                         <div class="form-group">
                                             <input type="text" name="nama" class="form-control form-control-sm"

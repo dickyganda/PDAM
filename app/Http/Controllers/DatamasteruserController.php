@@ -31,7 +31,7 @@ function Index(){
         $add->user = $request->input('user');
         $add->email = $request->input('email');
         $add->password = md5($request->input('password'));
-        $add->pengingat = $request->input('pengingat');
+        // $add->pengingat = $request->input('pengingat');
         $add->nama = $request->input('nama');
         $add->id_level = $request->input('id_level');
         $add->status_user = $request->input('status_user');

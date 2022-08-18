@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Data Master Class
+Data Master Kategori
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@ Data Master Class
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Data Master Class</h1>
+                <h1 class="m-0">Data Master Kategori</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 {{-- <ol class="breadcrumb float-sm-right">
@@ -51,7 +51,6 @@ Data Master Class
                                 <tr>
                                     <th>No.</th>
                                     <th>Keterangan</th>
-                                    </th>
                                     <th>Harga</th>
                                     <th>Status</th>
                                     <th>Tgl Add</th>

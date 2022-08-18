@@ -61,7 +61,7 @@
                                                         <th>Tgl Add</th>
                                                         <th>Tgl Edit</th>
                                                         <th>RT</th>
-                                                        <th>keterangan</th>
+                                                        {{-- <th>keterangan</th> --}}
                                                         <th>Aksi</th>
 
                                                     </tr>
@@ -83,7 +83,7 @@
                                                         <td>{{ date('d-m-Y', strtotime($pelanggan->tgl_add_pelanggan )) }}</td>
                                                         <td>{{ ($pelanggan->tgl_edit_pelanggan ? date('d-m-Y', strtotime($pelanggan->tgl_edit_pelanggan)) : '') }}</td>
                                                         <td>{{ $pelanggan->rt }}</td>
-                                                        <td>{{ $pelanggan->keterangan }}</td>
+                                                        {{-- <td>{{ $pelanggan->keterangan }}</td> --}}
                                                         <td>
 
 				<a href="/datamasterpelanggan/editpelanggan/{{ $pelanggan->id_pelanggan }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
@@ -104,7 +104,7 @@
                                                         <th>Tgl Add</th>
                                                         <th>Tgl Edit</th>
                                                         <th>RT</th>
-                                                        <th>keterangan</th>
+                                                        {{-- <th>keterangan</th> --}}
                                                         <th>Aksi</th>
 
                                                     </tr>
@@ -150,14 +150,14 @@
       </select>
     </div>
    
-    <div class="form-group">
+    {{-- <div class="form-group">
       <select id="class" name="id_class" class="form-control form-control-sm select2" style="width:100%;" required>
       <option></option>
       @foreach ($dataclass as $class)
       <option value="{{$class->id_class}}">{{$class->keterangan}}</option>
       @endforeach
       </select>
-    </div>
+    </div> --}}
 
     {{-- <div class="form-group">
       <input type="text" name="no_sambung" class="form-control form-control-sm" placeholder="Nomor Sambung">
@@ -298,11 +298,6 @@ $("#tambahpelanggan").submit(function(event){
       }
 
   $(document).ready(function() {
-    $('#class').select2({
-      placeholder: "Pilih Kelas"
-      
-    });
-
     $('#rt').select2({
       placeholder: "Pilih RT"
       

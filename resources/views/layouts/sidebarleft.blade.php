@@ -72,7 +72,7 @@
               <li class="nav-item">
                 <a href="/datamasterclass/index" class="nav-link {{ (request()->is('datamasterclass/index')) ? 'active' : ' ' }}">
                   <i class="fas fa-sort-numeric-down nav-icon" title="Data Master Class"></i>
-                  <p>Data Master Class</p>
+                  <p>Data Master Kategori</p>
                 </a>
               </li>
               <li class="nav-item">

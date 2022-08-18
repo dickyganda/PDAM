@@ -49,7 +49,7 @@
                                                     <tr>
                                                         <th>No.</th>
                                                         <th>User</th></th>
-                                                        <th>Class</th>
+                                                        <th>Kategori</th>
                                                         <th>Harga</th>
                                                         <th>Status</th>
                                                         <th>Tgl Add</th>
@@ -82,8 +82,8 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>ID User</th>
-                                                        <th>ID Class</th>
+                                                        <th>User</th>
+                                                        <th>Kategori</th>
                                                         <th>Harga</th>
                                                         <th>Status</th>
                                                         <th>Tgl Add</th>

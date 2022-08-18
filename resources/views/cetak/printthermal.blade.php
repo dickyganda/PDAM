@@ -55,7 +55,8 @@
 
         img {
             max-width: inherit;
-            width: inherit;
+            width: 50px;
+            height: 50px;
         }
 
         @media print {
@@ -73,10 +74,8 @@
     @foreach($datatransaksi as $key => $transaksi)
     <div class="ticket">
         <img src="{{asset('assets/img/logo.png') }}" alt="Logo">
-        <p class="centered">BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM MASYARAKAT <br>
-            (BP-SPAMS) "TIRTA AGUNG SUMARI"
-            <br>DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK
-            <br>Jl. sumber Duduksampeyan Gresik - 61162</p>
+        <p class="centered">BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM<br>
+            (BP-SPAMS) "TIRTA SUMARI"</p>
         <table>
             <tr>
                 <th class="quantity">Kd Plg</th>
@@ -132,7 +131,7 @@
             </tr>
         </table>
         <p class="centered">Thanks for your purchase!
-            <br>BP SPAMS "TIRTA AGUNG SUMARI"</p>
+            <br>BP SPAMS "TIRTA SUMARI"</p>
     </div>
     <button id="btnPrint" class="hidden-print">Print</button>
     @endforeach
