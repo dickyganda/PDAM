@@ -13,172 +13,179 @@ use App\Models\M_Class;
 
 class DatatransaksiController extends Controller
 {
-    
-function Index(){
 
-    $datatransaksi = DB::table('t_meter')
-    ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-    ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-    ->get();
-    // dd($datatransaksi);
+    function Index()
+    {
 
-    $datapelanggan = DB::table('m_pelanggan')
-    ->groupBy('rt')
-    ->get();
+        $datatransaksi = DB::table('t_meter')
+            ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
+            ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
+            ->get();
+        // dd($datatransaksi);
 
-    // dd($datatransaksi);
+        $datapelanggan = DB::table('m_pelanggan')
+            ->groupBy('rt')
+            ->get();
 
-    	return view('/datatransaksi/index', 
-        ['datatransaksi' => $datatransaksi,
-        'datapelanggan' =>$datapelanggan,
-    ]);
+        // dd($datatransaksi);
+
+        return view(
+            '/datatransaksi/index',
+            [
+                'datatransaksi' => $datatransaksi,
+                'datapelanggan' => $datapelanggan,
+            ]
+        );
     }
 
     public function edittransaksi($id)
     {
-        $datatransaksi = DB::table('t_meter')->where('id',$id)->get();
+        $datatransaksi = DB::table('t_meter')->where('id', $id)->get();
 
-        return view('/datatransaksi/edittransaksi',['datatransaksi' => $datatransaksi]);
-    
+        return view('/datatransaksi/edittransaksi', ['datatransaksi' => $datatransaksi]);
     }
 
     public function updatetransaksi(Request $request)
-{
-    $datasaldo = T_Meter::select('saldo')
-    ->where('id', $request->id)
-    ->first();
-    // dd($datasaldo);
+    {
+        $datasaldo = T_Meter::select('saldo')
+            ->where('id', $request->id)
+            ->first();
+        // dd($datasaldo);
 
-	DB::table('t_meter')->where('id',$request->id)->update([
-		'status' => $request->status,
-        'biaya_admin' => $request->biaya_admin,
-        'biaya_perawatan' => $request->biaya_perawatan,
-        'pembayaran' => $request->pembayaran,
-        'saldo' => $datasaldo->saldo - $request->pembayaran,
-        'sisa_bayar' => $request->sisa_bayar,
-	]);
+        DB::table('t_meter')->where('id', $request->id)->update([
+            'status' => $request->status,
+            'biaya_admin' => $request->biaya_admin,
+            'biaya_perawatan' => $request->biaya_perawatan,
+            'pembayaran' => $request->pembayaran,
+            'saldo' => $datasaldo->saldo - $request->pembayaran,
+            'sisa_bayar' => $request->sisa_bayar,
+        ]);
+        // dd($request);
 
-    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
-    
-}
+        return response()->json(array('status' => 'success', 'reason' => 'Sukses Edit Data'));
+    }
 
-function viewreport($id){
+    function viewreport($id)
+    {
 
         $datatransaksi = DB::table('t_meter')
-        ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-        ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-        ->where('id',$id)
-        ->get();
+            ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
+            ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
+            ->where('id', $id)
+            ->get();
 
         $class_bawah = M_Class::select('harga_class')
-        ->where('keterangan', '=', '<=10')
-        ->first();
+            ->where('keterangan', '=', '<=10')
+            ->first();
         $class_bawah = $class_bawah->harga_class;
         // dd($class_bawah);
-        
+
         $class_atas = M_Class::select('harga_class')
-        ->where('keterangan', '=', '>10')
-        ->first();
+            ->where('keterangan', '=', '>10')
+            ->first();
         $class_atas = $class_atas->harga_class;
 
         $jumlah_pemakaian = DB::table('t_meter')
-        ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-        ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-        ->select('pemakaian')
-        ->where('id',$id)
-        ->first();
+            ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
+            ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
+            ->select('pemakaian')
+            ->where('id', $id)
+            ->first();
         // dd($jumlah_pemakaian_bawah);
         $jumlah_pemakaian = $jumlah_pemakaian->pemakaian;
 
         $batas_pemakaian = 10;
-        if($jumlah_pemakaian <= $batas_pemakaian){
+        if ($jumlah_pemakaian <= $batas_pemakaian) {
             $jumlah_pemakaian_bawah = $jumlah_pemakaian;
             $jumlah_pemakaian_atas = 0;
-        } else{
+        } else {
             $jumlah_pemakaian_bawah = 10;
             $jumlah_pemakaian -= 10;
             $jumlah_pemakaian_atas = $jumlah_pemakaian;
         }
 
-        $biaya_pemakaian_bawah = $jumlah_pemakaian_bawah*$class_bawah;
-        $biaya_pemakaian_atas = $jumlah_pemakaian_atas*$class_atas;
+        $biaya_pemakaian_bawah = $jumlah_pemakaian_bawah * $class_bawah;
+        $biaya_pemakaian_atas = $jumlah_pemakaian_atas * $class_atas;
 
         // dd($class_bawah, $class_atas,$jumlah_pemakaian_bawah,$jumlah_pemakaian_atas,$biaya_pemakaian_bawah, $biaya_pemakaian_atas);
 
         // $jumlah_tagihan_bawah = $jumlah_pemakaian_bawah->pemakaian * $class_bawah->harga_class;
 
-        
-    
-            return view('/cetak/print', [
-                'datatransaksi' => $datatransaksi,
-                'class_bawah' => $class_bawah,
-                'class_atas' => $class_atas,
-                'jumlah_pemakaian_bawah' => $jumlah_pemakaian_bawah,
-                'jumlah_pemakaian_atas' => $jumlah_pemakaian_atas,
-                'biaya_pemakaian_bawah' => $biaya_pemakaian_bawah,
-                'biaya_pemakaian_atas' => $biaya_pemakaian_atas,
-                // 'jumlah_tagihan_bawah' => $jumlah_tagihan_bawah,
+
+
+        return view('/cetak/print', [
+            'datatransaksi' => $datatransaksi,
+            'class_bawah' => $class_bawah,
+            'class_atas' => $class_atas,
+            'jumlah_pemakaian_bawah' => $jumlah_pemakaian_bawah,
+            'jumlah_pemakaian_atas' => $jumlah_pemakaian_atas,
+            'biaya_pemakaian_bawah' => $biaya_pemakaian_bawah,
+            'biaya_pemakaian_atas' => $biaya_pemakaian_atas,
+            // 'jumlah_tagihan_bawah' => $jumlah_tagihan_bawah,
 
         ]);
-        }
-
-function viewreportthermal($id){
-
-            $datatransaksi = DB::table('t_meter')
-            ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-            ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-            ->where('id',$id)
-            ->get();
-
-            $class_bawah = M_Class::select('harga_class')
-->where('keterangan', '=', '<=10')
-->first();
-// dd($class_bawah);
-
-$class_atas = M_Class::select('harga_class')
-->where('keterangan', '=', '>10')
-->first();
-        
-                return view('/cetak/printthermal', [
-                    'datatransaksi' => $datatransaksi,
-                    'class_bawah' => $class_bawah,
-                    'class_atas' => $class_atas,]);
-            }
-
-public function hitungsaldo($id)
-    {
-        
-    $saldo = DB::table('t_meter')
-    ->where('id', $id)
-    ->sum(DB::raw('tagihan + biaya_admin + biaya_perawatan + tunggakan - sisa_bayar'));
-$saldo =intval($saldo);
-    // dd($saldo);
-
-    $saldo = DB::table('t_meter')
-    ->where('id', $id)
-    ->update(['saldo'=>$saldo,
-    'sisa_bayar' => 0,]);
-// dd($saldo);
-    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
-    
     }
 
-    function updatetunggakan($id){
-    
+    function viewreportthermal($id)
+    {
+
+        $datatransaksi = DB::table('t_meter')
+            ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
+            ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
+            ->where('id', $id)
+            ->get();
+
+        $class_bawah = M_Class::select('harga_class')
+            ->where('keterangan', '=', '<=10')
+            ->first();
+        // dd($class_bawah);
+
+        $class_atas = M_Class::select('harga_class')
+            ->where('keterangan', '=', '>10')
+            ->first();
+
+        return view('/cetak/printthermal', [
+            'datatransaksi' => $datatransaksi,
+            'class_bawah' => $class_bawah,
+            'class_atas' => $class_atas,
+        ]);
+    }
+
+    public function hitungsaldo($id)
+    {
+
+        $saldo = DB::table('t_meter')
+            ->where('id', $id)
+            ->sum(DB::raw('tagihan + biaya_admin + biaya_perawatan + tunggakan - sisa_bayar'));
+        $saldo = intval($saldo);
+        // dd($saldo);
+
+        $saldo = DB::table('t_meter')
+            ->where('id', $id)
+            ->update([
+                'saldo' => $saldo,
+                'sisa_bayar' => 0,
+            ]);
+        // dd($saldo);
+        return response()->json(array('status' => 'success', 'reason' => 'Sukses Edit Data'));
+    }
+
+    function updatetunggakan($id)
+    {
+
         $jumlah_tunggakan = T_Meter::select('id', 'saldo')
-        ->where('saldo', '>', '0')
-        ->where('id', $id)
-        ->whereMonth('tgl_scan', '<', date('m'))
-        ->first();
+            ->where('saldo', '>', '0')
+            ->where('id', $id)
+            ->whereMonth('tgl_scan', '<', date('m'))
+            ->first();
         // dd($jumlah_tunggakan);
-    
-        DB::table('t_meter')->where('id',$id)->update([
+
+        DB::table('t_meter')->where('id', $id)->update([
             'tunggakan' => $jumlah_tunggakan->saldo,
             'saldo' => 0,
         ]);
-    // dd($jumlah_tunggakan);
-    
-    return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
-        }
+        // dd($jumlah_tunggakan);
 
+        return response()->json(array('status' => 'success', 'reason' => 'Sukses Edit Data'));
+    }
 }

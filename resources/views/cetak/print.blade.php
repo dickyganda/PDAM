@@ -27,11 +27,11 @@
             padding: 0px;
         }
 
-            img {
+        img {
             max-width: inherit;
             width: 50px;
             height: 50px;
-            }
+        }
 
         #kop {
             text-align: center;
@@ -50,10 +50,11 @@
         @page {
             size: A4 portrait;
             margin: 5mm 5mm 5mm 5mm;
-            
+
         }
 
         @media print {
+
             .hidden-print,
             .hidden-print * {
                 display: none !important;
@@ -70,27 +71,28 @@
         <p>Dibuat pada: {{ now()->format('h:i:s d-m-Y') }}</p>
     </section> --}}
 
+
     @foreach($datatransaksi as $transaksi)
 
     <div id="div1">
-<table>
-        <tr id="header">
-        {{-- <td rowspan="1"></td> --}}
-            <td>
-            <img src="{{asset('assets/img/logo.png') }}" alt="Logo">
-                
-                {{-- <p style="text-align:center;">Jl. sumber Duduksampeyan Gresik - 61162</p> --}}
-            </td>
-            <td>
-            <p style="text-align:center;"><b>BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM</b></p>
-                <p style="text-align:center;"><b>(BP-SPAMS) "TIRTA SUMARI"</b></p>
-                <p style="text-align:center;">DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
-            </td>
-        </tr>
+        <table>
+            <tr id="header">
+                {{-- <td rowspan="1"></td> --}}
+                <td>
+                    <img src="{{asset('assets/img/logo.png') }}" alt="Logo">
+
+                    {{-- <p style="text-align:center;">Jl. sumber Duduksampeyan Gresik - 61162</p> --}}
+                </td>
+                <td>
+                    <p style="text-align:center;"><b>BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM</b></p>
+                    <p style="text-align:center;"><b>(BP-SPAMS) "TIRTA SUMARI"</b></p>
+                    <p style="text-align:center;">DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
+                </td>
+            </tr>
         </table>
 
         <table class="table table-bordered" style="width:100%" id="cetaknota" border="1">
-        {{-- baris 1 --}}
+            {{-- baris 1 --}}
             <tr>
                 <td colspan="8" id="headerkategori" style="text-align:center;"><b>TAGIHAN REKENING AIR BERSIH</b></td>
             </tr>
@@ -119,7 +121,7 @@
                 <td colspan="2">{{ $transaksi->alamat }}</td>
             </tr>
 
-{{-- baris 5 --}}
+            {{-- baris 5 --}}
             <tr>
                 <td colspan="8" id="headerkategori" style="text-align:center; background-color:powderblue;"><b>PERINCIAN
                         PEMAKAIAN DAN TAGIHAN</b></td>
@@ -144,7 +146,7 @@
                 <td style="text-align:center;" rowspan="3" id="terbilang-input"><b>{{ $transaksi->saldo}}</b></td>
             </tr>
 
-{{-- baris 8 --}}
+            {{-- baris 8 --}}
             <tr>
                 <td>Awal</td>
                 <td>{{ $transaksi->stand_meter_bulan_lalu}}</td>
@@ -154,7 +156,7 @@
                 <td>{{ $transaksi->biaya_perawatan}}</td>
             </tr>
 
-{{-- baris 9 --}}
+            {{-- baris 9 --}}
             <tr>
                 <td>TOTAL M3</td>
                 <td>{{ $transaksi->pemakaian}}</td>
@@ -164,7 +166,7 @@
                 <td>{{ $transaksi->tunggakan}}</td>
             </tr>
 
-{{-- baris 10 --}}
+            {{-- baris 10 --}}
             <tr>
                 <td>Pemakaian 10m3</td>
                 <td>{{ $jumlah_pemakaian_bawah }}</td>
@@ -177,7 +179,7 @@
             </tr>
         </table>
         <br>
-    <button id="btnPrint" class="hidden-print">Print</button>
+        <button id="btnPrint" class="hidden-print">Print</button>
     </div>
     @endforeach
 
@@ -186,9 +188,9 @@
 
 <script>
     const $btnPrint = document.querySelector("#btnPrint");
-        $btnPrint.addEventListener("click", () => {
-            window.print();
-        });
+    $btnPrint.addEventListener("click", () => {
+        window.print();
+    });
 
 </script>
 
