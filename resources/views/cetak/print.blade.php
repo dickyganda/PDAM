@@ -73,19 +73,21 @@
     @foreach($datatransaksi as $transaksi)
 
     <div id="div1">
-{{-- kop --}}
+<table>
         <tr id="header">
         {{-- <td rowspan="1"></td> --}}
-            <td colspan="7">
+            <td>
             <img src="{{asset('assets/img/logo.png') }}" alt="Logo">
-                <p style="text-align:center;"><b>BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM</b></p>
-                <p style="text-align:center;"><b>(BP-SPAMS) "TIRTA SUMARI"</b></p>
-                <p style="text-align:center;">DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
+                
                 {{-- <p style="text-align:center;">Jl. sumber Duduksampeyan Gresik - 61162</p> --}}
             </td>
-            <td></td>
+            <td>
+            <p style="text-align:center;"><b>BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM</b></p>
+                <p style="text-align:center;"><b>(BP-SPAMS) "TIRTA SUMARI"</b></p>
+                <p style="text-align:center;">DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
+            </td>
         </tr>
-        {{-- akhir kop --}}
+        </table>
 
         <table class="table table-bordered" style="width:100%" id="cetaknota" border="1">
         {{-- baris 1 --}}
@@ -146,8 +148,8 @@
             <tr>
                 <td>Awal</td>
                 <td>{{ $transaksi->stand_meter_bulan_lalu}}</td>
-                <td>isi harga kategori <=10 rp 7000</td>
-                <td>isi tagihan kategori <=10</td>
+                <td>{{ $class_bawah }}</td>
+                <td> {{$biaya_pemakaian_bawah}} </td>
                 <td>Perawatan</td>
                 <td>{{ $transaksi->biaya_perawatan}}</td>
             </tr>
@@ -156,8 +158,8 @@
             <tr>
                 <td>TOTAL M3</td>
                 <td>{{ $transaksi->pemakaian}}</td>
-                <td>isi harga kategori >10 rp 9000</td>
-                <td>isi tagihan kategori >10</td>
+                <td>{{ $class_atas }}</td>
+                <td>{{$biaya_pemakaian_atas}}</td>
                 <td>Tagihan Bulan Lalu</td>
                 <td>{{ $transaksi->tunggakan}}</td>
             </tr>
@@ -165,13 +167,13 @@
 {{-- baris 10 --}}
             <tr>
                 <td>Pemakaian 10m3</td>
-                <td>Jumlah Pemakaian 10m3</td>
+                <td>{{ $jumlah_pemakaian_bawah }}</td>
             </tr>
 
             {{-- baris 11 --}}
             <tr>
                 <td>Pemakaian >10m3</td>
-                <td>Jumlah Pemakaian >10m3</td>
+                <td>{{ $jumlah_pemakaian_atas }}</td>
             </tr>
         </table>
         <br>

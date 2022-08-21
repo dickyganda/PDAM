@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\M_Class;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -21,8 +22,7 @@ class ApiController extends Controller
 
     $datapelanggan = DB::table('t_meter')
     ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
-    ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
-    ->select('m_pelanggan.id_pelanggan', 'm_pelanggan.kode_pelanggan', 'm_pelanggan.nama', 'm_class.id_class', 'm_class.keterangan', 'stand_meter_bulan_lalu', 'stand_meter_bulan_ini')
+    ->select('m_pelanggan.id_pelanggan', 'm_pelanggan.kode_pelanggan', 'm_pelanggan.nama', 'stand_meter_bulan_lalu', 'stand_meter_bulan_ini')
     ->where('m_pelanggan.kode_pelanggan', $request->kode_pelanggan)
     ->latest('tgl_scan')
     ->orderBy('m_pelanggan.kode_pelanggan', 'desc')
@@ -62,9 +62,9 @@ $tunggakanbulanlalu = 0;
         ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
         ->get();
 
-        $dataclass = DB::table('m_class')
-        ->where('id_class', $request->input('id_class'))
-        ->first();
+        // $dataclass = DB::table('m_class')
+        // ->where('id_class', $request->input('id_class'))
+        // ->first();
 
         $datameterbulanlalu = T_Meter::select('*')
         ->where('id_pelanggan', $request->id_pelanggan)
@@ -88,13 +88,41 @@ $tunggakanbulanlalu = 0;
         $add = new T_Meter;
         $add->id = $request->input('id');
         $add->id_pelanggan = $request->input('id_pelanggan');
-        $add->id_class = $request->input('id_class');
+        // $add->id_class = $request->input('id_class');
         $add->kode_pelanggan = $request->input('kode_pelanggan');
         $add->stand_meter_bulan_lalu = ($meterbulanlalu);
         // $add->stand_meter_bulan_lalu = $request->input('stand_meter_bulan_lalu');
         $add->stand_meter_bulan_ini = $request->input('stand_meter_bulan_ini');
-        $add->pemakaian = (intval($request->input('stand_meter_bulan_ini')) - $meterbulanlalu);
-        $add->tagihan = ($add->pemakaian * $dataclass->harga_class);
+        //hitung pemakaian
+$pemakaian = (intval($request->input('stand_meter_bulan_ini')) - $meterbulanlalu);
+$add->pemakaian = $pemakaian;
+
+//hitung tagihan
+$class_bawah = M_Class::select('harga_class')
+->where('keterangan', '=', '<=10')
+->first();
+$class_bawah = $class_bawah->harga_class;
+// dd($class_bawah);
+
+$class_atas = M_Class::select('harga_class')
+->where('keterangan', '=', '>10')
+->first();
+$class_atas = $class_atas->harga_class;
+// dd($class_atas);
+
+$batas_class = 10;
+$tagihan = 0;
+
+if($pemakaian <= $batas_class){
+    $tagihan = $pemakaian * $class_bawah;
+}
+else{
+    $tagihan = (10 * $class_bawah) + (($pemakaian-10) * $class_atas);
+}
+
+$add->tagihan = $tagihan;
+        // $add->pemakaian = (intval($request->input('stand_meter_bulan_ini')) - $meterbulanlalu);
+        // $add->tagihan = ($add->pemakaian * $dataclass->harga_class);
         // $add->tunggakan = $request->input('tunggakan');
         $add->tunggakan = $tunggakanbulanlalu;
         $add->sisa_bayar = $sisa_bayar_bulanlalu;

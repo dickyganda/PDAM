@@ -8,11 +8,6 @@
             text-align: left;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 10pt;
-        }
-
-        table,
-        th,
-        td {
             border: 1px solid black;
             border-collapse: collapse;
         }
@@ -27,11 +22,11 @@
             padding: 0px;
         }
 
-            img {
+        img {
             max-width: inherit;
             width: 50px;
             height: 50px;
-            }
+        }
 
         #kop {
             text-align: center;
@@ -44,16 +39,16 @@
 
         #subheader {
             text-align: center;
-
         }
 
         @page {
             size: A4 portrait;
             margin: 5mm 5mm 5mm 5mm;
-            
+
         }
 
         @media print {
+
             .hidden-print,
             .hidden-print * {
                 display: none !important;
@@ -80,22 +75,26 @@
     @foreach($datatransaksi as $transaksi)
 
     <div class="pagebreak" border="1">
-{{-- kop --}}
-        <tr id="header">
-        {{-- <td rowspan="1"></td> --}}
-            <td colspan="7">
-            <img src="{{asset('assets/img/logo.png') }}" alt="Logo">
-                <p style="text-align:center;"><b>BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM</b></p>
-                <p style="text-align:center;"><b>(BP-SPAMS) "TIRTA SUMARI"</b></p>
-                <p style="text-align:center;">DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
-                {{-- <p style="text-align:center;">Jl. sumber Duduksampeyan Gresik - 61162</p> --}}
-            </td>
-            <td></td>
-        </tr>
+        {{-- kop --}}
+        <table>
+            <tr id="header">
+                {{-- <td rowspan="1"></td> --}}
+                <td>
+                    <img src="{{asset('assets/img/logo.png') }}" alt="Logo">
+
+                    {{-- <p style="text-align:center;">Jl. sumber Duduksampeyan Gresik - 61162</p> --}}
+                </td>
+                <td>
+                    <p style="text-align:center;"><b>BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM</b></p>
+                    <p style="text-align:center;"><b>(BP-SPAMS) "TIRTA SUMARI"</b></p>
+                    <p style="text-align:center;">DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
+                </td>
+            </tr>
+        </table>
         {{-- akhir kop --}}
 
         <table class="table table-bordered" style="width:100%" id="cetaknota" border="1">
-        {{-- baris 1 --}}
+            {{-- baris 1 --}}
             <tr>
                 <td colspan="8" id="headerkategori" style="text-align:center;"><b>TAGIHAN REKENING AIR BERSIH</b></td>
             </tr>
@@ -103,17 +102,17 @@
             {{-- baris 2 --}}
             <tr>
                 <td colspan="2">KODE PELANGGAN</td>
-                <td colspan="2">{{ $transaksi->kode_pelanggan }}</td>
+                <td colspan="2">{{ $transaksi['kode_pelanggan'] }}</td>
                 <td>BLN/THN</td>
-                <td colspan="2">{{ $transaksi->tgl_scan}}</td>
+                <td colspan="2">{{ $transaksi['tgl_scan']}}</td>
             </tr>
 
             {{-- baris 3 --}}
             <tr>
                 <td colspan="2">NAMA</td>
-                <td colspan="2">{{ $transaksi->nama }}</td>
+                <td colspan="2">{{ $transaksi['nama'] }}</td>
                 <td>RT</td>
-                <td colspan="2">{{ $transaksi->rt }}</td>
+                <td colspan="2">{{ $transaksi['rt'] }}</td>
                 {{-- <td>GOLONGAN</td>
                 <td colspan="2">{{ $transaksi->id_class }}</td> --}}
             </tr>
@@ -121,10 +120,10 @@
             {{-- baris 4 --}}
             <tr>
                 <td colspan="2">ALAMAT</td>
-                <td colspan="2">{{ $transaksi->alamat }}</td>
+                <td colspan="2">{{ $transaksi['alamat'] }}</td>
             </tr>
 
-{{-- baris 5 --}}
+            {{-- baris 5 --}}
             <tr>
                 <td colspan="8" id="headerkategori" style="text-align:center; background-color:powderblue;"><b>PERINCIAN
                         PEMAKAIAN DAN TAGIHAN</b></td>
@@ -136,49 +135,49 @@
                 <td id="subheader" style="text-align:center;" rowspan="2"><b>TARIF DASAR PER M3</b></td>
                 <td id="subheader" style="text-align:center;" rowspan="2"><b>RP</b></td>
                 <td>Tagihan</td>
-                <td>{{ $transaksi->tagihan }}</td>
+                <td>{{ $transaksi['tagihan'] }}</td>
                 <td colspan="2" id="subheader" style="text-align:center;"><b>Jumlah yang harus dibayar</b></td>
             </tr>
 
             {{-- baris 7 --}}
             <tr>
                 <td>Akhir</td>
-                <td>{{ $transaksi->stand_meter_bulan_ini}}</td>
+                <td>{{ $transaksi['stand_meter_bulan_ini']}}</td>
                 <td>Biaya Admin</td>
-                <td>{{ $transaksi->biaya_admin}}</td>
-                <td style="text-align:center;" rowspan="3" id="terbilang-input"><b>{{ $transaksi->saldo}}</b></td>
+                <td>{{ $transaksi['biaya_admin']}}</td>
+                <td style="text-align:center;" rowspan="3" id="terbilang-input"><b>{{ $transaksi['saldo']}}</b></td>
             </tr>
 
-{{-- baris 8 --}}
+            {{-- baris 8 --}}
             <tr>
                 <td>Awal</td>
-                <td>{{ $transaksi->stand_meter_bulan_lalu}}</td>
-                <td>isi harga kategori <=10 rp 7000</td>
-                <td>isi tagihan kategori <=10</td>
+                <td>{{ $transaksi['stand_meter_bulan_lalu']}}</td>
+                <td>{{ $class_bawah }}</td>
+                <td>{{$transaksi['biaya_pemakaian_bawah']}}</td>
                 <td>Perawatan</td>
-                <td>{{ $transaksi->biaya_perawatan}}</td>
+                <td>{{ $transaksi['biaya_perawatan']}}</td>
             </tr>
 
-{{-- baris 9 --}}
+            {{-- baris 9 --}}
             <tr>
                 <td>TOTAL M3</td>
-                <td>{{ $transaksi->pemakaian}}</td>
-                <td>isi harga kategori >10 rp 9000</td>
-                <td>isi tagihan kategori >10</td>
+                <td>{{ $transaksi['pemakaian']}}</td>
+                <td>{{ $class_atas }}</td>
+                <td>{{$transaksi['biaya_pemakaian_atas']}}</td>
                 <td>Tagihan Bulan Lalu</td>
-                <td>{{ $transaksi->tunggakan}}</td>
+                <td>{{ $transaksi['tunggakan']}}</td>
             </tr>
 
-{{-- baris 10 --}}
+            {{-- baris 10 --}}
             <tr>
                 <td>Pemakaian 10m3</td>
-                <td>Jumlah Pemakaian 10m3</td>
+                <td>{{ $transaksi['jumlah_pemakaian_bawah'] }}</td>
             </tr>
 
             {{-- baris 11 --}}
             <tr>
                 <td>Pemakaian >10m3</td>
-                <td>Jumlah Pemakaian >10m3</td>
+                <td>{{ $transaksi['jumlah_pemakaian_atas'] }}</td>
             </tr>
         </table>
         <br>
@@ -190,9 +189,9 @@
 
 <script>
     const $btnPrint = document.querySelector("#btnPrint");
-        $btnPrint.addEventListener("click", () => {
-            window.print();
-        });
+    $btnPrint.addEventListener("click", () => {
+        window.print();
+    });
 
 </script>
 

@@ -9,6 +9,7 @@ use File;
 use Response;
 
 use App\Models\T_Meter;
+use App\Models\M_Class;
 
 class DatatransaksiController extends Controller
 {
@@ -68,8 +69,57 @@ function viewreport($id){
         ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
         ->where('id',$id)
         ->get();
+
+        $class_bawah = M_Class::select('harga_class')
+        ->where('keterangan', '=', '<=10')
+        ->first();
+        $class_bawah = $class_bawah->harga_class;
+        // dd($class_bawah);
+        
+        $class_atas = M_Class::select('harga_class')
+        ->where('keterangan', '=', '>10')
+        ->first();
+        $class_atas = $class_atas->harga_class;
+
+        $jumlah_pemakaian = DB::table('t_meter')
+        ->join('m_pelanggan', 'm_pelanggan.id_pelanggan', '=', 't_meter.id_pelanggan')
+        ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
+        ->select('pemakaian')
+        ->where('id',$id)
+        ->first();
+        // dd($jumlah_pemakaian_bawah);
+        $jumlah_pemakaian = $jumlah_pemakaian->pemakaian;
+
+        $batas_pemakaian = 10;
+        if($jumlah_pemakaian <= $batas_pemakaian){
+            $jumlah_pemakaian_bawah = $jumlah_pemakaian;
+            $jumlah_pemakaian_atas = 0;
+        } else{
+            $jumlah_pemakaian_bawah = 10;
+            $jumlah_pemakaian -= 10;
+            $jumlah_pemakaian_atas = $jumlah_pemakaian;
+        }
+
+        $biaya_pemakaian_bawah = $jumlah_pemakaian_bawah*$class_bawah;
+        $biaya_pemakaian_atas = $jumlah_pemakaian_atas*$class_atas;
+
+        // dd($class_bawah, $class_atas,$jumlah_pemakaian_bawah,$jumlah_pemakaian_atas,$biaya_pemakaian_bawah, $biaya_pemakaian_atas);
+
+        // $jumlah_tagihan_bawah = $jumlah_pemakaian_bawah->pemakaian * $class_bawah->harga_class;
+
+        
     
-            return view('/cetak/print', ['datatransaksi' => $datatransaksi]);
+            return view('/cetak/print', [
+                'datatransaksi' => $datatransaksi,
+                'class_bawah' => $class_bawah,
+                'class_atas' => $class_atas,
+                'jumlah_pemakaian_bawah' => $jumlah_pemakaian_bawah,
+                'jumlah_pemakaian_atas' => $jumlah_pemakaian_atas,
+                'biaya_pemakaian_bawah' => $biaya_pemakaian_bawah,
+                'biaya_pemakaian_atas' => $biaya_pemakaian_atas,
+                // 'jumlah_tagihan_bawah' => $jumlah_tagihan_bawah,
+
+        ]);
         }
 
 function viewreportthermal($id){
@@ -79,8 +129,20 @@ function viewreportthermal($id){
             ->join('m_class', 'm_class.id_class', '=', 't_meter.id_class')
             ->where('id',$id)
             ->get();
+
+            $class_bawah = M_Class::select('harga_class')
+->where('keterangan', '=', '<=10')
+->first();
+// dd($class_bawah);
+
+$class_atas = M_Class::select('harga_class')
+->where('keterangan', '=', '>10')
+->first();
         
-                return view('/cetak/printthermal', ['datatransaksi' => $datatransaksi]);
+                return view('/cetak/printthermal', [
+                    'datatransaksi' => $datatransaksi,
+                    'class_bawah' => $class_bawah,
+                    'class_atas' => $class_atas,]);
             }
 
 public function hitungsaldo($id)
@@ -118,25 +180,5 @@ $saldo =intval($saldo);
     
     return response()->json(array('status'=> 'success', 'reason' => 'Sukses Edit Data'));
         }
-
-    // public function getPubliclyStorgeFile($link_image)
-
-    //     {
-    //         $path = storage_path('app/public/image/'. $link_image);
-        
-    //         if (!File::exists($path)) {
-    //             abort(404);
-    //         }
-        
-    //         $file = File::get($path);
-    //         $type = File::mimeType($path);
-        
-    //         $response = Response::make($file, 200);
-        
-    //         $response->header("Content-Type", $type);
-        
-    //         return $response;
-        
-    //     }
 
 }
