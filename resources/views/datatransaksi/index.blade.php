@@ -2,14 +2,17 @@
 
 @push('style')
 <style>
-#zoom {
-  transition: transform .2s; /* Animation */
-  margin: 0 auto;
-}
+    #zoom {
+        transition: transform .2s;
+        /* Animation */
+        margin: 0 auto;
+    }
 
-#zoom:hover {
-  transform: scale(20); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-}
+    #zoom:hover {
+        transform: scale(20);
+        /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+
 </style>
 @endpush
 @section('title')
@@ -37,12 +40,29 @@ Data Transaksi
 <!-- Main content -->
 <div class="content">
     <div class="container-fluid">
+        {{-- notifikasi form validasi --}}
+        @if ($errors->has('file'))
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('file') }}</strong>
+        </span>
+        @endif
+
+        {{-- notifikasi sukses --}}
+        @if ($sukses = Session::get('sukses'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $sukses }}</strong>
+        </div>
+        @endif
         <div class="row">
             <div class="col-lg">
 
 
                 <div class="card card-primary card-outline">
                     <div class="card-body">
+                        <button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#importExcel">
+                            Import Excel
+                        </button>
                         {{-- <a href="" class="btn btn-success" role="button" data-toggle="modal" data-target="#myModal">Tambah Data Baru</a> --}}
                         {{-- filter --}}
                         <div class="row">
@@ -73,8 +93,34 @@ Data Transaksi
                         {{-- <a href="#" class="btn btn-success" role="button">Hitung Saldo</a> --}}
                         {{-- <a href="#" class="btn btn-success" role="button">Cetak</a> --}}
                         {{-- <input type="button" class="hidden-print" value="Print" onclick="printpart()"/> --}}
-                        <table id="dt-basic-example"
-                            class="table table-bordered table-responsive table-hover table-striped">
+                        <!-- Import Excel -->
+                        <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <form method="post" action="/datatransaksi/import_excel" enctype="multipart/form-data">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            {{ csrf_field() }}
+
+                                            <label>Pilih file excel</label>
+                                            <div class="form-group">
+                                                <input type="file" name="file" required="required">
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Import</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped">
                             <thead class="bg-warning-200">
                                 <tr>
                                     <th>No.</th>
@@ -107,8 +153,7 @@ Data Transaksi
                                     <td>{{ $transaksi->rt }}</td>
                                     <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                     <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
-                                    <td><img src="{{url('storage/'.$transaksi->link_image)}}" width="10px"
-                                            height="10px" id="zoom"> </td>
+                                    <td><img src="{{url('storage/'.$transaksi->link_image)}}" width="10px" height="10px" id="zoom"> </td>
                                     <td>{{ $transaksi->pemakaian = $transaksi->stand_meter_bulan_ini - $transaksi->stand_meter_bulan_lalu }}
                                     </td>
                                     <td>{{ $transaksi->tagihan }}</td>
@@ -120,27 +165,23 @@ Data Transaksi
                                     <td>{{ $transaksi->sisa_bayar }}</td>
                                     {{-- <td><img src="{{ route('image.displayImage',$transaksi->link_image) }}" alt=""
                                     title=""></td> --}}
-                                    
+
                                     {{-- <td><img src="{{ route('image.displayImage',$transaksi->link_image) }}" alt=""
                                     title=""> </td> --}}
                                     <td>{{ $transaksi->tgl_scan }}</td>
                                     <td>
-                                        <a href="#" onclick="hitungsaldo({{$transaksi->id}})" title="Hitung Saldo" class="btn btn-danger btn-xs"
-                                            role="button"><i class="fas fa-calculator"></i></a>
+                                        <a href="#" onclick="hitungsaldo({{$transaksi->id}})" title="Hitung Saldo" class="btn btn-danger btn-xs" role="button"><i class="fas fa-calculator"></i></a>
 
                                         {{-- <a href="#"onclick="updatetunggakan({{$transaksi->id}})" class="btn
                                         btn-success" role="button" id="update_tunggakan">Update Tunggakan</a> --}}
 
-                                        <a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}" title="Edit"
-                                            class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
+                                        <a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}" title="Edit" class="btn btn-warning btn-xs" role="button"><i class="fas fa-pen"></i></a>
 
-                                        <a href="/datatransaksi/report/{{ $transaksi->id }}" title="Cetak" class="btn btn-success btn-xs"
-                                            role="button"><i class="fas fa-print"></i></a>
+                                        <a href="/datatransaksi/report/{{ $transaksi->id }}" title="Cetak" class="btn btn-success btn-xs" role="button"><i class="fas fa-print"></i></a>
 
-                                        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}" title="Cetak Thermal"
-                                            class="btn btn-primary btn-xs" role="button"><i class="fas fa-print"></i></a>
+                                        <a href="/datatransaksi/reportthermal/{{ $transaksi->id }}" title="Cetak Thermal" class="btn btn-primary btn-xs" role="button"><i class="fas fa-print"></i></a>
                                     </td>
-                                    
+
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -180,92 +221,92 @@ Data Transaksi
         @push('script')
         <script>
             var minDate, maxDate;
- 
-// Custom filtering function which will search data in column four between two values
-$.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
-        var min = minDate.val();
-        var max = maxDate.val();
-        var date = new Date( data[15] );
- 
-        if (
-            ( min === null && max === null ) ||
-            ( min === null && date <= max ) ||
-            ( min <= date   && max === null ) ||
-            ( min <= date   && date <= max )
-        ) {
-            return true;
-        }
-        return false;
-    }
-);
-$(document).ready(function () {
-// Create date inputs
-    minDate = new DateTime($('#min'), {
-        format: 'DD-MM-YYYY'
-    });
-    maxDate = new DateTime($('#max'), {
-        format: 'DD-MM-YYYY'
-    });
-    var table = $('#dt-basic-example').DataTable({
-        initComplete: function () {
-            this.api()
-                .columns()
-                .every(function () {
-                    var column = this;
-                    var select = $('<select><option value=""></option></select>')
-                        .appendTo($(column.footer()).empty())
-                        .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
- 
-                            column.search(val ? '^' + val + '$' : '', true, false).draw();
-                        });
- 
-                    column
-                        .data()
-                        .unique()
-                        .sort()
-                        .each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>');
-                        });
-                });
-        },
-    });
-    // Refilter the table
-    $('#min, #max').on('change', function () {
-        table.draw();
-    });
 
-    $('#rt').on('change', function(e){
-      var status = $(this).val();
-      $('#rt').val(status)
-      console.log(status)
-      //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-      table.column(3).search(status).draw();
-    })
-});
+            // Custom filtering function which will search data in column four between two values
+            $.fn.dataTable.ext.search.push(
+                function(settings, data, dataIndex) {
+                    var min = minDate.val();
+                    var max = maxDate.val();
+                    var date = new Date(data[15]);
+
+                    if (
+                        (min === null && max === null) ||
+                        (min === null && date <= max) ||
+                        (min <= date && max === null) ||
+                        (min <= date && date <= max)
+                    ) {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+            $(document).ready(function() {
+                // Create date inputs
+                minDate = new DateTime($('#min'), {
+                    format: 'DD-MM-YYYY'
+                });
+                maxDate = new DateTime($('#max'), {
+                    format: 'DD-MM-YYYY'
+                });
+                var table = $('#dt-basic-example').DataTable({
+                    initComplete: function() {
+                        this.api()
+                            .columns()
+                            .every(function() {
+                                var column = this;
+                                var select = $('<select><option value=""></option></select>')
+                                    .appendTo($(column.footer()).empty())
+                                    .on('change', function() {
+                                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                    });
+
+                                column
+                                    .data()
+                                    .unique()
+                                    .sort()
+                                    .each(function(d, j) {
+                                        select.append('<option value="' + d + '">' + d + '</option>');
+                                    });
+                            });
+                    }
+                , });
+                // Refilter the table
+                $('#min, #max').on('change', function() {
+                    table.draw();
+                });
+
+                $('#rt').on('change', function(e) {
+                    var status = $(this).val();
+                    $('#rt').val(status)
+                    console.log(status)
+                    //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
+                    table.column(3).search(status).draw();
+                })
+            });
 
             function hitungsaldo(id) {
 
                 Swal.fire({
-                    title: 'Lanjutkan ?',
-                    text: "Data tidak dapat diubah",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, Lanjutkan'
+                    title: 'Lanjutkan ?'
+                    , text: "Data tidak dapat diubah"
+                    , icon: 'warning'
+                    , showCancelButton: true
+                    , confirmButtonColor: '#3085d6'
+                    , cancelButtonColor: '#d33'
+                    , confirmButtonText: 'Ya, Lanjutkan'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            type: 'POST',
-                            dataType: 'json',
-                            url: '/hitungsaldo/' + id,
-                            success: function (data) {
+                            type: 'POST'
+                            , dataType: 'json'
+                            , url: '/hitungsaldo/' + id
+                            , success: function(data) {
                                 Swal.fire(
-                                    'Sukses!',
-                                    data.reason,
-                                    'success'
+                                    'Sukses!'
+                                    , data.reason
+                                    , 'success'
                                 ).then(() => {
                                     location.reload();
                                 });
@@ -283,7 +324,7 @@ $(document).ready(function () {
                 printwin.close();
             }
 
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $('#rt').select2({
                     placeholder: "Pilih RT"
                 });
