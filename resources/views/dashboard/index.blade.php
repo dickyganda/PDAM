@@ -67,17 +67,17 @@
              <!-- ./col -->
              <div class="col-lg-3 col-6">
                  <!-- small box -->
-                 {{-- <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
+                 <div class="small-box bg-warning">
+                     <div class="inner">
+                         <h3>{{ $total_tagihan }}</h3>
 
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div> --}}
+                         <p>Total Tagihan</p>
+                     </div>
+                     <div class="icon">
+                         <i class="ion ion-person-add"></i>
+                     </div>
+                     {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
+                 </div>
              </div>
              <!-- ./col -->
              <div class="col-lg-3 col-6">
@@ -162,8 +162,7 @@
                          <div class="tab-content p-0">
                              <!-- Morris chart - Sales -->
                              <div class="chart tab-pane active" id="chart_pemakaian_rt" style="position: relative;">
-                                 <table id="dt-basic-example"
-                                     class="table table-bordered table-responsive table-hover table-striped w-100">
+                                 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
                                      <thead class="thead-dark">
                                          <tr>
                                              <th>No.</th>
@@ -207,68 +206,77 @@
 
  @push('script')
  <script>
-const ctx = document.getElementById('chart_pemakaian_rt_canvas');
-const ctx2 = document.getElementById('chart_pemakaian_kelas_canvas');
+     const ctx = document.getElementById('chart_pemakaian_rt_canvas');
+     const ctx2 = document.getElementById('chart_pemakaian_kelas_canvas');
 
-const myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: <?php echo json_encode($data_rt); ?>,
-    datasets: [{
-      label: '# of Votes',
-      data: {{ json_encode($penggunart) }},
-      backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1,
-      fill: true,
-      borderWidth: 1,
-    }]
-  },
-});
+     const myChart = new Chart(ctx, {
+         type: 'bar'
+         , data: {
+             labels: < ? php echo json_encode($data_rt); ? > 
+             , datasets : [{
+                 label: '# of Votes'
+                 , data: {
+                     {
+                         json_encode($penggunart)
+                     }
+                 }
+                 , backgroundColor: [
+                     'rgba(255, 99, 132, 0.2)'
+                     , 'rgba(54, 162, 235, 0.2)'
+                     , 'rgba(255, 206, 86, 0.2)'
+                     , 'rgba(75, 192, 192, 0.2)'
+                     , 'rgba(153, 102, 255, 0.2)'
+                     , 'rgba(255, 159, 64, 0.2)'
+                 ]
+                 , borderColor: [
+                     'rgba(255,99,132,1)'
+                     , 'rgba(54, 162, 235, 1)'
+                     , 'rgba(255, 206, 86, 1)'
+                     , 'rgba(75, 192, 192, 1)'
+                     , 'rgba(153, 102, 255, 1)'
+                     , 'rgba(255, 159, 64, 1)'
+                 ]
+                 , borderWidth: 1
+                 , fill: true
+                 , borderWidth: 1
+             , }]
+         }
+     , });
 
-const myChart2 = new Chart(ctx2, {
-  type: 'bar',
-  data: {
-    labels: <?php echo json_encode($data_class); ?>,
-    datasets: [{
-      label: '# of Votes',
-      data: {{ json_encode($penggunakelas) }},
-      backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1,
-      fill: true,
-      borderWidth: 1,
-    }]
-  },
-});
+     const myChart2 = new Chart(ctx2, {
+         type: 'bar'
+         , data: {
+             labels: < ? php echo json_encode($data_class); ? > 
+             , datasets : [{
+                 label: '# of Votes'
+                 , data: {
+                     {
+                         json_encode($penggunakelas)
+                     }
+                 }
+                 , backgroundColor: [
+                     'rgba(255, 99, 132, 0.2)'
+                     , 'rgba(54, 162, 235, 0.2)'
+                     , 'rgba(255, 206, 86, 0.2)'
+                     , 'rgba(75, 192, 192, 0.2)'
+                     , 'rgba(153, 102, 255, 0.2)'
+                     , 'rgba(255, 159, 64, 0.2)'
+                 ]
+                 , borderColor: [
+                     'rgba(255,99,132,1)'
+                     , 'rgba(54, 162, 235, 1)'
+                     , 'rgba(255, 206, 86, 1)'
+                     , 'rgba(75, 192, 192, 1)'
+                     , 'rgba(153, 102, 255, 1)'
+                     , 'rgba(255, 159, 64, 1)'
+                 ]
+                 , borderWidth: 1
+                 , fill: true
+                 , borderWidth: 1
+             , }]
+         }
+     , });
+
  </script>
 
  @endpush

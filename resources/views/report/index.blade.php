@@ -2,14 +2,17 @@
 
 @push('style')
 <style>
-#zoom {
-  transition: transform .2s; /* Animation */
-  margin: 0 auto;
-}
+    #zoom {
+        transition: transform .2s;
+        /* Animation */
+        margin: 0 auto;
+    }
 
-#zoom:hover {
-  transform: scale(20); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-}
+    #zoom:hover {
+        transform: scale(20);
+        /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+
 </style>
 @endpush
 
@@ -68,7 +71,7 @@ Report
                                     @endforeach
                                 </select>
                             </div> <br><br>
-                            
+
                         </div>
 
 
@@ -77,8 +80,7 @@ Report
                         {{-- <a href="#"onclick="('dt-basic-example')" class="btn btn-success btn-sm" role="button"><i class="fas fa-file-pdf"></i></a> --}}
                         {{-- <a href="javascript:generatePDF()" role="button" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</a> --}}
                         {{-- <button onclick="generatePDF()"><i class="fas fa-file-pdf"></i></button> --}}
-                        <a href="https://wa.me/6281233914316" class="btn btn-success btn-sm" title="Whatsapp" role="button"><i
-                                class="fab fa-whatsapp"></i></a>
+                        <a href="https://wa.me/6281233914316" class="btn btn-success btn-sm" title="Whatsapp" role="button"><i class="fab fa-whatsapp"></i></a>
 
                         <button onclick="printpreview()" class="btn btn-primary btn-sm" title="Print Preview"><i class="fas fa-print"></i>
                             Preview</button> <br><br>
@@ -87,9 +89,7 @@ Report
 
                         <div id="cetak">
 
-                            <table id="dt-basic-example"
-                                class="table table-bordered table-responsive table-hover table-striped w-100"
-                                border="1">
+                            <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100" border="1">
                                 <div id="cetak">
                                     <thead class="bg-warning-200">
                                         <tr>
@@ -122,12 +122,10 @@ Report
                                             <td>{{ $transaksi->rt }}</td>
                                             <td>{{ $transaksi->stand_meter_bulan_lalu }}</td>
                                             <td>{{ $transaksi->stand_meter_bulan_ini }}</td>
-                                            <td><img src="{{asset('storage/'.$transaksi->link_image)}}" width="10px"
-                                                    height="10px" id="zoom"> </td>
+                                            <td><img src="{{asset('storage/'.$transaksi->link_image)}}" width="10px" height="10px" id="zoom"> </td>
                                             <td>{{ $transaksi->pemakaian = $transaksi->stand_meter_bulan_ini - $transaksi->stand_meter_bulan_lalu }}
                                             </td>
-                                            <td>{{ $transaksi->tagihan = $transaksi->pemakaian * $transaksi->harga_class }}
-                                            </td>
+                                            <td>{{ $transaksi->tagihan }}</td>
                                             <td>{{ $transaksi->biaya_admin }}</td>
                                             <td>{{ $transaksi->biaya_perawatan }}</td>
                                             <td>{{ $transaksi->tunggakan }}</td>
@@ -177,7 +175,7 @@ Report
 
             // Custom filtering function which will search data in column four between two values
             $.fn.dataTable.ext.search.push(
-                function (settings, data, dataIndex) {
+                function(settings, data, dataIndex) {
                     var min = minDate.val();
                     var max = maxDate.val();
                     var date = new Date(data[15]);
@@ -194,7 +192,7 @@ Report
                 }
             );
 
-            $(document).ready(function () {
+            $(document).ready(function() {
 
                 // Create date inputs
                 minDate = new DateTime($('#min'), {
@@ -205,47 +203,48 @@ Report
                 });
 
                 var table = $('#dt-basic-example').DataTable({
-                    dom: 'Bfrtip',
-        buttons: [
-            'excel', 'print',
-            {
-extend: 'pdfHtml5',
-orientation: 'landscape',
-pageSize: 'A4' },
-        ],
-                    initComplete: function () {
+                    dom: 'Bfrtip'
+                    , buttons: [
+                        'excel', 'print'
+                        , {
+                            extend: 'pdfHtml5'
+                            , orientation: 'landscape'
+                            , pageSize: 'A4'
+                        }
+                    , ]
+                    , initComplete: function() {
                         this.api()
                             .columns()
-                            .every(function () {
+                            .every(function() {
                                 var column = this;
                                 var select = $('<select><option value=""></option></select>')
                                     .appendTo($(column.footer()).empty())
-                                    .on('change', function () {
+                                    .on('change', function() {
                                         var val = $.fn.dataTable.util.escapeRegex($(this)
                                             .val());
 
-                                        column.search(val ? '^' + val + '$' : '', true,
-                                            false).draw();
+                                        column.search(val ? '^' + val + '$' : '', true
+                                            , false).draw();
                                     });
 
                                 column
                                     .data()
                                     .unique()
                                     .sort()
-                                    .each(function (d, j) {
+                                    .each(function(d, j) {
                                         select.append('<option value="' + d + '">' + d +
                                             '</option>');
                                     });
                             });
-                    },
-                });
+                    }
+                , });
 
                 // Refilter the table
-                $('#min, #max').on('change', function () {
+                $('#min, #max').on('change', function() {
                     table.draw();
                 });
 
-                $('#rt').on('change', function (e) {
+                $('#rt').on('change', function(e) {
                     var status = $(this).val();
                     $('#rt').val(status)
                     console.log(status)
@@ -295,7 +294,7 @@ pageSize: 'A4' },
                 return (sa);
             }
 
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $('#rt').select2({
                     placeholder: "Pilih RT"
                 });
@@ -304,16 +303,16 @@ pageSize: 'A4' },
             function generatePDF() {
                 var doc = new jsPDF(); //create jsPDF object
                 doc.fromHTML(document.getElementById("dt-basic-example"), // page element which you want to print as PDF
-                    15,
-                    15, {
+                    15
+                    , 15, {
                         'width': 170 //set width
-                    },
-                    function (a) {
+                    }
+                    , function(a) {
                         doc.save("Report.pdf"); // save file name as HTML2PDF.pdf
                     });
             }
 
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $('#rt').select2({
                     placeholder: "Pilih RT"
                 });
