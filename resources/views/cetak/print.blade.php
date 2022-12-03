@@ -17,6 +17,20 @@
             border-collapse: collapse;
         }
 
+        td.logo {
+            border-left: 1px solid;
+            border-right: none;
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+        }
+
+        td#kopkanan {
+            border-left: none;
+            border-right: 1px solid;
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+        }
+
         table thead {
             text-align: center;
         }
@@ -31,10 +45,14 @@
             max-width: inherit;
             width: 50px;
             height: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
         }
 
         #kop {
             text-align: center;
+
         }
 
         #headerkategori {
@@ -78,12 +96,12 @@
         <table>
             <tr id="header">
                 {{-- <td rowspan="1"></td> --}}
-                <td>
+                <td class="logo">
                     <img src="{{asset('assets/img/logo.png') }}" alt="Logo">
 
                     {{-- <p style="text-align:center;">Jl. sumber Duduksampeyan Gresik - 61162</p> --}}
                 </td>
-                <td>
+                <td id="kopkanan">
                     <p style="text-align:center;"><b>BADAN PENGELOLAN SARANA PENYEDIAAN AIR MINUM</b></p>
                     <p style="text-align:center;"><b>(BP-SPAMS) "TIRTA SUMARI"</b></p>
                     <p style="text-align:center;">DESA SUMARI KECAMATAN DUDUKSAMPEYAN KABPATEN GRESIK</p>
@@ -170,12 +188,15 @@
             <tr>
                 <td>Pemakaian 10m3</td>
                 <td>{{ $jumlah_pemakaian_bawah }}</td>
+                <td colspan="6" rowspan="2"></td>
+
             </tr>
 
             {{-- baris 11 --}}
             <tr>
                 <td>Pemakaian >10m3</td>
                 <td>{{ $jumlah_pemakaian_atas }}</td>
+
             </tr>
         </table>
         <br>

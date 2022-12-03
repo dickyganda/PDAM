@@ -79,6 +79,68 @@ class DashboardController extends Controller
         }
         // dd($pengguna_rt);
 
+        // hitung total saldo per bulan
+        $total_saldo_januari = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('01'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_februari = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('02'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_maret = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('03'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_april = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('04'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_mei = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('05'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_juni = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('06'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_juli = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('07'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_agustus = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('08'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_september = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('09'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_oktober = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('10'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_november = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('11'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+
+        $total_saldo_desember = T_Meter::selectRaw('sum(saldo) as total')
+            ->whereMonth('tgl_scan', date('12'))
+            ->whereYear('tgl_scan', date('Y'))
+            ->first()->total;
+        // dd($total_saldo_januari);
+
         return view(
             '/dashboard/index',
             [
@@ -92,6 +154,18 @@ class DashboardController extends Controller
                 'penggunart' => $penggunart,
                 'penggunakelas' => $penggunakelas,
                 'total_tagihan' => $total_tagihan,
+                'total_saldo_januari' => $total_saldo_januari,
+                'total_saldo_februari' => $total_saldo_februari,
+                'total_saldo_maret' => $total_saldo_maret,
+                'total_saldo_april' => $total_saldo_april,
+                'total_saldo_mei' => $total_saldo_mei,
+                'total_saldo_juni' => $total_saldo_juni,
+                'total_saldo_juli' => $total_saldo_juli,
+                'total_saldo_agustus' => $total_saldo_agustus,
+                'total_saldo_september' => $total_saldo_september,
+                'total_saldo_oktober' => $total_saldo_oktober,
+                'total_saldo_november' => $total_saldo_november,
+                'total_saldo_desember' => $total_saldo_desember,
             ]
         );
     }

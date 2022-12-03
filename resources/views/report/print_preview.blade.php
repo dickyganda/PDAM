@@ -29,6 +29,9 @@
             max-width: inherit;
             width: 50px;
             height: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
         }
 
         #kop {
@@ -196,6 +199,7 @@
                         <tr>
                             <td>Pemakaian 10m3</td>
                             <td>{{ $transaksi['jumlah_pemakaian_bawah'] }}</td>
+                            <td colspan="6" rowspan="2"></td>
                         </tr>
 
                         {{-- baris 11 --}}

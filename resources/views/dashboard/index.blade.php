@@ -101,6 +101,82 @@
          <div class="row">
              <!-- Left col -->
              <section class="col-lg-6 connectedSortable">
+                 <div class="card">
+                     <div class="card-header">
+                         <h3 class="card-title">
+                             <i class="fas fa-table"></i>
+                             Total Saldo Per Bulan / <?php echo date('Y');?>
+                         </h3>
+                         <div class="card-tools">
+
+                         </div>
+                     </div><!-- /.card-header -->
+                     <div class="card-body">
+                         <div class="tab-content p-0">
+                             <!-- Morris chart - Sales -->
+                             <div class="chart tab-pane active" id="chart_pemakaian_rt" style="position: relative;">
+                                 <table id="dt-basic-example" class="table table-bordered table-responsive table-hover table-striped w-100">
+                                     <thead class="thead-dark">
+                                         <tr>
+                                             <th>Bulan</th>
+                                             <th>Total Saldo</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody>
+                                         <tr>
+                                             <td>Januari</td>
+                                             <td>{{ $total_saldo_januari }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>Februari</td>
+                                             <td>{{ $total_saldo_februari }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>Maret</td>
+                                             <td>{{ $total_saldo_maret }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>April</td>
+                                             <td>{{ $total_saldo_april }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>Mei</td>
+                                             <td>{{ $total_saldo_mei }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>Juni</td>
+                                             <td>{{ $total_saldo_juni }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>Juli</td>
+                                             <td>{{ $total_saldo_juli }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>Agustus</td>
+                                             <td>{{ $total_saldo_agustus }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>September</td>
+                                             <td>{{ $total_saldo_september }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>Oktober</td>
+                                             <td>{{ $total_saldo_oktober }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>November</td>
+                                             <td>{{ $total_saldo_november }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>Desember</td>
+                                             <td>{{ $total_saldo_desember }}</td>
+                                         </tr>
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                     </div><!-- /.card-body -->
+                 </div>
                  <!-- Custom tabs (Charts with tabs)-->
                  {{-- <div class="card">
                      <div class="card-header">
